@@ -8,6 +8,11 @@ import {
   View,
   Image,
 } from 'react-native';
+- src
+  - components
+    - App.js
+    - App2.js
+
 
 function App() {
   return (
