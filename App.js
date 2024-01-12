@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     borderRadius: 15,
-    marginBottom: 50,  
+    marginBottom: 45,  
   },
   icoontje: {
     width: 50,
