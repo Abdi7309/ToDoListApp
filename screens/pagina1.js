@@ -1,43 +1,52 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, SafeAreaView, Image,TouchableOpacity,} from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-const Stack = createNativeStackNavigator();
-
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, Image, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class Pagina1 extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tasks: [],
+    };
+  }
+
+  async componentDidMount() {
+    // Load saved data from AsyncStorage when component mounts
+    try {
+      const savedData = await AsyncStorage.getItem('tasks');
+      if (savedData) {
+        const tasks = JSON.parse(savedData);
+        this.setState({ tasks });
+      }
+    } catch (error) {
+      console.error('Error loading data:', error);
+    }
+  }
+
   render() {
     const { navigation } = this.props;
+    const { tasks } = this.state;
 
     return (
       <SafeAreaView style={styles.container}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <Image style={styles.terug} source={require('../assets/pijl2.png')} />
         </TouchableOpacity>
-        
-        <View style={styles.boxes}>
-        <ScrollView>
-            <Text style={styles.tijdtekst}>
-              Late
 
-            </Text>
-            
-            <Text style={styles.auto1}>
-              rrrrrrrr 
-              
-            </Text>
-          
-            <TouchableOpacity>
-            <Text style={styles.textboxex}>All</Text>
-            <Text style={styles.Tasksboxex}>... Tasks</Text>
-          </TouchableOpacity>
-            
-           
+        <View style={styles.boxes}>
+          <ScrollView>
+            <Text style={styles.tijdtekst}></Text>
+
+            {tasks.map((task, index) => (
+              <View key={index}>
+                <Text style={styles.titeltekst}>{task.text}</Text>
+                <Text style={styles.descriptiontekst}>{task.description}</Text>
+              </View>
+            ))}
           </ScrollView>
         </View>
-       
-      </SafeAreaView>   
-    ); 
+      </SafeAreaView>
+    );
   }
 }
 
@@ -52,22 +61,20 @@ boxes: {
   backgroundColor: 'rgba(245, 245, 245, 1)',
   width: '100%',
   top: '35%',
-  height: '100%',
+  height: '56%',
   borderTopLeftRadius: 35,
   borderTopRightRadius: 35,
-  marginBottom: 45, 
 },
-tijdtekst:{
-  marginTop: 60,
+descriptiontekst:{
   color:'rgba(169, 169, 169, 1)' ,
   marginLeft: 35,
   fontSize: 17,
 },
-auto1:{
+titeltekst:{
   marginTop: 30,
-  marginLeft: 5,
+  marginLeft: 30,
   fontSize: 50,
-  color: 'red',
+  color: 'black',
 },
 terug: {
   width: 25,
