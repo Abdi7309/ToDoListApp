@@ -18,7 +18,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Home"
-        screenOptions={{ headerShown: false }}  
+        screenOptions={{ headerShown: false }}  // Hide the header for all screens
       >
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Pagina1" component={Pagina1} />
