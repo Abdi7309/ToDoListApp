@@ -59,7 +59,13 @@ class Pagina7 extends React.Component {
             value={description}
             onChangeText={(description) => this.setState({ description })}
           />
-          <Button title="Save" onPress={() => this.saveTask()} />
+          <Button
+            title="Save"
+            onPress={() => {
+              this.saveTask();
+              navigation.navigate('Pagina1', { text, description });
+            }}
+          />
         </View>
       </SafeAreaView>
     );

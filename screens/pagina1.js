@@ -22,6 +22,18 @@ class Pagina1 extends React.Component {
       console.error('Error loading data:', error);
     }
   }
+  async deleteTask(index) {
+    const { tasks } = this.state;
+    tasks.splice(index, 1);
+ 
+    // Save updated tasks to AsyncStorage
+    try {
+      await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+      this.setState({ tasks });
+    } catch (error) {
+      console.error('Error saving data:', error);
+    }
+  }
 
   render() {
     const { navigation } = this.props;
@@ -41,6 +53,9 @@ class Pagina1 extends React.Component {
               <View key={index}>
                 <Text style={styles.titeltekst}>{task.text}</Text>
                 <Text style={styles.descriptiontekst}>{task.description}</Text>
+                <TouchableOpacity onPress={() => this.deleteTask(index)}>
+                  <Text style={styles.deleteButton}>Delete</Text>
+                </TouchableOpacity>
               </View>
             ))}
           </ScrollView>
@@ -60,27 +75,35 @@ const styles = StyleSheet.create({
 boxes: {
   backgroundColor: 'rgba(245, 245, 245, 1)',
   width: '100%',
-  top: '35%',
-  height: '56%',
+  top: '30%',
+  height: '61%',
+  paddingBottom: 10,
   borderTopLeftRadius: 35,
   borderTopRightRadius: 35,
 },
+titeltekst:{
+  top: 45,
+  marginLeft: 30,
+  fontSize: 24,
+  color: 'black',
+},
 descriptiontekst:{
   color:'rgba(169, 169, 169, 1)' ,
-  marginLeft: 35,
-  fontSize: 17,
-},
-titeltekst:{
-  marginTop: 30,
-  marginLeft: 30,
-  fontSize: 50,
-  color: 'black',
+  marginLeft: 32,
+  top: 45,
+  fontSize: 18,
+  marginBottom: 38,
 },
 terug: {
   width: 25,
   height: 25,
   marginLeft: 30,
   marginTop: 50,
+},
+deleteButton: {
+  color: 'red',
+  marginLeft: 30,
+  marginBottom: 10,
 },
 
 });
