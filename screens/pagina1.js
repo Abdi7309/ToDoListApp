@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, Image,TouchableOpacity,} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import App from '../App';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,14 +14,28 @@ class Pagina1 extends React.Component {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image style={styles.terug} source={require('../assets/pijl2.png')} />
         </TouchableOpacity>
-      
+        
         <View style={styles.boxes}>
-          <ScrollView>
-            <Text style={styles.auto}>
-              gggg
+        <ScrollView>
+            <Text style={styles.tijdtekst}>
+              Late
+
             </Text>
+            
+            <Text style={styles.auto1}>
+              rrrrrrrr 
+              
+            </Text>
+          
+            <TouchableOpacity>
+            <Text style={styles.textboxex}>All</Text>
+            <Text style={styles.Tasksboxex}>... Tasks</Text>
+          </TouchableOpacity>
+            
+           
           </ScrollView>
         </View>
+       
       </SafeAreaView>   
     ); 
   }
@@ -45,10 +57,17 @@ boxes: {
   borderTopRightRadius: 35,
   marginBottom: 45, 
 },
-auto:{
-  marginTop: 10,
+tijdtekst:{
+  marginTop: 60,
+  color:'rgba(169, 169, 169, 1)' ,
   marginLeft: 35,
+  fontSize: 17,
+},
+auto1:{
+  marginTop: 30,
+  marginLeft: 5,
   fontSize: 50,
+  color: 'red',
 },
 terug: {
   width: 25,
@@ -56,6 +75,7 @@ terug: {
   marginLeft: 30,
   marginTop: 50,
 },
+
 });
 
 export default Pagina1;
