@@ -11,7 +11,7 @@ class Pagina1 extends React.Component {
   }
 
   async componentDidMount() {
-    // Load saved data from AsyncStorage when component mounts
+    // Load saved data from AsyncStorage when the component mounts
     try {
       const savedData = await AsyncStorage.getItem('tasks');
       if (savedData) {
@@ -22,10 +22,11 @@ class Pagina1 extends React.Component {
       console.error('Error loading data:', error);
     }
   }
+
   async deleteTask(index) {
     const { tasks } = this.state;
     tasks.splice(index, 1);
- 
+
     // Save updated tasks to AsyncStorage
     try {
       await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
@@ -44,6 +45,13 @@ class Pagina1 extends React.Component {
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <Image style={styles.terug} source={require('../assets/pijl2.png')} />
         </TouchableOpacity>
+        <View>
+          <Image style={styles.foto} source={require('../assets/menu.png')} />
+        </View>
+        <View>
+        <Text style={styles.Text1}>ALL</Text>
+          <Text style={styles.Text2}>20 Tasks</Text>
+        </View>
 
         <View style={styles.boxes}>
           <ScrollView>
@@ -54,7 +62,7 @@ class Pagina1 extends React.Component {
                 <Text style={styles.titeltekst}>{task.text}</Text>
                 <Text style={styles.descriptiontekst}>{task.description}</Text>
                 <TouchableOpacity onPress={() => this.deleteTask(index)}>
-                  <Text style={styles.deleteButton}>Delete</Text>
+                <Image style={styles.trash} source={require('../assets/trash.png')} />
                 </TouchableOpacity>
               </View>
             ))}
@@ -65,47 +73,70 @@ class Pagina1 extends React.Component {
   }
 }
 
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'rgba(49, 74, 164, 1)',
     flex: 1,
   },
-  
-boxes: {
-  backgroundColor: 'rgba(245, 245, 245, 1)',
-  width: '100%',
-  top: '30%',
-  height: '61%',
-  paddingBottom: 10,
-  borderTopLeftRadius: 35,
-  borderTopRightRadius: 35,
-},
-titeltekst:{
-  top: 45,
-  marginLeft: 30,
-  fontSize: 24,
-  color: 'black',
-},
-descriptiontekst:{
-  color:'rgba(169, 169, 169, 1)' ,
-  marginLeft: 32,
-  top: 45,
-  fontSize: 18,
-  marginBottom: 38,
-},
-terug: {
-  width: 25,
-  height: 25,
-  marginLeft: 30,
-  marginTop: 50,
-},
-deleteButton: {
-  color: 'red',
-  marginLeft: 30,
-  marginBottom: 10,
-},
 
+  boxes: {
+    backgroundColor: 'rgba(245, 245, 245, 1)',
+    width: '100%',
+    top: '5%',
+    height: '61%',
+    paddingBottom: 10,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+  },
+  titeltekst: {
+    top: 45,
+    marginLeft: 30,
+    fontSize: 24,
+    color: 'black',
+  },
+  descriptiontekst: {
+    color: 'rgba(169, 169, 169, 1)',
+    marginLeft: 32,
+    top: 45,
+    fontSize: 18,
+    marginBottom: 38,
+  },
+  terug: {
+    width: 25,
+    height: 25,
+    marginLeft: 30,
+    marginTop: 50,
+  },
+  deleteButton: {
+    color: 'red',
+    marginLeft: 30,
+    marginBottom: 10,
+  },
+  foto: {
+    top: "125%",
+    marginLeft: 40,
+    borderRadius: 1000,
+    width: 80,
+    padding: 40,
+  },
+  Text1: {
+    marginTop: 124,
+    color: 'white',
+    fontSize: 18,
+    left:50,
+    
+  },
+  Text2: {
+    color: 'white',
+    fontSize: 14,
+    left:50,
+  },
+  trash: {
+  height:40,
+  width:40,
+  left:'80%',
+  top:-40,
+  }
 });
 
 export default Pagina1;
