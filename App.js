@@ -9,6 +9,7 @@ import Pagina4 from './screens/pagina4';
 import Pagina5 from './screens/pagina5';
 import Pagina6 from './screens/pagina6';
 import Pagina7 from './screens/pagina7';
+import Make from './screens/Make';
 
 
 const Stack = createNativeStackNavigator();
@@ -28,6 +29,7 @@ function App() {
         <Stack.Screen name="Pagina5" component={Pagina5} />
         <Stack.Screen name="Pagina6" component={Pagina6} />
         <Stack.Screen name="Pagina7" component={Pagina7} />
+        <Stack.Screen name="Make" component={Make} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -107,8 +109,14 @@ function HomeScreen({ navigation }) {
             <Text style={styles.textboxex}>???</Text>
             <Text style={styles.Tasksboxex}>... Tasks</Text>
           </TouchableOpacity>
-        </View>
-      </ScrollView>
+          </View>
+          </ScrollView>
+        <TouchableOpacity 
+          style={styles.footer}
+          onPress={() => handleBoxPress('Make')}
+          >  
+          <Image style={styles.footerplus} source={require('./assets/plus.png')} />
+        </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -169,6 +177,21 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 14,
   },
+  footer: {
+    height: 70,
+    width: 70,
+    borderRadius: 50,
+    left: 300,
+    marginBottom: -80,
+    bottom: 105,
+    backgroundColor: 'rgba(49, 74, 164, 1)',
+  },
+  footerplus:{
+    height: 25,
+    width: 25,
+    left: 22,
+    top: 21,
+  }
 });
 
 export default App;
