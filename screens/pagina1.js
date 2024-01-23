@@ -46,7 +46,7 @@ class Pagina1 extends React.Component {
           <Image style={styles.terug} source={require('../assets/pijl2.png')} />
         </TouchableOpacity>
         <View>
-          <Image style={styles.foto} source={require('../assets/menu.png')} />
+          <Image style={styles.foto} source={require('../assets/all3.png')} />
         </View>
         <View>
         <Text style={styles.Text1}>ALL</Text>
@@ -93,13 +93,14 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     fontSize: 24,
     color: 'black',
+    
   },
   descriptiontekst: {
     color: 'rgba(169, 169, 169, 1)',
     marginLeft: 32,
     top: 45,
     fontSize: 18,
-    marginBottom: 38,
+    marginBottom: 8,
   },
   terug: {
     width: 25,
@@ -117,7 +118,8 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     borderRadius: 1000,
     width: 80,
-    padding: 40,
+    height:80,
+  
   },
   Text1: {
     marginTop: 124,
@@ -135,7 +137,7 @@ const styles = StyleSheet.create({
   height:40,
   width:40,
   left:'80%',
-  top:-40,
+  top:-20,
   }
 });
 
