@@ -49,8 +49,8 @@ class Pagina1 extends React.Component {
           <Image style={styles.foto} source={require('../assets/menu.png')} />
         </View>
         <View>
-        <Text style={styles.Text1}>ALL</Text>
-          <Text style={styles.Text2}>20 Tasks</Text>
+        <Text style={styles.Text1}>All</Text>
+          <Text style={styles.Text2}>... Tasks</Text>
         </View>
 
         <View style={styles.boxes}>
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   boxes: {
     backgroundColor: 'rgba(245, 245, 245, 1)',
     width: '100%',
-    top: '5%',
+    top: '1%',
     height: '61%',
     paddingBottom: 10,
     borderTopLeftRadius: 35,
@@ -91,19 +91,19 @@ const styles = StyleSheet.create({
   titeltekst: {
     top: 45,
     marginLeft: 30,
-    fontSize: 24,
+    fontSize: 20,
     color: 'black',
   },
   descriptiontekst: {
     color: 'rgba(169, 169, 169, 1)',
     marginLeft: 32,
     top: 45,
-    fontSize: 18,
-    marginBottom: 38,
+    fontSize: 16,
+    marginBottom: 5,
   },
   terug: {
-    width: 25,
-    height: 25,
+    width: 20,
+    height: 20,
     marginLeft: 30,
     marginTop: 50,
   },
@@ -113,29 +113,30 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   foto: {
-    top: "125%",
+    top: "160%",
     marginLeft: 40,
     borderRadius: 1000,
-    width: 80,
-    padding: 40,
+    height: 60, 
+    width: 60,
   },
   Text1: {
-    marginTop: 124,
+    marginTop: 115,
     color: 'white',
-    fontSize: 18,
+    fontSize: 32,
     left:50,
     
   },
   Text2: {
     color: 'white',
-    fontSize: 14,
+    marginBottom: 20,
+    fontSize: 12,
     left:50,
   },
   trash: {
   height:40,
   width:40,
   left:'80%',
-  top:-40,
+  top: 0,
   }
 });
 
