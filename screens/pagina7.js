@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   height:40,
   width:40,
   left:'80%',
-  top: 0,
+  top: -15,
   }
 });
 
