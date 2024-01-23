@@ -51,7 +51,7 @@ function HomeScreen({ navigation }) {
             style={styles.boxes}
             onPress={() => handleBoxPress('Pagina1')}
           >
-            <Image style={styles.icoontje} source={require('./assets/icoontje.png')} />
+            <Image style={styles.icoonall} source={require('./assets/all.png')} />
             <Text style={styles.textboxex}>All</Text>
             <Text style={styles.Tasksboxex}>... Tasks</Text>
           </TouchableOpacity>
@@ -60,7 +60,7 @@ function HomeScreen({ navigation }) {
             style={styles.boxes}
             onPress={() => handleBoxPress('Pagina2')}
           >
-            <Image style={styles.icoontje} source={require('./assets/icoontje.png')} />
+            <Image style={styles.icoontje} source={require('./assets/work.png')} />
             <Text style={styles.textboxex}>Work</Text>
             <Text style={styles.Tasksboxex}>... Tasks</Text>
           </TouchableOpacity>
@@ -69,7 +69,7 @@ function HomeScreen({ navigation }) {
             style={styles.boxes}
             onPress={() => handleBoxPress('Pagina3')}
           >
-            <Image style={styles.icoontje} source={require('./assets/icoontje.png')} />
+            <Image style={styles.icoontje} source={require('./assets/muisc.png')} />
             <Text style={styles.textboxex}>Music</Text>
             <Text style={styles.Tasksboxex}>... Tasks</Text>
           </TouchableOpacity>
@@ -78,7 +78,7 @@ function HomeScreen({ navigation }) {
             style={styles.boxes}
             onPress={() => handleBoxPress('Pagina4')}
           >
-            <Image style={styles.icoontje} source={require('./assets/icoontje.png')} />
+            <Image style={styles.icoontje} source={require('./assets/travel.png')} />
             <Text style={styles.textboxex}>Travel</Text>
             <Text style={styles.Tasksboxex}>... Tasks</Text>
           </TouchableOpacity>
@@ -87,7 +87,7 @@ function HomeScreen({ navigation }) {
             style={styles.boxes}
             onPress={() => handleBoxPress('Pagina5')}
           >
-            <Image style={styles.icoontje} source={require('./assets/icoontje.png')} />
+            <Image style={styles.icoontje} source={require('./assets/study.png')} />
             <Text style={styles.textboxex}>Study</Text>
             <Text style={styles.Tasksboxex}>... Tasks</Text>
           </TouchableOpacity>
@@ -96,7 +96,7 @@ function HomeScreen({ navigation }) {
             style={styles.boxes}
             onPress={() => handleBoxPress('Pagina6')}
           >
-            <Image style={styles.icoontje} source={require('./assets/icoontje.png')} />
+            <Image style={styles.icoontje} source={require('./assets/home.png')} />
             <Text style={styles.textboxex}>Home</Text>
             <Text style={styles.Tasksboxex}>... Tasks</Text>
           </TouchableOpacity>
@@ -162,6 +162,14 @@ const styles = StyleSheet.create({
     top: 15,
     marginLeft: 15,
     marginBottom: -55,
+  },
+  icoonall:{
+    width: 45,
+    height: 55,
+    top: 15,
+    marginLeft: 15,
+    marginBottom: -55,
+
   },
   textboxex: {
     color: 'black',
