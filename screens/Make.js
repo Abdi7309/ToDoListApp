@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet,Image, SafeAreaView, TextInput, Button, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet,Image, SafeAreaView, TextInput, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class Make extends React.Component {

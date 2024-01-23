@@ -91,15 +91,16 @@ const styles = StyleSheet.create({
   titeltekst: {
     top: 45,
     marginLeft: 30,
-    fontSize: 20,
+    fontSize: 24,
     color: 'black',
+    fontWeight: '600', 
     
   },
   descriptiontekst: {
     color: 'rgba(169, 169, 169, 1)',
     marginLeft: 32,
     top: 45,
-    fontSize: 16,
+    fontSize: 20,
     marginBottom: 5,
   },
   terug: {
