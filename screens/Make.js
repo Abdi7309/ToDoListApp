@@ -65,7 +65,8 @@ class Make extends React.Component {
             value={description}
             onChangeText={(description) => this.setState({ description })}
             />
-            <TouchableOpacity
+        </View>
+        <TouchableOpacity
               style={styles.saveButton}
               onPress={() => {
                 this.saveTask();
@@ -74,8 +75,6 @@ class Make extends React.Component {
             >
               <Text style={{ color: 'white', fontSize: 26,    fontWeight: '500',}}>Create</Text>
             </TouchableOpacity>
-
-        </View>
       </SafeAreaView>
     );
   }
@@ -135,9 +134,11 @@ const styles = StyleSheet.create({
     width: 30,
   }, 
   saveButton: {
-    top: 485,
+    position:'absolute',
+    bottom: 0,
+    left: 0, 
+    right:0,
     height: 65,
-    marginTop: 20,
     backgroundColor: 'rgba(49, 74, 164, 1)',
     justifyContent: 'center',
     alignItems: 'center',
