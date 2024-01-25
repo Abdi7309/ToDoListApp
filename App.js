@@ -9,7 +9,12 @@ import Pagina4 from './screens/pagina4';
 import Pagina5 from './screens/pagina5';
 import Pagina6 from './screens/pagina6';
 import Pagina7 from './screens/pagina7';
-import Make from './screens/Make';
+import Make3 from './screens/Make3';
+import Make2 from './screens/Make2';
+import Make4 from './screens/Make4';
+import Make5 from './screens/Make5';
+import Make6 from './screens/Make6';
+import Make7 from './screens/Make7';
 
 
 const Stack = createNativeStackNavigator();
@@ -29,7 +34,13 @@ function App() {
         <Stack.Screen name="Pagina5" component={Pagina5} />
         <Stack.Screen name="Pagina6" component={Pagina6} />
         <Stack.Screen name="Pagina7" component={Pagina7} />
-        <Stack.Screen name="Make" component={Make} />
+        <Stack.Screen name="Make2" component={Make2} />
+        <Stack.Screen name="Make3" component={Make3} />
+        <Stack.Screen name="Make4" component={Make4} />
+        <Stack.Screen name="Make5" component={Make5} />
+        <Stack.Screen name="Make6" component={Make6} />
+        <Stack.Screen name="Make7" component={Make7} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -111,12 +122,7 @@ function HomeScreen({ navigation }) {
           </TouchableOpacity>
           </View>
           </ScrollView>
-        <TouchableOpacity 
-          style={styles.footer}
-          onPress={() => handleBoxPress('Make')}
-          >  
-          <Image style={styles.footerplus} source={require('./assets/plus.png')} />
-        </TouchableOpacity>
+
     </SafeAreaView>
   );
 }

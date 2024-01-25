@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet,Image, SafeAreaView, TextInput, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, Image, SafeAreaView, TextInput, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-class Make extends React.Component {
+class Make3 extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,12 +26,18 @@ class Make extends React.Component {
 
   async saveTask() {
     const { text, description } = this.state;
-    const task = { text, description };
-
-    // Save task to AsyncStorage
+  
     try {
       let tasks = this.state.tasks || [];
-      tasks.push(task);
+  
+      // Save task for Pagina1
+      const taskPagina1 = { text, description, page: 'Pagina1' };
+      tasks.push(taskPagina1);
+  
+      // Save task for Pagina3
+      const taskPagina3 = { text, description, page: 'Pagina3' };
+      tasks.push(taskPagina3);
+  
       await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
       this.setState({ tasks });
     } catch (error) {
@@ -44,13 +50,12 @@ class Make extends React.Component {
     const { text, description, tasks } = this.state;
 
     return (
-      
       <SafeAreaView style={styles.container}>
         <View>
           <Text style={styles.TaskText}>New task</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-          <Image style={styles.terug} source={require('../assets/kruis.png')} />
-        </TouchableOpacity>
+            <Image style={styles.terug} source={require('../assets/kruis.png')} />
+          </TouchableOpacity>
           <Text style={styles.planText}>What are You planning?</Text>
           <TextInput
             style={styles.input}
@@ -64,17 +69,17 @@ class Make extends React.Component {
             placeholderTextColor={styles.input2Placeholder.color}
             value={description}
             onChangeText={(description) => this.setState({ description })}
-            />
+          />
         </View>
         <TouchableOpacity
-              style={styles.saveButton}
-              onPress={() => {
-                this.saveTask();
-                navigation.navigate('Pagina1', { text, description });
-              }}
-            >
-              <Text style={{ color: 'white', fontSize: 26,    fontWeight: '500',}}>Create</Text>
-            </TouchableOpacity>
+          style={styles.saveButton}
+          onPress={() => {
+            this.saveTask();
+            navigation.navigate('Pagina3');
+          }}
+        >
+          <Text style={{ color: 'white', fontSize: 26, fontWeight: '500' }}>Create</Text>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   }
@@ -146,4 +151,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default Make;
+export default Make3;

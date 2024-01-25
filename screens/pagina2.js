@@ -10,31 +10,57 @@ class Pagina2 extends React.Component {
     };
   }
 
-  async componentDidMount() {
-    // Load saved data from AsyncStorage when the component mounts
+  async loadData() {
     try {
-      const savedData = await AsyncStorage.getItem('tasks');
-      if (savedData) {
-        const tasks = JSON.parse(savedData);
-        this.setState({ tasks });
-      }
+      const tasksString = await AsyncStorage.getItem('tasksPagina2'); // Use a unique key for Pagina2
+      const tasks = JSON.parse(tasksString) || [];
+
+      // Filter tasks specific to Pagina2
+      const pagina2Tasks = tasks.filter(task => task.page === 'Pagina2');
+      this.setState({ tasks: pagina2Tasks });
+    } catch (error) {
+      console.error('Error loading data:', error);
+    }
+  }
+  async loadData() {
+    try {
+      const tasksString = await AsyncStorage.getItem('tasks'); // Use the common key for tasks
+      const tasks = JSON.parse(tasksString) || [];
+  
+      // Filter tasks specific to the current page
+      const pageName = this.props.route.name; // Assuming you're using React Navigation
+      const pageTasks = tasks.filter(task => task.page === pageName);
+      this.setState({ tasks: pageTasks });
     } catch (error) {
       console.error('Error loading data:', error);
     }
   }
 
-  async deleteTask(index) {
-    const { tasks } = this.state;
-    tasks.splice(index, 1);
-
-    // Save updated tasks to AsyncStorage
-    try {
-      await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
-      this.setState({ tasks });
-    } catch (error) {
-      console.error('Error saving data:', error);
+    async componentDidMount() {
+      this.loadData();
+    
+      // Add a listener to reload data when the screen is focused
+      this.focusListener = this.props.navigation.addListener('focus', () => {
+        this.loadData();
+      });
     }
-  }
+
+    async deleteTask(index) {
+      const { tasks } = this.state;
+      const updatedTasks = tasks.filter((_, i) => i !== index);
+    
+      // Save updated tasks to AsyncStorage
+      try {
+        await AsyncStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        this.setState({ tasks: updatedTasks });
+      } catch (error) {
+        console.error('Error saving data:', error);
+      }
+    }
+  handleBoxPress = (screenName) => {
+    const { navigation } = this.props;
+    navigation.navigate(screenName);
+  };
 
   render() {
     const { navigation } = this.props;
@@ -49,7 +75,7 @@ class Pagina2 extends React.Component {
           <Image style={styles.foto} source={require('../assets/all3.png')} />
         </View>
         <View>
-        <Text style={styles.Text1}>Work</Text>
+          <Text style={styles.Text1}>Work</Text>
           <Text style={styles.Text2}>... Tasks</Text>
         </View>
 
@@ -62,11 +88,17 @@ class Pagina2 extends React.Component {
                 <Text style={styles.titeltekst}>{task.text}</Text>
                 <Text style={styles.descriptiontekst}>{task.description}</Text>
                 <TouchableOpacity onPress={() => this.deleteTask(index)}>
-                <Image style={styles.trash} source={require('../assets/trash.png')} />
+                  <Image style={styles.trash} source={require('../assets/trash.png')} />
                 </TouchableOpacity>
               </View>
             ))}
           </ScrollView>
+          <TouchableOpacity 
+            style={styles.footer}
+            onPress={() => this.handleBoxPress('Make2')}
+          >  
+            <Image style={styles.footerplus} source={require('../assets/plus.png')} />
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );
@@ -139,6 +171,21 @@ const styles = StyleSheet.create({
   width:40,
   left:'80%',
   top: -15,
+  },
+  footer: {
+    height: 70,
+    width: 70,
+    borderRadius: 50,
+    left: 300,
+    marginBottom: -80,
+    bottom: 105,
+    backgroundColor: 'rgba(49, 74, 164, 1)',
+  },
+  footerplus:{
+    height: 25,
+    width: 25,
+    left: 22,
+    top: 21,
   }
 });
 
