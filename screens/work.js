@@ -74,10 +74,10 @@ class Work extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-          <Image style={styles.terug} source={require('../assets/pijl2.png')} />
+          <Image style={styles.terug} source={require('../assets/pijl.png')} />
         </TouchableOpacity>
         <View>
-          <Image style={styles.foto} source={require('../assets/all3.png')} />
+          <Image style={styles.foto} source={require('../assets/work2.png')} />
         </View>
         <View>
           <Text style={styles.Text1}>Work</Text>

@@ -111,7 +111,7 @@ function HomeScreen({ navigation }) {
             style={styles.boxes}
             onPress={() => handleBoxPress('Muziek')}
           >
-            <Image style={styles.icoontje} source={require('./assets/muisc.png')} />
+            <Image style={styles.icoontje} source={require('./assets/music.png')} />
             <Text style={styles.textboxex}>Music</Text>
             <Text style={styles.Tasksboxex}>{taskCounts.Music} Tasks</Text>
           </TouchableOpacity>
@@ -147,7 +147,7 @@ function HomeScreen({ navigation }) {
             style={styles.boxes}
             onPress={() => handleBoxPress('Hobby')}
           >
-            <Image style={styles.icoontje} source={require('./assets/Hobby3.png')} />
+            <Image style={styles.icoontje} source={require('./assets/Hobby.png')} />
             <Text style={styles.textboxex}>Hobby</Text>
             <Text style={styles.Tasksboxex}>{taskCounts.Hobby} Tasks</Text>
           </TouchableOpacity>
