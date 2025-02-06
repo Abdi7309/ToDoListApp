@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from './uiterlijk';
 
-class Pagina6 extends React.Component {
+class Music extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,9 +16,9 @@ class Pagina6 extends React.Component {
       const tasksString = await AsyncStorage.getItem('tasks');
       const tasks = JSON.parse(tasksString) || [];
 
-      // Filter tasks specific to Pagina6
-      const pagina6Tasks = tasks.filter(task => task.page === 'Pagina6');
-      this.setState({ tasks: pagina6Tasks });
+      // Filter tasks specific to Music
+      const musicTasks = tasks.filter(task => task.page === 'Music');
+      this.setState({ tasks: musicTasks });
     } catch (error) {
       console.error('Error loading data:', error);
     }
@@ -31,16 +32,30 @@ class Pagina6 extends React.Component {
       this.loadData();
     });
   }
-  async deleteTask(index) {
-    const { tasks } = this.state;
-    tasks.splice(index, 1);
 
-    // Save updated tasks to AsyncStorage
+  async deleteTask(index) {
     try {
+      // Get current tasks list
+      const tasksString = await AsyncStorage.getItem('tasks');
+      let tasks = JSON.parse(tasksString) || [];
+
+      // Get the task we want to delete
+      const taskToDelete = this.state.tasks[index];
+
+      // Remove all instances of this task
+      tasks = tasks.filter(task => 
+        !(task.text === taskToDelete.text && 
+          task.description === taskToDelete.description)
+      );
+
+      // Save updated tasks
       await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
-      this.setState({ tasks });
+
+      // Update state with filtered tasks for Music page
+      const musicTasks = tasks.filter(task => task.page === 'Music');
+      this.setState({ tasks: musicTasks });
     } catch (error) {
-      console.error('Error saving data:', error);
+      console.error('Error deleting task:', error);
     }
   }
 
@@ -49,9 +64,12 @@ class Pagina6 extends React.Component {
     navigation.navigate(screenName);
   };
 
+
   render() {
     const { navigation } = this.props;
     const { tasks } = this.state;
+    
+    console.log('Number of tasks in Music:', tasks.length); // Log the task length
 
     return (
       <SafeAreaView style={styles.container}>
@@ -62,8 +80,8 @@ class Pagina6 extends React.Component {
           <Image style={styles.foto} source={require('../assets/all3.png')} />
         </View>
         <View>
-          <Text style={styles.Text1}>Home</Text>
-          <Text style={styles.Text2}>... Tasks</Text>
+          <Text style={styles.Text1}>Music</Text>
+          <Text style={styles.Text2}>{tasks.length} Tasks</Text>
         </View>
 
         <View style={styles.boxes}>
@@ -80,100 +98,17 @@ class Pagina6 extends React.Component {
               </View>
             ))}
           </ScrollView>
+          </View>
           <TouchableOpacity 
             style={styles.footer}
-            onPress={() => this.handleBoxPress('Make6')}
+            onPress={() => this.handleBoxPress('MakeTask')}
           >  
             <Image style={styles.footerplus} source={require('../assets/plus.png')} />
           </TouchableOpacity>
-        </View>
+
       </SafeAreaView>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'rgba(49, 74, 164, 1)',
-    flex: 1,
-  },
-
-  boxes: {
-    backgroundColor: 'rgba(245, 245, 245, 1)',
-    width: '100%',
-    top: '1%',
-    height: '61%',
-    paddingBottom: 10,
-    borderTopLeftRadius: 35,
-    borderTopRightRadius: 35,
-  },
-  titeltekst: {
-    top: 45,
-    marginLeft: 30,
-    fontSize: 24,
-    color: 'black',
-    fontWeight: '600', 
-    
-  },
-  descriptiontekst: {
-    color: 'rgba(169, 169, 169, 1)',
-    marginLeft: 32,
-    top: 45,
-    fontSize: 20,
-    marginBottom: 5,
-  },
-  terug: {
-    width: 20,
-    height: 20,
-    marginLeft: 30,
-    marginTop: 50,
-  },
-  deleteButton: {
-    color: 'red',
-    marginLeft: 30,
-    marginBottom: 10,
-  },
-  foto: {
-    top: "160%",
-    marginLeft: 40,
-    borderRadius: 1000,
-    height: 60, 
-    width: 60,
-  },
-  Text1: {
-    marginTop: 115,
-    color: 'white',
-    fontSize: 32,
-    left:50,
-    
-  },
-  Text2: {
-    color: 'white',
-    marginBottom: 20,
-    fontSize: 12,
-    left:50,
-  },
-  trash: {
-  height:40,
-  width:40,
-  left:'80%',
-  top: -15,
-  },
-  footer: {
-    height: 70,
-    width: 70,
-    borderRadius: 50,
-    left: 300,
-    marginBottom: -80,
-    bottom: 105,
-    backgroundColor: 'rgba(49, 74, 164, 1)',
-  },
-  footerplus:{
-    height: 25,
-    width: 25,
-    left: 22,
-    top: 21,
-  }
-});
-
-export default Pagina6;
+export default Music;

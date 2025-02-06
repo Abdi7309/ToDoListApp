@@ -1,25 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Pagina1 from './screens/pagina1';
-import Pagina2 from './screens/pagina2';
-import Pagina3 from './screens/pagina3';
-import Pagina4 from './screens/pagina4';
-import Pagina5 from './screens/pagina5';
-import Pagina6 from './screens/pagina6';
-import Pagina7 from './screens/pagina7';
-import Make3 from './screens/Make3';
-import Make2 from './screens/Make2';
-import Make4 from './screens/Make4';
-import Make5 from './screens/Make5';
-import Make6 from './screens/Make6';
-import Make7 from './screens/Make7';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Alles from './screens/alles';
+import Werk from './screens/work';
+import Muziek from './screens/music';
+import Reizen from './screens/Travel';
+import Study from './screens/Study';  
+import Home from './screens/home';
+import Hobby from './screens/hobby';
+import MakeTask from './screens/MakeTask';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
+  console.log(" test");
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -27,26 +24,60 @@ function App() {
         screenOptions={{ headerShown: false }}  // Hide the header for all screens
       >
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Pagina1" component={Pagina1} />
-        <Stack.Screen name="Pagina2" component={Pagina2} />
-        <Stack.Screen name="Pagina3" component={Pagina3} />
-        <Stack.Screen name="Pagina4" component={Pagina4} />
-        <Stack.Screen name="Pagina5" component={Pagina5} />
-        <Stack.Screen name="Pagina6" component={Pagina6} />
-        <Stack.Screen name="Pagina7" component={Pagina7} />
-        <Stack.Screen name="Make2" component={Make2} />
-        <Stack.Screen name="Make3" component={Make3} />
-        <Stack.Screen name="Make4" component={Make4} />
-        <Stack.Screen name="Make5" component={Make5} />
-        <Stack.Screen name="Make6" component={Make6} />
-        <Stack.Screen name="Make7" component={Make7} />
-
+        <Stack.Screen name="Alles" component={Alles} />
+        <Stack.Screen name="Work" component={Werk} />
+        <Stack.Screen name="Muziek" component={Muziek} />
+        <Stack.Screen name="Reizen" component={Reizen} />
+        <Stack.Screen name="Study" component={Study} />
+        <Stack.Screen name="home" component={Home} />
+        <Stack.Screen name="Hobby" component={Hobby} />
+        <Stack.Screen name="MakeTask" component={MakeTask} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 function HomeScreen({ navigation }) {
+  const [taskCounts, setTaskCounts] = useState({
+    Alles: 0,
+    Work: 0,
+    Music: 0,
+    Travel: 0,
+    Study: 0,
+    Home: 0,
+    Hobby: 0,
+  });
+
+  useEffect(() => {
+    const loadTaskCounts = async () => {
+      try {
+        const tasksString = await AsyncStorage.getItem('tasks');
+        const tasks = JSON.parse(tasksString) || [];
+
+        const counts = {
+          Alles: tasks.filter(task => task.page === 'Alles').length,
+          Work: tasks.filter(task => task.page === 'Work').length,
+          Music: tasks.filter(task => task.page === 'Music').length,
+          Travel: tasks.filter(task => task.page === 'Travel').length,
+          Study: tasks.filter(task => task.page === 'Study').length,
+          Home: tasks.filter(task => task.page === 'Home').length,
+          Hobby: tasks.filter(task => task.page === 'Hobby').length,
+        };
+
+        setTaskCounts(counts);
+      } catch (error) {
+        console.error('Error loading task counts:', error);
+      }
+    };
+
+    loadTaskCounts();
+
+    const focusListener = navigation.addListener('focus', loadTaskCounts);
+    return () => {
+      navigation.removeListener('focus', loadTaskCounts);
+    };
+  }, [navigation]);
+
   const handleBoxPress = (screenName) => {
     navigation.navigate(screenName);
   };
@@ -60,69 +91,74 @@ function HomeScreen({ navigation }) {
         <View style={styles.boxesContainer}>
           <TouchableOpacity
             style={styles.boxes}
-            onPress={() => handleBoxPress('Pagina1')}
+            onPress={() => handleBoxPress('Alles')}
           >
             <Image style={styles.icoonall} source={require('./assets/all.png')} />
             <Text style={styles.textboxex}>All</Text>
-            <Text style={styles.Tasksboxex}>... Tasks</Text>
+            <Text style={styles.Tasksboxex}>{taskCounts.Alles} Tasks</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.boxes}
-            onPress={() => handleBoxPress('Pagina2')}
+            onPress={() => handleBoxPress('Work')}
           >
             <Image style={styles.icoontje} source={require('./assets/work.png')} />
             <Text style={styles.textboxex}>Work</Text>
-            <Text style={styles.Tasksboxex}>... Tasks</Text>
+            <Text style={styles.Tasksboxex}>{taskCounts.Work} Tasks</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.boxes}
-            onPress={() => handleBoxPress('Pagina3')}
+            onPress={() => handleBoxPress('Muziek')}
           >
             <Image style={styles.icoontje} source={require('./assets/muisc.png')} />
             <Text style={styles.textboxex}>Music</Text>
-            <Text style={styles.Tasksboxex}>... Tasks</Text>
+            <Text style={styles.Tasksboxex}>{taskCounts.Music} Tasks</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.boxes}
-            onPress={() => handleBoxPress('Pagina4')}
+            onPress={() => handleBoxPress('Reizen')}
           >
             <Image style={styles.icoontje} source={require('./assets/travel.png')} />
             <Text style={styles.textboxex}>Travel</Text>
-            <Text style={styles.Tasksboxex}>... Tasks</Text>
+            <Text style={styles.Tasksboxex}>{taskCounts.Travel} Tasks</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.boxes}
-            onPress={() => handleBoxPress('Pagina5')}
+            onPress={() => handleBoxPress('Study')}
           >
             <Image style={styles.icoontje} source={require('./assets/study.png')} />
             <Text style={styles.textboxex}>Study</Text>
-            <Text style={styles.Tasksboxex}>... Tasks</Text>
+            <Text style={styles.Tasksboxex}>{taskCounts.Study} Tasks</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.boxes}
-            onPress={() => handleBoxPress('Pagina6')}
+            onPress={() => handleBoxPress('home')}
           >
             <Image style={styles.icoontje} source={require('./assets/home.png')} />
             <Text style={styles.textboxex}>Home</Text>
-            <Text style={styles.Tasksboxex}>... Tasks</Text>
+            <Text style={styles.Tasksboxex}>{taskCounts.Home} Tasks</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.boxes}
-            onPress={() => handleBoxPress('Pagina7')}
+            onPress={() => handleBoxPress('Hobby')}
           >
-            <Image style={styles.icoontje} source={require('./assets/icoontje.png')} />
-            <Text style={styles.textboxex}>???</Text>
-            <Text style={styles.Tasksboxex}>... Tasks</Text>
+            <Image style={styles.icoontje} source={require('./assets/Hobby3.png')} />
+            <Text style={styles.textboxex}>Hobby</Text>
+            <Text style={styles.Tasksboxex}>{taskCounts.Hobby} Tasks</Text>
           </TouchableOpacity>
           </View>
           </ScrollView>
-
+          <TouchableOpacity 
+            style={styles.footer}
+            onPress={() => handleBoxPress('MakeTask')}
+          >  
+            <Image style={styles.footerplus} source={require('./assets/plus.png')} />
+          </TouchableOpacity>
     </SafeAreaView>
   );
 }
