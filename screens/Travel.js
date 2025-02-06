@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, SafeAreaView, Image, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './uiterlijk';
 
-class Reizen extends React.Component {
+class Travel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +16,7 @@ class Reizen extends React.Component {
       const tasksString = await AsyncStorage.getItem('tasks');
       const tasks = JSON.parse(tasksString) || [];
 
-      // Filter tasks specific to Reizen
+      // Filter tasks specific to Travel
       const travelTasks = tasks.filter(task => task.page === 'Travel');
       this.setState({ tasks: travelTasks });
     } catch (error) {
@@ -109,4 +109,4 @@ class Reizen extends React.Component {
   }
 }
 
-export default Reizen;
+export default Travel;

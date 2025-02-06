@@ -69,7 +69,7 @@ class Work extends React.Component {
     const { navigation } = this.props;
     const { tasks } = this.state;
 
-    console.log('Number of tasks in work:', tasks.length); // Log the task length
+    console.log('Number of tasks in work:', tasks.length);
 
     return (
       <SafeAreaView style={styles.container}>
