@@ -16,19 +16,15 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 35,
   },
   titeltekst: {
-    top: 45,
-    marginLeft: 30,
     fontSize: 24,
     color: 'black',
-    fontWeight: '600', 
-    
+    fontWeight: '600',
   },
   descriptiontekst: {
     color: 'rgba(169, 169, 169, 1)',
-    marginLeft: 32,
-    top: 45,
     fontSize: 20,
-    marginBottom: 5,
+    paddingLeft: 2,
+    flexWrap: 'wrap',
   },
   terug: {
     width: 20,
@@ -62,10 +58,19 @@ const styles = StyleSheet.create({
     left:50,
   },
   trash: {
-  height:40,
-  width:40,
-  left:'80%',
-  top: -15,
+    height: 40,
+    width: 40,
+  },
+  trashContainer: {
+    position: 'absolute',
+    right: '10%',
+    top: 30,
+  },
+  trashButton: {
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   footer: {
     height: 70,
@@ -81,7 +86,21 @@ const styles = StyleSheet.create({
     width: 25,
     left: 22,
     top: 21,
+  },
+  taskContainer: {
+    paddingHorizontal: 20,
+    marginVertical: 10,
+  },
+  taskContent: {
+    flex: 1,
+  },
+  titleRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 5,
   }
+
 });
 
 export default styles;

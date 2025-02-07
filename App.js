@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Alles from './screens/alles';
 import Werk from './screens/work';
-import Muziek from './screens/music';
+import Music from './screens/music';
 import Travel from './screens/Travel';
 import Study from './screens/Study';  
 import Home from './screens/home';
@@ -26,7 +26,7 @@ function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Alles" component={Alles} />
         <Stack.Screen name="Work" component={Werk} />
-        <Stack.Screen name="Muziek" component={Muziek} />
+        <Stack.Screen name="Music" component={Music} />
         <Stack.Screen name="Travel" component={Travel} />
         <Stack.Screen name="Study" component={Study} />
         <Stack.Screen name="home" component={Home} />
@@ -109,7 +109,7 @@ function HomeScreen({ navigation }) {
 
           <TouchableOpacity
             style={styles.boxes}
-            onPress={() => handleBoxPress('Muziek')}
+            onPress={() => handleBoxPress('Music')}
           >
             <Image style={styles.icoontje} source={require('./assets/music.png')} />
             <Text style={styles.textboxex}>Music</Text>

@@ -15,6 +15,10 @@ class MakeTask extends React.Component {
   }
 
   async componentDidMount() {
+    const { route } = this.props;
+    const category = route.params?.category || '';
+    this.setState({ selectedPage: category });
+
     try {
       const savedData = await AsyncStorage.getItem('tasks');
       if (savedData) {
@@ -34,6 +38,20 @@ class MakeTask extends React.Component {
       return;
     }
 
+    if (text.length === 0) {
+      alert('Please give it a title');
+      return;
+    }
+    if (description.length === 0) {
+      alert('Please Add a Description');
+      return;
+    }
+
+    if (text.length > 18) {
+      alert('Title cannot be longer than 15 characters');
+      return;
+    }
+
     try {
       let tasks = this.state.tasks || [];
       const task = { text, description, page: selectedPage };
@@ -47,6 +65,7 @@ class MakeTask extends React.Component {
 
       await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
       this.setState({ tasks });
+      this.props.navigation.goBack(); // Navigate back only if the task is successfully saved
     } catch (error) {
       console.error('Error saving data:', error);
     }
@@ -72,7 +91,7 @@ class MakeTask extends React.Component {
           <Image style={styles.icon1} source={require('../assets/menu.png')} />
           <TextInput
             style={styles.input2}
-            placeholder="Add description"
+            placeholder="Add Description"
             placeholderTextColor={styles.input2Placeholder.color}
             value={description}
             onChangeText={(description) => this.setState({ description })}
@@ -83,9 +102,10 @@ class MakeTask extends React.Component {
             onValueChange={(itemValue) => this.setState({ selectedPage: itemValue })}
             items={pages.map((page) => ({ label: page, value: page }))}
             placeholder={{
-              label: 'Choose a category',
+              label: 'Add Category',
               value: null,
             }}
+            value={selectedPage} 
             style={{
               viewContainer: styles.pickerSelectContainer,
               inputIOS: styles.pickerSelectIOS,
@@ -97,10 +117,7 @@ class MakeTask extends React.Component {
         </View>
         <TouchableOpacity
           style={styles.saveButton}
-          onPress={() => {
-            this.saveTask();
-            navigation.goBack();
-          }}
+          onPress={() => this.saveTask()}
         >
           <Text style={{ color: 'white', fontSize: 26, fontWeight: '500' }}>Create</Text>
         </TouchableOpacity>

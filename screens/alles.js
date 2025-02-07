@@ -8,6 +8,7 @@ class Alles extends React.Component {
     super(props);
     this.state = {
       tasks: [],
+      expandedDescriptions: {},
     };
   }
 
@@ -57,8 +58,16 @@ class Alles extends React.Component {
       console.error('Error deleting task:', error);
     }
   }
-  
 
+  toggleDescription(index) {
+    this.setState(prevState => ({
+      expandedDescriptions: {
+        ...prevState.expandedDescriptions,
+        [index]: !prevState.expandedDescriptions[index],
+      },
+    }));
+  }
+  
   handleBoxPress = (screenName) => {
     const { navigation } = this.props;
     navigation.navigate(screenName);
@@ -66,7 +75,7 @@ class Alles extends React.Component {
 
   render() {
     const { navigation } = this.props;
-    const { tasks } = this.state;
+    const { tasks, expandedDescriptions } = this.state;
 
     console.log('Number of tasks in alles:', tasks.length); 
 
@@ -84,20 +93,35 @@ class Alles extends React.Component {
         </View>
 
         <View style={styles.boxes}>
-          <ScrollView>
-            <Text style={styles.tijdtekst}></Text>
-
-            {tasks.map((task, index) => (
-              <View key={index}>
+        <ScrollView>
+        <Text style={styles.tijdtekst}></Text>
+        {tasks.map((task, index) => (
+          <View key={index} style={styles.taskContainer}>
+            <View style={styles.taskContent}>
+              <View style={styles.titleRow}>
                 <Text style={styles.titeltekst}>{task.text}</Text>
-                <Text style={styles.descriptiontekst}>{task.description}</Text>
-                <TouchableOpacity onPress={() => this.deleteTask(index)}>
+                <TouchableOpacity 
+                  style={styles.trashButton} 
+                  onPress={() => this.deleteTask(index)}
+                >
                   <Image style={styles.trash} source={require('../assets/trash.png')} />
                 </TouchableOpacity>
               </View>
-            ))}
-          </ScrollView>
-        </View>
+              <TouchableOpacity onPress={() => this.toggleDescription(index)}>
+                <Text style={styles.descriptiontekst}>
+                  {expandedDescriptions[index] 
+                    ? task.description 
+                    : task.description.length > 14 
+                      ? task.description.substring(0, 14).trim() + '...'
+                      : task.description
+                  }
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        ))}
+      </ScrollView>
+    </View>
         <TouchableOpacity 
             style={styles.footer}
             onPress={() => this.handleBoxPress('MakeTask')}
