@@ -1,96 +1,36 @@
 import React, { useState } from 'react';
 import { 
-  Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, Image, View, PermissionsAndroid, Platform 
+  Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, Image, View, Alert 
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { launchImageLibrary } from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 
 function AddCategory({ navigation }) {
   const [categoryName, setCategoryName] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const requestPermission = async () => {
-    if (Platform.OS === 'android') {
-      try {
-        let granted;
-        if (Platform.Version >= 33) {
-          console.log("Requesting READ_MEDIA_IMAGES permission...");
-          granted = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES,
-            {
-              title: 'Gallery Permission',
-              message: 'App needs access to your gallery',
-              buttonNeutral: 'Ask Me Later',
-              buttonNegative: 'Cancel',
-              buttonPositive: 'OK',
-            }
-          );
-        } else {
-          console.log("Requesting READ_EXTERNAL_STORAGE permission...");
-          granted = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-            {
-              title: 'Storage Permission',
-              message: 'App needs access to your gallery to select an image',
-              buttonNeutral: 'Ask Me Later',
-              buttonNegative: 'Cancel',
-              buttonPositive: 'OK',
-            }
-          );
-        }
-
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          console.log("Permission granted!");
-          return true;
-        } else {
-          console.log("Permission denied.");
-          return false;
-        }
-      } catch (err) {
-        console.warn("Permission request error:", err);
-        return false;
-      }
-    }
-    return true;
-  };
-
   const pickImage = async () => {
-    console.log("Checking for permission...");
-    const hasPermission = await requestPermission();
-    
-    if (!hasPermission) {
-      alert('Permission denied. ');
-      return;
+    try {
+      const image = await ImagePicker.openPicker({
+        width: 2000,
+        height: 2000,
+        cropping: true,
+        compressImageQuality: 0.8,
+      });
+      setSelectedImage(image.path);
+    } catch (error) {
+      console.error('Image Picker Error:', error);
     }
-
-    console.log("Opening image picker...");
-    const options = {
-      mediaType: 'photo',
-      includeBase64: false,
-      maxHeight: 2000,
-      maxWidth: 2000,
-    };
-
-    launchImageLibrary(options, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.errorCode) {
-        console.log('Image picker error:', response.errorMessage);
-      } else if (response.assets && response.assets.length > 0) {
-        console.log('Image selected:', response.assets[0].uri);
-        setSelectedImage(response.assets[0].uri);
-      }
-    });
   };
 
   const saveCategory = async () => {
     if (categoryName.trim().length === 0) {
-      alert('Please enter a category name');
+      Alert.alert('Error', 'Please enter a category name');
       return;
     }
 
     try {
-      const categoriesString = await AsyncStorage.getItem('categories');
+      const categoriesString = await AsyncStorage.getItem('customCategories');
       let categories = JSON.parse(categoriesString) || [];
       
       const newCategory = {
@@ -100,12 +40,12 @@ function AddCategory({ navigation }) {
       };
       
       categories.push(newCategory);
-      await AsyncStorage.setItem('categories', JSON.stringify(categories));
+      await AsyncStorage.setItem('customCategories', JSON.stringify(categories));
       
       navigation.goBack();
     } catch (error) {
       console.error('Error saving category:', error);
-      alert('Failed to save category');
+      Alert.alert('Error', 'Failed to save category');
     }
   };
 
@@ -113,7 +53,7 @@ function AddCategory({ navigation }) {
     <SafeAreaView style={styles.container}>
       <View>
         <Text style={styles.TaskText}>New Category</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
           <Image style={styles.terug} source={require('../assets/kruis.png')} />
         </TouchableOpacity>
         <Text style={styles.planText}>Enter Category Name</Text>
@@ -122,15 +62,13 @@ function AddCategory({ navigation }) {
           value={categoryName}
           onChangeText={setCategoryName}
         />
-        {!selectedImage && <Image style={styles.icon1} source={require('../assets/menu.png')} />}
         <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
           <Text style={styles.imagePickerButtonText}>Select Image</Text>
         </TouchableOpacity>
-        {selectedImage && (
-          <Image 
-            source={{ uri: selectedImage }} 
-            style={[styles.icon1, { marginTop: 10 }]} 
-          />
+        {selectedImage && selectedImage.startsWith('file') ? (
+          <Image source={{ uri: selectedImage }} style={styles.icon1} />
+        ) : (
+          <Image style={styles.icon1} source={require('../assets/menu.png')} />
         )}
       </View>
       <TouchableOpacity style={styles.saveButton} onPress={saveCategory}>
@@ -175,7 +113,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,  
   },
   icon1: {
-    top: 164, 
+    top: 104, 
     marginLeft: 50,
     height: 30,
     width: 30,
@@ -196,6 +134,7 @@ const styles = StyleSheet.create({
   imagePickerButtonText: {
     color: 'black',
     fontSize: 16,
+    top: 30,
   },
   saveButton: {
     position: 'absolute',

@@ -41,14 +41,14 @@ function App() {
 function HomeScreen({ navigation }) {
   const [taskCounts, setTaskCounts] = useState({});
   const [customCategories, setCustomCategories] = useState([]);
+  const [sortOrder, setSortOrder] = useState('alphabetical');
 
   useEffect(() => {
     const loadData = async () => {
       try {
         const tasksString = await AsyncStorage.getItem('tasks');
         const tasks = JSON.parse(tasksString) || [];
-        
-        // Changed 'Home' to 'home' to match the route name
+
         const predefinedCategories = ['Alles', 'Work', 'Music', 'Travel', 'Study', 'Home', 'Hobby'];
         const counts = {};
         predefinedCategories.forEach(category => {
@@ -75,8 +75,6 @@ function HomeScreen({ navigation }) {
   }, [navigation]);
 
   const handleBoxPress = (screenName) => {
-    console.log('Navigating to:', screenName); // Debug line added
-    // Updated predefinedScreens to match route names
     const predefinedScreens = ['Alles', 'Work', 'Music', 'Travel', 'Study', 'Home', 'Hobby', 'MakeTask', 'AddCategory'];
     if (predefinedScreens.includes(screenName)) {
       navigation.navigate(screenName);
@@ -93,6 +91,24 @@ function HomeScreen({ navigation }) {
     });
   };
 
+  const sortCategories = (categories) => {
+    return categories.sort((a, b) => {
+      const nameA = typeof a === 'string' ? a : a.name;
+      const nameB = typeof b === 'string' ? b : b.name;
+      if (sortOrder === 'alphabetical') {
+        return nameA.localeCompare(nameB);
+      } else {
+        const idA = typeof a === 'string' ? 0 : a.id;
+        const idB = typeof b === 'string' ? 0 : b.id;
+        return idB - idA;
+      }
+    });
+  };
+
+  const toggleSortOrder = () => {
+    setSortOrder(prevOrder => prevOrder === 'alphabetical' ? 'recent' : 'alphabetical');
+  };
+
   const images = {
     alles: require('./assets/all.png'),
     work: require('./assets/work.png'),
@@ -103,33 +119,38 @@ function HomeScreen({ navigation }) {
     hobby: require('./assets/Hobby.png'),
   };
 
+  const combinedCategories = [
+    ...Object.keys(taskCounts).map(category => ({ name: category, tasks: taskCounts[category], predefined: true })),
+    ...customCategories
+  ];
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar />
       <ScrollView>
         <Image style={styles.menu} source={require('./assets/menu.png')} />
         <Text style={styles.listsText}>Lists</Text>
+        <TouchableOpacity onPress={toggleSortOrder}>
+          <Text style={styles.sortButtonText}>Sort by {'\n'}{sortOrder === 'alphabetical' ? 'Recently Added' : 'Alphabetical'}</Text>
+        </TouchableOpacity>
         <View style={styles.boxesContainer}>
-          {Object.keys(taskCounts).map(category => (
+          {sortCategories(combinedCategories).map(category => (
             <TouchableOpacity
-              key={category}
-              style={styles.boxes}
-              onPress={() => handleBoxPress(category)}
-            >
-              <Image style={styles.icoontje} source={images[category.toLowerCase()] || require('./assets/menu.png')} />
-              <Text style={styles.textboxex}>{category}</Text>
-              <Text style={styles.Tasksboxex}>{taskCounts[category]} Tasks</Text>
-            </TouchableOpacity>
-          ))}
-          {customCategories.map(category => (
-            <TouchableOpacity
-              key={category.id}
+              key={category.name}
               style={styles.boxes}
               onPress={() => handleBoxPress(category.name)}
-              onLongPress={() => handleLongPress(category)}
+              onLongPress={() => category.predefined ? null : handleLongPress(category)}
             >
-              <Image style={styles.icoontje}
-                source={category.icon === 'menu.png' ? require('./assets/menu2.png') : { uri: category.icon }} />
+              <Image
+                style={styles.icoontje}
+                source={
+                  category.predefined
+                    ? images[category.name.toLowerCase()]
+                    : category.icon === 'menu.png'
+                      ? require('./assets/menu2.png')
+                      : { uri: category.icon }
+                }
+              />
               <Text style={styles.textboxex}>{category.name}</Text>
               <Text style={styles.Tasksboxex}>{category.tasks} Tasks</Text>
             </TouchableOpacity>
@@ -142,7 +163,6 @@ function HomeScreen({ navigation }) {
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'rgba(245, 245, 245, 1)',
@@ -212,6 +232,13 @@ const styles = StyleSheet.create({
     width: 25,
     left: 22,
     top: 21,
+  },
+  sortButtonText: {
+    fontSize: 16,
+    textAlign: 'center', // <-- the magic
+    left: 120,
+    top: -35,  
+    color: 'rgba(169, 169, 169, 1)',
   },
 });
 
