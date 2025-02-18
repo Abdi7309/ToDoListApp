@@ -10,7 +10,8 @@ class MakeTask extends React.Component {
       text: '',
       description: '',
       selectedPage: '',
-      pages: ['Work', 'Music', 'Travel', 'Study', 'Home', 'Hobby']
+      pages: ['Work', 'Music', 'Travel', 'Study', 'Home', 'Hobby'],
+      tasks: [] // Ensure tasks are available on component mount
     };
   }
 
@@ -31,7 +32,7 @@ class MakeTask extends React.Component {
   }
 
   async saveTask() {
-    const { text, description, selectedPage } = this.state;
+    const { text, description, selectedPage, tasks } = this.state;
 
     if (!selectedPage) {
       alert('Please select a category');
@@ -48,24 +49,31 @@ class MakeTask extends React.Component {
     }
 
     if (text.length > 18) {
-      alert('Title cannot be longer than 15 characters');
+      alert('Title cannot be longer than 18 characters');
+      return;
+    }
+
+    // Check if the task with the same title already exists in the selected category
+    const taskExists = tasks.some(task => task.text.toLowerCase() === text.toLowerCase() && task.page === selectedPage);
+    if (taskExists) {
+      alert('A task with this title already exists in this category.');
       return;
     }
 
     try {
-      let tasks = this.state.tasks || [];
+      let newTasks = [...tasks];
       const task = { text, description, page: selectedPage };
-      tasks.push(task);
+      newTasks.push(task);
 
       // Add task to "Alles"
       if (selectedPage !== 'Alles') {
         const taskAlles = { text, description, page: 'Alles' };
-        tasks.push(taskAlles);
+        newTasks.push(taskAlles);
       }
 
-      await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
-      this.setState({ tasks });
-      this.props.navigation.goBack(); // Navigate back only if the task is successfully saved
+      await AsyncStorage.setItem('tasks', JSON.stringify(newTasks));
+      this.setState({ tasks: newTasks });
+      this.props.navigation.goBack(); // Navigate back after saving
     } catch (error) {
       console.error('Error saving data:', error);
     }
@@ -78,8 +86,8 @@ class MakeTask extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <View>
-          <Text style={styles.TaskText}>New task</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.TaskText}>New Task</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
             <Image style={styles.terug} source={require('../assets/kruis.png')} />
           </TouchableOpacity>
           <Text style={styles.planText}>What are You planning?</Text>
@@ -96,24 +104,6 @@ class MakeTask extends React.Component {
             value={description}
             onChangeText={(description) => this.setState({ description })}
           />
-          <Image style={styles.icon1} source={require('../assets/menu.png')} />
-        <View style={styles.pickerContainer}>
-          <RNPickerSelect
-            onValueChange={(itemValue) => this.setState({ selectedPage: itemValue })}
-            items={pages.map((page) => ({ label: page, value: page }))}
-            placeholder={{
-              label: 'Add Category',
-              value: null,
-            }}
-            value={selectedPage} 
-            style={{
-              viewContainer: styles.pickerSelectContainer,
-              inputIOS: styles.pickerSelectIOS,
-              inputAndroid: styles.pickerSelectAndroid,
-              placeholder: styles.pickerSelectPlaceholder,
-            }}
-          />
-        </View>
         </View>
         <TouchableOpacity
           style={styles.saveButton}

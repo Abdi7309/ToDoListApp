@@ -54,7 +54,7 @@ class Home extends React.Component {
       await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
 
       // Update state with filtered tasks for Home page
-      const homeTasks = tasks.filter(task => task.page === 'Home');
+      const homeTasks = tasks.filter(task => task.page === 'home');
       this.setState({ tasks: homeTasks });
     } catch (error) {
       console.error('Error deleting task:', error);
@@ -79,11 +79,11 @@ class Home extends React.Component {
     const { navigation } = this.props;
     const { tasks, expandedDescriptions } = this.state;
 
-    console.log('Number of tasks in home:', tasks.length); // Log the task length
+    console.log('Number of tasks in Home:', tasks.length); 
 
     return (
       <SafeAreaView style={styles.container}>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
           <Image style={styles.terug} source={require('../assets/pijl.png')} />
         </TouchableOpacity>
         <View>

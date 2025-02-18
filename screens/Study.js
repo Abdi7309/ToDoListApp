@@ -82,7 +82,7 @@ class Study extends React.Component {
 
     return (
       <SafeAreaView style={styles.container}>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
           <Image style={styles.terug} source={require('../assets/pijl.png')} />
         </TouchableOpacity>
         <View>
