@@ -41,7 +41,7 @@ function App() {
 function HomeScreen({ navigation }) {
   const [taskCounts, setTaskCounts] = useState({});
   const [customCategories, setCustomCategories] = useState([]);
-  const [sortOrder, setSortOrder] = useState('alphabetical');
+  const [sortOrder, setSortOrder] = useState('Recently Added');
 
   useEffect(() => {
     const loadData = async () => {
@@ -92,7 +92,9 @@ function HomeScreen({ navigation }) {
   };
 
   const sortCategories = (categories) => {
-    return categories.sort((a, b) => {
+    const allesCategory = categories.find(category => category.name === 'Alles');
+    const otherCategories = categories.filter(category => category.name !== 'Alles');
+    otherCategories.sort((a, b) => {
       const nameA = typeof a === 'string' ? a : a.name;
       const nameB = typeof b === 'string' ? b : b.name;
       if (sortOrder === 'alphabetical') {
@@ -103,6 +105,7 @@ function HomeScreen({ navigation }) {
         return idB - idA;
       }
     });
+    return allesCategory ? [allesCategory, ...otherCategories] : otherCategories;
   };
 
   const toggleSortOrder = () => {
