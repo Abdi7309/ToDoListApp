@@ -1,137 +1,144 @@
-import React from 'react';
-import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './uiterlijk';
 
-class Study extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tasks: [],
-      expandedDescriptions: {},
+const Study = ({ navigation }) => {
+  const [tasks, setTasks] = useState([]);
+  const [expandedDescriptions, setExpandedDescriptions] = useState({});
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const userData = await AsyncStorage.getItem('user');
+      if (userData) {
+        setUser(JSON.parse(userData));
+        loadData(JSON.parse(userData));
+      }
     };
-  }
+    loadUser();
 
-  async loadData() {
-    try {
-      const tasksString = await AsyncStorage.getItem('tasks');
-      const tasks = JSON.parse(tasksString) || [];
-
-      // Filter tasks specific to Study
-      const studyTasks = tasks.filter(task => task.page === 'Study');
-      this.setState({ tasks: studyTasks });
-    } catch (error) {
-      console.error('Error loading data:', error);
-    }
-  }
-
-  async componentDidMount() {
-    this.loadData();
-
-    // Add a listener to reload data when the screen is focused
-    this.focusListener = this.props.navigation.addListener('focus', () => {
-      this.loadData();
+    const focusListener = navigation.addListener('focus', () => {
+      loadUser();
     });
-  }
 
-  async deleteTask(index) {
+    return () => {
+      navigation.removeListener('focus', focusListener);
+    };
+  }, [navigation]);
+
+  const loadData = async (userData) => {
     try {
-      // Get current tasks list
-      const tasksString = await AsyncStorage.getItem('tasks');
-      let tasks = JSON.parse(tasksString) || [];
+      const response = await fetch('http://your-server-address/api.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'getTasks',
+          user_id: userData.id,
+          category: 'Study',
+        }),
+      });
 
-      // Get the task we want to delete
-      const taskToDelete = this.state.tasks[index];
-
-      // Remove all instances of this task
-      tasks = tasks.filter(task => 
-        !(task.text === taskToDelete.text && 
-          task.description === taskToDelete.description)
-      );
-
-      // Save updated tasks
-      await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
-
-      // Update state with filtered tasks for Study page
-      const studyTasks = tasks.filter(task => task.page === 'Study');
-      this.setState({ tasks: studyTasks });
+      const data = await response.json();
+      if (data.success) {
+        setTasks(data.tasks);
+      } else {
+        Alert.alert('Error', 'Failed to load tasks');
+      }
     } catch (error) {
-      console.error('Error deleting task:', error);
+      Alert.alert('Error', 'Failed to connect to server');
     }
-  }
+  };
 
-  toggleDescription(index) {
-    this.setState(prevState => ({
-      expandedDescriptions: {
-        ...prevState.expandedDescriptions,
-        [index]: !prevState.expandedDescriptions[index],
-      },
+  const deleteTask = async (taskId) => {
+    try {
+      const response = await fetch('http://your-server-address/api.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'deleteTask',
+          user_id: user.id,
+          task_id: taskId,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setTasks(tasks.filter(task => task.id !== taskId));
+      } else {
+        Alert.alert('Error', 'Failed to delete task');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Failed to connect to server');
+    }
+  };
+
+  const toggleDescription = (index) => {
+    setExpandedDescriptions(prev => ({
+      ...prev,
+      [index]: !prev[index],
     }));
-  }
+  };
 
-  handleBoxPress = (screenName) => {
-    const { navigation } = this.props;
+  const handleBoxPress = (screenName) => {
     navigation.navigate(screenName, { category: 'Study' });
   };
 
-  render() {
-    const { navigation } = this.props;
-    const { tasks, expandedDescriptions } = this.state;
+  return (
+    <SafeAreaView style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+        <Image style={styles.terug} source={require('../assets/pijl.png')} />
+      </TouchableOpacity>
+      <View>
+        <Image style={styles.foto} source={require('../assets/study2.png')} />
+      </View>
+      <View>
+        <Text style={styles.Text1}>Study</Text>
+        <Text style={styles.Text2}>{tasks.length} Tasks</Text>
+      </View>
 
-    console.log('Number of tasks in study:', tasks.length); 
-
-    return (
-      <SafeAreaView style={styles.container}>
-        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-          <Image style={styles.terug} source={require('../assets/pijl.png')} />
-        </TouchableOpacity>
-        <View>
-          <Image style={styles.foto} source={require('../assets/study2.png')} />
-        </View>
-        <View>
-          <Text style={styles.Text1}>Study</Text>
-          <Text style={styles.Text2}>{tasks.length} Tasks</Text>
-        </View>
-
-        <View style={styles.boxes}>
+      <View style={styles.boxes}>
         <ScrollView>
-        <Text style={styles.tijdtekst}></Text>
-        {tasks.map((task, index) => (
-          <View key={index} style={styles.taskContainer}>
-            <View style={styles.taskContent}>
-              <View style={styles.titleRow}>
-                <Text style={styles.titeltekst}>{task.text}</Text>
-                <TouchableOpacity 
-                  style={styles.trashButton} 
-                  onPress={() => this.deleteTask(index)}
-                >
-                  <Image style={styles.trash} source={require('../assets/trash.png')} />
+          <Text style={styles.tijdtekst}></Text>
+          {tasks.map((task, index) => (
+            <View key={task.id} style={styles.taskContainer}>
+              <View style={styles.taskContent}>
+                <View style={styles.titleRow}>
+                  <Text style={styles.titeltekst}>{task.title}</Text>
+                  <TouchableOpacity 
+                    style={styles.trashButton} 
+                    onPress={() => deleteTask(task.id)}
+                  >
+                    <Image style={styles.trash} source={require('../assets/trash.png')} />
+                  </TouchableOpacity>
+                </View>
+                <TouchableOpacity onPress={() => toggleDescription(index)}>
+                  <Text style={styles.descriptiontekst}>
+                    {expandedDescriptions[index] 
+                      ? task.description 
+                      : task.description.length > 14 
+                        ? task.description.substring(0, 14).trim() + '...'
+                        : task.description
+                    }
+                  </Text>
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity onPress={() => this.toggleDescription(index)}>
-                <Text style={styles.descriptiontekst}>
-                  {expandedDescriptions[index] 
-                    ? task.description 
-                    : task.description.length > 14 
-                      ? task.description.substring(0, 14).trim() + '...'
-                      : task.description
-                  }
-                </Text>
-              </TouchableOpacity>
             </View>
-          </View>
-        ))}
-      </ScrollView>
-    </View>
-          <TouchableOpacity 
-            style={styles.footer}
-            onPress={() => this.handleBoxPress('MakeTask')}
-          >  
-            <Image style={styles.footerplus} source={require('../assets/plus.png')} />
-          </TouchableOpacity>
-      </SafeAreaView>
-    );
-  }
-}
+          ))}
+        </ScrollView>
+      </View>
+      <TouchableOpacity 
+        style={styles.footer}
+        onPress={() => handleBoxPress('MakeTask')}
+      >  
+        <Image style={styles.footerplus} source={require('../assets/plus.png')} />
+      </TouchableOpacity>
+    </SafeAreaView>
+  );
+};
 
 export default Study;

@@ -1,120 +1,99 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, SafeAreaView, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Image, SafeAreaView, TextInput, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNPickerSelect from 'react-native-picker-select'; 
 
-class MakeTask extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: '',
-      description: '',
-      selectedPage: '',
-      pages: ['Work', 'Music', 'Travel', 'Study', 'Home', 'Hobby'],
-      tasks: [] // Ensure tasks are available on component mount
+const MakeTask = ({ navigation, route }) => {
+  const [text, setText] = useState('');
+  const [description, setDescription] = useState('');
+  const [selectedPage, setSelectedPage] = useState('');
+  const [pages, setPages] = useState(['Work', 'Music', 'Travel', 'Study', 'Home', 'Hobby']);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const userData = await AsyncStorage.getItem('user');
+      if (userData) {
+        setUser(JSON.parse(userData));
+      }
     };
-  }
+    loadUser();
+  }, []);
 
-  async componentDidMount() {
-    const { route } = this.props;
-    const category = route.params?.category || '';
-    this.setState({ selectedPage: category });
-
-    try {
-      const savedData = await AsyncStorage.getItem('tasks');
-      if (savedData) {
-        const tasks = JSON.parse(savedData);
-        this.setState({ tasks });
-      }
-    } catch (error) {
-      console.error('Error loading data:', error);
-    }
-  }
-
-  async saveTask() {
-    const { text, description, selectedPage, tasks } = this.state;
-
-    if (!selectedPage) {
-      alert('Please select a category');
+  const saveTask = async () => {
+    if (!user) {
+      Alert.alert('Error', 'User not logged in');
       return;
     }
 
-    if (text.length === 0) {
-      alert('Please give it a title');
-      return;
-    }
-    if (description.length === 0) {
-      alert('Please Add a Description');
+    if (!text.trim()) {
+      Alert.alert('Error', 'Please enter a title');
       return;
     }
 
-    if (text.length > 18) {
-      alert('Title cannot be longer than 18 characters');
-      return;
-    }
-
-    // Check if the task with the same title already exists in the selected category
-    const taskExists = tasks.some(task => task.text.toLowerCase() === text.toLowerCase() && task.page === selectedPage);
-    if (taskExists) {
-      alert('A task with this title already exists in this category.');
+    if (!description.trim()) {
+      Alert.alert('Error', 'Please enter a description');
       return;
     }
 
     try {
-      let newTasks = [...tasks];
-      const task = { text, description, page: selectedPage };
-      newTasks.push(task);
+      const response = await fetch('http://your-server-address/api.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'saveTask',
+          user_id: user.id,
+          title: text.trim(),
+          description: description.trim(),
+          category: selectedPage,
+        }),
+      });
 
-      // Add task to "Alles"
-      if (selectedPage !== 'Alles') {
-        const taskAlles = { text, description, page: 'Alles' };
-        newTasks.push(taskAlles);
+      const data = await response.json();
+      
+      if (data.success) {
+        navigation.goBack();
+      } else {
+        Alert.alert('Error', 'Failed to save task');
       }
-
-      await AsyncStorage.setItem('tasks', JSON.stringify(newTasks));
-      this.setState({ tasks: newTasks });
-      this.props.navigation.goBack(); // Navigate back after saving
     } catch (error) {
-      console.error('Error saving data:', error);
+      Alert.alert('Error', 'Failed to connect to server');
     }
-  }
+  };
 
-  render() {
-    const { navigation } = this.props;
-    const { text, description, selectedPage, pages } = this.state;
-
-    return (
-      <SafeAreaView style={styles.container}>
-        <View>
-          <Text style={styles.TaskText}>New Task</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-            <Image style={styles.terug} source={require('../assets/kruis.png')} />
-          </TouchableOpacity>
-          <Text style={styles.planText}>What are You planning?</Text>
-          <TextInput
-            style={styles.input}
-            value={text}
-            onChangeText={(text) => this.setState({ text })}
-          />
-          <Image style={styles.icon1} source={require('../assets/menu.png')} />
-          <TextInput
-            style={styles.input2}
-            placeholder="Add Description"
-            placeholderTextColor={styles.input2Placeholder.color}
-            value={description}
-            onChangeText={(description) => this.setState({ description })}
-          />
-        </View>
-        <TouchableOpacity
-          style={styles.saveButton}
-          onPress={() => this.saveTask()}
-        >
-          <Text style={{ color: 'white', fontSize: 26, fontWeight: '500' }}>Create</Text>
+  return (
+    <SafeAreaView style={styles.container}>
+      <View>
+        <Text style={styles.TaskText}>New Task</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+          <Image style={styles.terug} source={require('../assets/kruis.png')} />
         </TouchableOpacity>
-      </SafeAreaView>
-    );
-  }
-}
+        <Text style={styles.planText}>What are You planning?</Text>
+        <TextInput
+          style={styles.input}
+          value={text}
+          onChangeText={setText}
+        />
+        <Image style={styles.icon1} source={require('../assets/menu.png')} />
+        <TextInput
+          style={styles.input2}
+          placeholder="Add Description"
+          placeholderTextColor={styles.input2Placeholder.color}
+          value={description}
+          onChangeText={setDescription}
+        />
+      </View>
+      <TouchableOpacity
+        style={styles.saveButton}
+        onPress={saveTask}
+      >
+        <Text style={{ color: 'white', fontSize: 26, fontWeight: '500' }}>Create</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

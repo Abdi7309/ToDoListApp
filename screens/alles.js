@@ -1,130 +1,134 @@
-import React from 'react';
-import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './uiterlijk';
 
-class Alles extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tasks: [],
-      expandedDescriptions: {},
+const Alles = ({ navigation }) => {
+  const [tasks, setTasks] = useState([]);
+  const [expandedDescriptions, setExpandedDescriptions] = useState({});
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const userData = await AsyncStorage.getItem('user');
+      if (userData) {
+        setUser(JSON.parse(userData));
+        loadData(JSON.parse(userData));
+      }
     };
-  }
+    loadUser();
 
-  async loadData() {
-    try {
-      const tasksString = await AsyncStorage.getItem('tasks');
-      const tasks = JSON.parse(tasksString) || [];
-
-      // Filter tasks specific to Alles
-      const allesTasks = tasks.filter(task => task.page === 'Alles');
-      this.setState({ tasks: allesTasks });
-    } catch (error) {
-      console.error('Error loading data:', error);
-    }
-  }
-
-  async componentDidMount() {
-    this.loadData();
-
-    // Add a listener to reload data when the screen is focused
-    this.focusListener = this.props.navigation.addListener('focus', () => {
-      this.loadData();
+    const focusListener = navigation.addListener('focus', () => {
+      loadUser();
     });
-  }
-  async deleteTask(index) {
-    try {
-      // Get current tasks list
-      const tasksString = await AsyncStorage.getItem('tasks');
-      let tasks = JSON.parse(tasksString) || [];
-  
-      // Get the task we want to delete
-      const taskToDelete = this.state.tasks[index];
-  
-      // Remove the task from the entire task list
-      tasks = tasks.filter(task => 
-        !(task.text === taskToDelete.text && 
-          task.description === taskToDelete.description)
-      );
-  
-      // Save the updated tasks back to AsyncStorage
-      await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
-  
-      // Update state with filtered tasks specific to Alles
-      const allesTasks = tasks.filter(task => task.page === 'Alles');
-      this.setState({ tasks: allesTasks });
-    } catch (error) {
-      console.error('Error deleting task:', error);
-    }
-  }
 
-  toggleDescription(index) {
-    this.setState(prevState => ({
-      expandedDescriptions: {
-        ...prevState.expandedDescriptions,
-        [index]: !prevState.expandedDescriptions[index],
-      },
-    }));
-  }
-  
-  handleBoxPress = (screenName) => {
-    const { navigation } = this.props;
-    navigation.navigate(screenName);
+    return () => {
+      navigation.removeListener('focus', focusListener);
+    };
+  }, [navigation]);
+
+  const loadData = async (userData) => {
+    try {
+      const response = await fetch('http://your-server-address/api.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'getTasks',
+          user_id: userData.id,
+          category: 'Alles',
+        }),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setTasks(data.tasks);
+      } else {
+        Alert.alert('Error', 'Failed to load tasks');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Failed to connect to server');
+    }
   };
 
-  render() {
-    const { navigation } = this.props;
-    const { tasks, expandedDescriptions } = this.state;
+  const deleteTask = async (taskId) => {
+    try {
+      const response = await fetch('http://your-server-address/api.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'deleteTask',
+          user_id: user.id,
+          task_id: taskId,
+        }),
+      });
 
-    console.log('Number of tasks in alles:', tasks.length); 
+      const data = await response.json();
+      if (data.success) {
+        setTasks(tasks.filter(task => task.id !== taskId));
+      } else {
+        Alert.alert('Error', 'Failed to delete task');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Failed to connect to server');
+    }
+  };
 
-    return (
-      <SafeAreaView style={styles.container}>
-        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-          <Image style={styles.terug} source={require('../assets/pijl.png')} />
-        </TouchableOpacity>
-        <View>
-          <Image style={styles.foto} source={require('../assets/all2.png')} />
-        </View>
-        <View>
-          <Text style={styles.Text1}>All</Text>
-          <Text style={styles.Text2}>{tasks.length} Tasks</Text>
-        </View>
+  const toggleDescription = (index) => {
+    setExpandedDescriptions(prev => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
 
-        <View style={styles.boxes}>
+  return (
+    <SafeAreaView style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+        <Image style={styles.terug} source={require('../assets/pijl.png')} />
+      </TouchableOpacity>
+      <View>
+        <Image style={styles.foto} source={require('../assets/all2.png')} />
+      </View>
+      <View>
+        <Text style={styles.Text1}>All</Text>
+        <Text style={styles.Text2}>{tasks.length} Tasks</Text>
+      </View>
+
+      <View style={styles.boxes}>
         <ScrollView>
-        <Text style={styles.tijdtekst}></Text>
-        {tasks.map((task, index) => (
-          <View key={index} style={styles.taskContainer}>
-            <View style={styles.taskContent}>
-              <View style={styles.titleRow}>
-                <Text style={styles.titeltekst}>{task.text}</Text>
-                <TouchableOpacity 
-                  style={styles.trashButton} 
-                  onPress={() => this.deleteTask(index)}
-                >
-                  <Image style={styles.trash} source={require('../assets/trash.png')} />
+          <Text style={styles.tijdtekst}></Text>
+          {tasks.map((task, index) => (
+            <View key={task.id} style={styles.taskContainer}>
+              <View style={styles.taskContent}>
+                <View style={styles.titleRow}>
+                  <Text style={styles.titeltekst}>{task.title}</Text>
+                  <TouchableOpacity 
+                    style={styles.trashButton} 
+                    onPress={() => deleteTask(task.id)}
+                  >
+                    <Image style={styles.trash} source={require('../assets/trash.png')} />
+                  </TouchableOpacity>
+                </View>
+                <TouchableOpacity onPress={() => toggleDescription(index)}>
+                  <Text style={styles.descriptiontekst}>
+                    {expandedDescriptions[index] 
+                      ? task.description 
+                      : task.description.length > 14 
+                        ? task.description.substring(0, 14).trim() + '...'
+                        : task.description
+                    }
+                  </Text>
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity onPress={() => this.toggleDescription(index)}>
-                <Text style={styles.descriptiontekst}>
-                  {expandedDescriptions[index] 
-                    ? task.description 
-                    : task.description.length > 14 
-                      ? task.description.substring(0, 14).trim() + '...'
-                      : task.description
-                  }
-                </Text>
-              </TouchableOpacity>
             </View>
-          </View>
-        ))}
-      </ScrollView>
-    </View>
-      </SafeAreaView>
-    );
-  }
-}
+          ))}
+        </ScrollView>
+      </View>
+    </SafeAreaView>
+  );
+};
 
 export default Alles;

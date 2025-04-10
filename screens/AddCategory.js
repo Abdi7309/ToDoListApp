@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, Image, View, Alert 
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
 
-function AddCategory({ navigation }) {
+const AddCategory = ({ navigation }) => {
   const [categoryName, setCategoryName] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const loadUser = async () => {
+      const userData = await AsyncStorage.getItem('user');
+      if (userData) {
+        setUser(JSON.parse(userData));
+      }
+    };
+    loadUser();
+  }, []);
 
   const pickImage = async () => {
     try {
@@ -24,28 +35,39 @@ function AddCategory({ navigation }) {
   };
 
   const saveCategory = async () => {
+    if (!user) {
+      Alert.alert('Error', 'User not logged in');
+      return;
+    }
+
     if (categoryName.trim().length === 0) {
       Alert.alert('Error', 'Please enter a category name');
       return;
     }
 
     try {
-      const categoriesString = await AsyncStorage.getItem('customCategories');
-      let categories = JSON.parse(categoriesString) || [];
+      const response = await fetch('http://your-server-address/api.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'saveCategory',
+          user_id: user.id,
+          name: categoryName.trim(),
+          icon: selectedImage || 'menu.png',
+        }),
+      });
+
+      const data = await response.json();
       
-      const newCategory = {
-        id: Date.now().toString(),
-        name: categoryName.trim(),
-        icon: selectedImage || 'menu.png'
-      };
-      
-      categories.push(newCategory);
-      await AsyncStorage.setItem('customCategories', JSON.stringify(categories));
-      
-      navigation.goBack();
+      if (data.success) {
+        navigation.goBack();
+      } else {
+        Alert.alert('Error', 'Failed to save category');
+      }
     } catch (error) {
-      console.error('Error saving category:', error);
-      Alert.alert('Error', 'Failed to save category');
+      Alert.alert('Error', 'Failed to connect to server');
     }
   };
 
@@ -76,7 +98,7 @@ function AddCategory({ navigation }) {
       </TouchableOpacity>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

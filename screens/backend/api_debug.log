@@ -1,0 +1,668 @@
+[2025-04-08 13:02:20] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 13:02:20] Database connection successful
+[2025-04-08 13:02:20] Login action requested
+[2025-04-08 13:02:20] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-08 13:02:20] Login attempt for username: Abdi
+[2025-04-08 13:02:20] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-08 13:02:20] User found in database
+[2025-04-08 13:02:20] Comparing passwords: input vs stored
+[2025-04-08 13:02:20] Login successful
+[2025-04-08 13:02:20] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-08 13:02:20] Sending response: {"status":"success","message":"Login successful","profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 13:02:20] Database connection closed
+[2025-04-08 13:02:55] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 13:02:55] Database connection successful
+[2025-04-08 13:02:55] Login action requested
+[2025-04-08 13:02:55] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-08 13:02:55] Login attempt for username: Abdi
+[2025-04-08 13:02:55] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-08 13:02:55] User found in database
+[2025-04-08 13:02:55] Comparing passwords: input vs stored
+[2025-04-08 13:02:55] Login successful
+[2025-04-08 13:02:55] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-08 13:02:55] Sending response: {"status":"success","message":"Login successful","profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 13:02:55] Database connection closed
+[2025-04-08 13:32:52] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 13:32:52] Database connection successful
+[2025-04-08 13:32:52] Login action requested
+[2025-04-08 13:32:52] Raw request body: {"action":"login","username":"1234","password":"1234"}
+[2025-04-08 13:32:52] Login attempt for username: 1234
+[2025-04-08 13:32:52] Executing SQL: SELECT * FROM users WHERE username = ? with username: 1234
+[2025-04-08 13:32:52] User found in database
+[2025-04-08 13:32:52] Comparing passwords: input vs stored
+[2025-04-08 13:32:52] Login successful
+[2025-04-08 13:32:52] Returning profile pic URL: uploads/profile_1743668482_67ee450253271.jpeg
+[2025-04-08 13:32:52] Sending response: {"status":"success","message":"Login successful","profile_pic_url":"uploads\/profile_1743668482_67ee450253271.jpeg"}
+[2025-04-08 13:32:52] Database connection closed
+[2025-04-08 13:36:36] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 13:36:36] Database connection successful
+[2025-04-08 13:36:36] Login action requested
+[2025-04-08 13:36:36] Raw request body: {"action":"login","username":"1234","password":"1234"}
+[2025-04-08 13:36:36] Login attempt for username: 1234
+[2025-04-08 13:36:36] Executing SQL: SELECT * FROM users WHERE username = ? with username: 1234
+[2025-04-08 13:36:36] User found in database
+[2025-04-08 13:36:36] Comparing passwords: input vs stored
+[2025-04-08 13:36:36] Login successful
+[2025-04-08 13:36:36] Returning profile pic URL: uploads/profile_1743668482_67ee450253271.jpeg
+[2025-04-08 13:36:36] Sending response: {"status":"success","message":"Login successful","profile_pic_url":"uploads\/profile_1743668482_67ee450253271.jpeg"}
+[2025-04-08 13:36:36] Database connection closed
+[2025-04-08 13:37:16] API request received: POST /ToDoListApp/screens/backend/api.php?action=register
+[2025-04-08 13:37:16] Database connection successful
+[2025-04-08 13:37:16] Register action requested
+[2025-04-08 13:37:16] POST request detected
+[2025-04-08 13:37:16] JSON input detected
+[2025-04-08 13:37:16] Raw request body: {"action":"register","username":"nieuw","password":"nieuw"}
+[2025-04-08 13:37:16] Registration attempt for username: nieuw
+[2025-04-08 13:37:16] Executing SQL: SELECT * FROM users WHERE username = ? with username: nieuw
+[2025-04-08 13:37:16] Executing SQL: INSERT INTO users (username, password) VALUES (?, ?) without profile pic URL
+[2025-04-08 13:37:16] User registered successfully
+[2025-04-08 13:37:16] Sending response: {"status":"success","message":"User registered successfully"}
+[2025-04-08 13:37:16] Database connection closed
+[2025-04-08 13:37:42] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 13:37:42] Database connection successful
+[2025-04-08 13:37:42] Login action requested
+[2025-04-08 13:37:42] Raw request body: {"action":"login","username":"nieuw","password":"nieuw"}
+[2025-04-08 13:37:42] Login attempt for username: nieuw
+[2025-04-08 13:37:42] Executing SQL: SELECT * FROM users WHERE username = ? with username: nieuw
+[2025-04-08 13:37:42] User found in database
+[2025-04-08 13:37:42] Comparing passwords: input vs stored
+[2025-04-08 13:37:42] Login successful
+[2025-04-08 13:37:42] Sending response: {"status":"success","message":"Login successful"}
+[2025-04-08 13:37:42] Database connection closed
+[2025-04-08 13:39:26] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 13:39:26] Database connection successful
+[2025-04-08 13:39:26] Login action requested
+[2025-04-08 13:39:26] Raw request body: {"action":"login","username":"nieuw","password":"nieuw"}
+[2025-04-08 13:39:26] Login attempt for username: nieuw
+[2025-04-08 13:39:26] Executing SQL: SELECT * FROM users WHERE username = ? with username: nieuw
+[2025-04-08 13:39:26] User found in database
+[2025-04-08 13:39:26] Comparing passwords: input vs stored
+[2025-04-08 13:39:26] Login successful
+[2025-04-08 13:39:26] Sending response: {"status":"success","message":"Login successful"}
+[2025-04-08 13:39:26] Database connection closed
+[2025-04-08 13:39:35] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 13:39:35] Database connection successful
+[2025-04-08 13:39:35] Login action requested
+[2025-04-08 13:39:35] Raw request body: {"action":"login","username":"aa","password":"aa"}
+[2025-04-08 13:39:35] Login attempt for username: aa
+[2025-04-08 13:39:35] Executing SQL: SELECT * FROM users WHERE username = ? with username: aa
+[2025-04-08 13:39:35] User not found: aa
+[2025-04-08 13:39:35] Sending response: {"status":"error","message":"User not found"}
+[2025-04-08 13:39:35] Database connection closed
+[2025-04-08 13:39:44] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 13:39:44] Database connection successful
+[2025-04-08 13:39:44] Login action requested
+[2025-04-08 13:39:44] Raw request body: {"action":"login","username":"abdi","password":"abdi"}
+[2025-04-08 13:39:44] Login attempt for username: abdi
+[2025-04-08 13:39:44] Executing SQL: SELECT * FROM users WHERE username = ? with username: abdi
+[2025-04-08 13:39:44] User found in database
+[2025-04-08 13:39:44] Comparing passwords: input vs stored
+[2025-04-08 13:39:44] Invalid password
+[2025-04-08 13:39:44] Sending response: {"status":"error","message":"Invalid credentials"}
+[2025-04-08 13:39:44] Database connection closed
+[2025-04-08 13:40:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 13:40:08] Database connection successful
+[2025-04-08 13:40:08] Login action requested
+[2025-04-08 13:40:08] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-08 13:40:08] Login attempt for username: Abdi
+[2025-04-08 13:40:08] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-08 13:40:08] User found in database
+[2025-04-08 13:40:08] Comparing passwords: input vs stored
+[2025-04-08 13:40:08] Login successful
+[2025-04-08 13:40:08] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-08 13:40:08] Sending response: {"status":"success","message":"Login successful","profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 13:40:08] Database connection closed
+[2025-04-08 13:40:31] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 13:40:31] Database connection successful
+[2025-04-08 13:40:31] Login action requested
+[2025-04-08 13:40:31] Raw request body: {"action":"login","username":"","password":""}
+[2025-04-08 13:40:31] Login attempt for username: 
+[2025-04-08 13:40:31] Missing username or password
+[2025-04-08 13:40:31] Sending response: {"status":"error","message":"Username and password required"}
+[2025-04-08 13:40:31] Database connection closed
+[2025-04-08 13:40:59] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 13:40:59] Database connection successful
+[2025-04-08 13:40:59] Login action requested
+[2025-04-08 13:40:59] Raw request body: {"action":"login","username":"","password":""}
+[2025-04-08 13:40:59] Login attempt for username: 
+[2025-04-08 13:40:59] Missing username or password
+[2025-04-08 13:40:59] Sending response: {"status":"error","message":"Username and password required"}
+[2025-04-08 13:40:59] Database connection closed
+[2025-04-08 13:41:12] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 13:41:12] Database connection successful
+[2025-04-08 13:41:12] Login action requested
+[2025-04-08 13:41:12] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-08 13:41:12] Login attempt for username: Abdi
+[2025-04-08 13:41:12] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-08 13:41:12] User found in database
+[2025-04-08 13:41:12] Comparing passwords: input vs stored
+[2025-04-08 13:41:12] Login successful
+[2025-04-08 13:41:12] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-08 13:41:12] Sending response: {"status":"success","message":"Login successful","profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 13:41:12] Database connection closed
+[2025-04-08 13:49:13] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 13:49:13] Database connection successful
+[2025-04-08 13:49:13] Login action requested
+[2025-04-08 13:49:13] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-08 13:49:13] Login attempt for username: Abdi
+[2025-04-08 13:49:13] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-08 13:49:13] User found in database
+[2025-04-08 13:49:13] Comparing passwords: input vs stored
+[2025-04-08 13:49:13] Login successful
+[2025-04-08 13:49:13] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-08 13:49:13] Sending response: {"status":"success","message":"Login successful","profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 13:49:13] Database connection closed
+[2025-04-08 13:52:34] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 13:52:34] Database connection successful
+[2025-04-08 13:52:34] Login action requested
+[2025-04-08 13:52:34] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-08 13:52:34] Login attempt for username: Abdi
+[2025-04-08 13:52:34] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-08 13:52:34] User found in database
+[2025-04-08 13:52:34] Comparing passwords: input vs stored
+[2025-04-08 13:52:34] Login successful
+[2025-04-08 13:52:34] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-08 13:52:34] Sending response: {"status":"success","message":"Login successful","profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 13:52:34] Database connection closed
+[2025-04-08 14:00:57] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 14:00:57] Database connection successful
+[2025-04-08 14:00:57] Login action requested
+[2025-04-08 14:00:57] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-08 14:00:57] Login attempt for username: Abdi
+[2025-04-08 14:00:57] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-08 14:00:57] User found in database
+[2025-04-08 14:00:57] Comparing passwords: input vs stored
+[2025-04-08 14:00:57] Login successful
+[2025-04-08 14:00:57] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-08 14:00:57] Sending response: {"status":"success","message":"Login successful","profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 14:00:57] Database connection closed
+[2025-04-08 14:01:17] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 14:01:17] Database connection successful
+[2025-04-08 14:01:17] Login action requested
+[2025-04-08 14:01:17] Raw request body: {"action":"login","username":"nieuw","password":"nieuw"}
+[2025-04-08 14:01:17] Login attempt for username: nieuw
+[2025-04-08 14:01:17] Executing SQL: SELECT * FROM users WHERE username = ? with username: nieuw
+[2025-04-08 14:01:17] User found in database
+[2025-04-08 14:01:17] Comparing passwords: input vs stored
+[2025-04-08 14:01:18] Login successful
+[2025-04-08 14:01:18] Sending response: {"status":"success","message":"Login successful"}
+[2025-04-08 14:01:18] Database connection closed
+[2025-04-08 14:01:24] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 14:01:24] Database connection successful
+[2025-04-08 14:01:24] Login action requested
+[2025-04-08 14:01:24] Raw request body: {"action":"login","username":"nieuw","password":"nieuw"}
+[2025-04-08 14:01:24] Login attempt for username: nieuw
+[2025-04-08 14:01:24] Executing SQL: SELECT * FROM users WHERE username = ? with username: nieuw
+[2025-04-08 14:01:24] User found in database
+[2025-04-08 14:01:24] Comparing passwords: input vs stored
+[2025-04-08 14:01:24] Login successful
+[2025-04-08 14:01:24] Sending response: {"status":"success","message":"Login successful"}
+[2025-04-08 14:01:24] Database connection closed
+[2025-04-08 14:01:36] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 14:01:36] Database connection successful
+[2025-04-08 14:01:36] Login action requested
+[2025-04-08 14:01:36] Raw request body: {"action":"login","username":"Nieuw","password":"Nieuw"}
+[2025-04-08 14:01:36] Login attempt for username: Nieuw
+[2025-04-08 14:01:36] Executing SQL: SELECT * FROM users WHERE username = ? with username: Nieuw
+[2025-04-08 14:01:36] User found in database
+[2025-04-08 14:01:36] Comparing passwords: input vs stored
+[2025-04-08 14:01:36] Invalid password
+[2025-04-08 14:01:36] Sending response: {"status":"error","message":"Invalid credentials"}
+[2025-04-08 14:01:36] Database connection closed
+[2025-04-08 14:01:45] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 14:01:45] Database connection successful
+[2025-04-08 14:01:45] Login action requested
+[2025-04-08 14:01:45] Raw request body: {"action":"login","username":"nieuw","password":"nieuw"}
+[2025-04-08 14:01:45] Login attempt for username: nieuw
+[2025-04-08 14:01:45] Executing SQL: SELECT * FROM users WHERE username = ? with username: nieuw
+[2025-04-08 14:01:45] User found in database
+[2025-04-08 14:01:45] Comparing passwords: input vs stored
+[2025-04-08 14:01:45] Login successful
+[2025-04-08 14:01:45] Sending response: {"status":"success","message":"Login successful"}
+[2025-04-08 14:01:45] Database connection closed
+[2025-04-08 14:02:16] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 14:02:16] Database connection successful
+[2025-04-08 14:02:16] Login action requested
+[2025-04-08 14:02:16] Raw request body: {"action":"login","username":"nieuw","password":"niewu"}
+[2025-04-08 14:02:16] Login attempt for username: nieuw
+[2025-04-08 14:02:16] Executing SQL: SELECT * FROM users WHERE username = ? with username: nieuw
+[2025-04-08 14:02:16] User found in database
+[2025-04-08 14:02:16] Comparing passwords: input vs stored
+[2025-04-08 14:02:16] Invalid password
+[2025-04-08 14:02:16] Sending response: {"status":"error","message":"Invalid credentials"}
+[2025-04-08 14:02:16] Database connection closed
+[2025-04-08 14:02:36] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 14:02:36] Database connection successful
+[2025-04-08 14:02:36] Login action requested
+[2025-04-08 14:02:36] Raw request body: {"action":"login","username":"nieuw","password":"nieuw"}
+[2025-04-08 14:02:36] Login attempt for username: nieuw
+[2025-04-08 14:02:36] Executing SQL: SELECT * FROM users WHERE username = ? with username: nieuw
+[2025-04-08 14:02:36] User found in database
+[2025-04-08 14:02:36] Comparing passwords: input vs stored
+[2025-04-08 14:02:36] Login successful
+[2025-04-08 14:02:36] Sending response: {"status":"success","message":"Login successful"}
+[2025-04-08 14:02:36] Database connection closed
+[2025-04-08 14:02:50] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 14:02:50] Database connection successful
+[2025-04-08 14:02:50] Login action requested
+[2025-04-08 14:02:50] Raw request body: {"action":"login","username":"1234","password":"1234"}
+[2025-04-08 14:02:50] Login attempt for username: 1234
+[2025-04-08 14:02:50] Executing SQL: SELECT * FROM users WHERE username = ? with username: 1234
+[2025-04-08 14:02:50] User found in database
+[2025-04-08 14:02:50] Comparing passwords: input vs stored
+[2025-04-08 14:02:50] Login successful
+[2025-04-08 14:02:50] Returning profile pic URL: uploads/profile_1743668482_67ee450253271.jpeg
+[2025-04-08 14:02:50] Sending response: {"status":"success","message":"Login successful","profile_pic_url":"uploads\/profile_1743668482_67ee450253271.jpeg"}
+[2025-04-08 14:02:50] Database connection closed
+[2025-04-08 14:03:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 14:03:01] Database connection successful
+[2025-04-08 14:03:01] Login action requested
+[2025-04-08 14:03:01] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-08 14:03:01] Login attempt for username: Abdi
+[2025-04-08 14:03:01] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-08 14:03:01] User found in database
+[2025-04-08 14:03:01] Comparing passwords: input vs stored
+[2025-04-08 14:03:01] Login successful
+[2025-04-08 14:03:01] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-08 14:03:01] Sending response: {"status":"success","message":"Login successful","profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 14:03:01] Database connection closed
+[2025-04-08 14:04:07] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 14:04:07] Database connection successful
+[2025-04-08 14:04:07] Login action requested
+[2025-04-08 14:04:07] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-08 14:04:07] Login attempt for username: Abdi
+[2025-04-08 14:04:07] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-08 14:04:07] User found in database
+[2025-04-08 14:04:07] Comparing passwords: input vs stored
+[2025-04-08 14:04:07] Login successful
+[2025-04-08 14:04:07] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-08 14:04:07] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 14:04:07] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 14:04:07] Database connection closed
+[2025-04-08 14:04:11] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:04:11] Database connection successful
+[2025-04-08 14:04:11] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:04:11] Database connection successful
+[2025-04-08 14:04:32] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:04:32] Database connection successful
+[2025-04-08 14:04:32] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:04:32] Database connection successful
+[2025-04-08 14:04:53] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 14:04:53] Database connection successful
+[2025-04-08 14:04:53] Login action requested
+[2025-04-08 14:04:53] Raw request body: {"action":"login","username":"1234","password":"1234"}
+[2025-04-08 14:04:53] Login attempt for username: 1234
+[2025-04-08 14:04:53] Executing SQL: SELECT * FROM users WHERE username = ? with username: 1234
+[2025-04-08 14:04:53] User found in database
+[2025-04-08 14:04:53] Comparing passwords: input vs stored
+[2025-04-08 14:04:53] Login successful
+[2025-04-08 14:04:53] Returning profile pic URL: uploads/profile_1743668482_67ee450253271.jpeg
+[2025-04-08 14:04:53] Sending response: {"status":"success","message":"Login successful","user_id":2,"profile_pic_url":"uploads\/profile_1743668482_67ee450253271.jpeg"}
+[2025-04-08 14:04:53] Sending response: {"status":"success","message":"Login successful","user_id":2,"profile_pic_url":"uploads\/profile_1743668482_67ee450253271.jpeg"}
+[2025-04-08 14:04:53] Database connection closed
+[2025-04-08 14:04:54] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:04:54] Database connection successful
+[2025-04-08 14:04:54] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:04:54] Database connection successful
+[2025-04-08 14:06:10] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 14:06:10] Database connection successful
+[2025-04-08 14:06:10] Login action requested
+[2025-04-08 14:06:10] Raw request body: {"action":"login","username":"1234","password":"1234"}
+[2025-04-08 14:06:10] Login attempt for username: 1234
+[2025-04-08 14:06:10] Executing SQL: SELECT * FROM users WHERE username = ? with username: 1234
+[2025-04-08 14:06:10] User found in database
+[2025-04-08 14:06:10] Comparing passwords: input vs stored
+[2025-04-08 14:06:10] Login successful
+[2025-04-08 14:06:10] Returning profile pic URL: uploads/profile_1743668482_67ee450253271.jpeg
+[2025-04-08 14:06:10] Sending response: {"status":"success","message":"Login successful","user_id":2,"profile_pic_url":"uploads\/profile_1743668482_67ee450253271.jpeg"}
+[2025-04-08 14:06:10] Sending response: {"status":"success","message":"Login successful","user_id":2,"profile_pic_url":"uploads\/profile_1743668482_67ee450253271.jpeg"}
+[2025-04-08 14:06:10] Database connection closed
+[2025-04-08 14:06:11] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:06:11] Database connection successful
+[2025-04-08 14:06:11] Getting tasks for user_id: 2, category: Work
+[2025-04-08 14:06:11] Found 0 tasks
+[2025-04-08 14:06:11] Sending response: {"status":"success","tasks":[]}
+[2025-04-08 14:06:11] Database connection closed
+[2025-04-08 14:06:11] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:06:11] Database connection successful
+[2025-04-08 14:06:11] Getting tasks for user_id: 2, category: Work
+[2025-04-08 14:06:11] Found 0 tasks
+[2025-04-08 14:06:11] Sending response: {"status":"success","tasks":[]}
+[2025-04-08 14:06:11] Database connection closed
+[2025-04-08 14:07:22] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 14:07:22] Database connection successful
+[2025-04-08 14:07:22] Login action requested
+[2025-04-08 14:07:22] Raw request body: {"action":"login","username":"1234","password":"1234"}
+[2025-04-08 14:07:22] Login attempt for username: 1234
+[2025-04-08 14:07:22] Executing SQL: SELECT * FROM users WHERE username = ? with username: 1234
+[2025-04-08 14:07:22] User found in database
+[2025-04-08 14:07:22] Comparing passwords: input vs stored
+[2025-04-08 14:07:22] Login successful
+[2025-04-08 14:07:22] Returning profile pic URL: uploads/profile_1743668482_67ee450253271.jpeg
+[2025-04-08 14:07:22] Sending response: {"status":"success","message":"Login successful","user_id":2,"profile_pic_url":"uploads\/profile_1743668482_67ee450253271.jpeg"}
+[2025-04-08 14:07:22] Sending response: {"status":"success","message":"Login successful","user_id":2,"profile_pic_url":"uploads\/profile_1743668482_67ee450253271.jpeg"}
+[2025-04-08 14:07:22] Database connection closed
+[2025-04-08 14:07:23] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:07:23] Database connection successful
+[2025-04-08 14:07:23] Getting tasks for user_id: 2, category: Work
+[2025-04-08 14:07:23] Found 0 tasks
+[2025-04-08 14:07:23] Sending response: {"status":"success","tasks":[]}
+[2025-04-08 14:07:23] Database connection closed
+[2025-04-08 14:07:23] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:07:23] Database connection successful
+[2025-04-08 14:07:23] Getting tasks for user_id: 2, category: Work
+[2025-04-08 14:07:23] Found 0 tasks
+[2025-04-08 14:07:23] Sending response: {"status":"success","tasks":[]}
+[2025-04-08 14:07:23] Database connection closed
+[2025-04-08 14:07:41] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 14:07:41] Database connection successful
+[2025-04-08 14:07:41] Login action requested
+[2025-04-08 14:07:41] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-08 14:07:41] Login attempt for username: Abdi
+[2025-04-08 14:07:41] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-08 14:07:41] User found in database
+[2025-04-08 14:07:41] Comparing passwords: input vs stored
+[2025-04-08 14:07:41] Login successful
+[2025-04-08 14:07:41] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-08 14:07:41] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 14:07:41] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 14:07:41] Database connection closed
+[2025-04-08 14:07:47] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:07:47] Database connection successful
+[2025-04-08 14:07:47] Getting tasks for user_id: 1, category: Work
+[2025-04-08 14:07:47] Found 1 tasks
+[2025-04-08 14:07:47] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 13:52:16","updated_at":"2025-04-08 13:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-08 14:07:47] Database connection closed
+[2025-04-08 14:07:47] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:07:47] Database connection successful
+[2025-04-08 14:07:47] Getting tasks for user_id: 1, category: Work
+[2025-04-08 14:07:47] Found 1 tasks
+[2025-04-08 14:07:47] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 13:52:16","updated_at":"2025-04-08 13:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-08 14:07:47] Database connection closed
+[2025-04-08 14:08:05] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:08:05] Database connection successful
+[2025-04-08 14:08:05] Getting tasks for user_id: 1, category: Work
+[2025-04-08 14:08:05] Found 1 tasks
+[2025-04-08 14:08:05] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 13:52:16","updated_at":"2025-04-08 13:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-08 14:08:05] Database connection closed
+[2025-04-08 14:08:05] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:08:05] Database connection successful
+[2025-04-08 14:08:05] Getting tasks for user_id: 1, category: Work
+[2025-04-08 14:08:05] Found 1 tasks
+[2025-04-08 14:08:05] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 13:52:16","updated_at":"2025-04-08 13:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-08 14:08:05] Database connection closed
+[2025-04-08 14:09:26] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:09:26] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:09:26] Database connection successful
+[2025-04-08 14:09:26] Getting tasks for user_id: 1, category: Work
+[2025-04-08 14:09:26] Database connection successful
+[2025-04-08 14:09:26] Getting tasks for user_id: 1, category: Work
+[2025-04-08 14:09:52] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 14:09:52] Database connection successful
+[2025-04-08 14:09:52] Login action requested
+[2025-04-08 14:09:52] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-08 14:09:52] Login attempt for username: Abdi
+[2025-04-08 14:09:52] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-08 14:09:52] User found in database
+[2025-04-08 14:09:52] Comparing passwords: input vs stored
+[2025-04-08 14:09:52] Login successful
+[2025-04-08 14:09:52] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-08 14:09:52] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 14:09:52] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 14:09:52] Database connection closed
+[2025-04-08 14:09:54] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:09:54] Database connection successful
+[2025-04-08 14:09:54] Getting tasks for user_id: 1, category: Work
+[2025-04-08 14:09:54] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:09:54] Database connection successful
+[2025-04-08 14:09:54] Getting tasks for user_id: 1, category: Work
+[2025-04-08 14:09:58] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:09:58] Database connection successful
+[2025-04-08 14:09:58] Getting tasks for user_id: 1, category: Work
+[2025-04-08 14:09:58] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:09:58] Database connection successful
+[2025-04-08 14:09:58] Getting tasks for user_id: 1, category: Work
+[2025-04-08 14:10:22] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 14:10:22] Database connection successful
+[2025-04-08 14:10:22] Login action requested
+[2025-04-08 14:10:22] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-08 14:10:22] Login attempt for username: Abdi
+[2025-04-08 14:10:22] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-08 14:10:22] User found in database
+[2025-04-08 14:10:22] Comparing passwords: input vs stored
+[2025-04-08 14:10:22] Login successful
+[2025-04-08 14:10:22] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-08 14:10:22] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 14:10:22] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 14:10:22] Database connection closed
+[2025-04-08 14:10:24] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:10:24] Database connection successful
+[2025-04-08 14:10:24] Getting tasks for user_id: 1, category: Work
+[2025-04-08 14:10:24] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:10:24] Database connection successful
+[2025-04-08 14:10:24] Getting tasks for user_id: 1, category: Work
+[2025-04-08 14:13:37] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:13:37] Database connection successful
+[2025-04-08 14:13:37] Getting tasks for user_id: 1, category: Work
+[2025-04-08 14:13:37] Found 1 tasks
+[2025-04-08 14:13:37] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 11:52:16","updated_at":"2025-04-08 11:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-08 14:13:37] Database connection closed
+[2025-04-08 14:13:37] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:13:37] Database connection successful
+[2025-04-08 14:13:37] Getting tasks for user_id: 1, category: Work
+[2025-04-08 14:13:37] Found 1 tasks
+[2025-04-08 14:13:37] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 11:52:16","updated_at":"2025-04-08 11:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-08 14:13:37] Database connection closed
+[2025-04-08 14:14:19] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:14:19] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 14:14:19] Database connection successful
+[2025-04-08 14:14:19] Getting tasks for user_id: 1, category: Work
+[2025-04-08 14:14:19] Found 1 tasks
+[2025-04-08 14:14:19] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 11:52:16","updated_at":"2025-04-08 11:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-08 14:14:19] Database connection closed
+[2025-04-08 14:14:19] Database connection successful
+[2025-04-08 14:14:19] Getting tasks for user_id: 1, category: Work
+[2025-04-08 14:14:19] Found 1 tasks
+[2025-04-08 14:14:19] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 11:52:16","updated_at":"2025-04-08 11:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-08 14:14:19] Database connection closed
+[2025-04-08 16:01:47] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 16:01:47] Database connection successful
+[2025-04-08 16:01:47] Login action requested
+[2025-04-08 16:01:47] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-08 16:01:47] Login attempt for username: Abdi
+[2025-04-08 16:01:47] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-08 16:01:47] User found in database
+[2025-04-08 16:01:47] Comparing passwords: input vs stored
+[2025-04-08 16:01:47] Login successful
+[2025-04-08 16:01:47] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-08 16:01:47] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 16:01:47] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 16:01:47] Database connection closed
+[2025-04-08 16:01:49] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 16:01:49] Database connection successful
+[2025-04-08 16:01:49] Getting tasks for user_id: 1, category: Work
+[2025-04-08 16:01:49] Found 1 tasks
+[2025-04-08 16:01:49] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 11:52:16","updated_at":"2025-04-08 11:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-08 16:01:49] Database connection closed
+[2025-04-08 16:01:49] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 16:01:49] Database connection successful
+[2025-04-08 16:01:49] Getting tasks for user_id: 1, category: Work
+[2025-04-08 16:01:49] Found 1 tasks
+[2025-04-08 16:01:49] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 11:52:16","updated_at":"2025-04-08 11:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-08 16:01:49] Database connection closed
+[2025-04-08 16:03:00] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 16:03:00] Database connection successful
+[2025-04-08 16:03:00] Getting tasks for user_id: 1, category: Work
+[2025-04-08 16:03:00] Found 1 tasks
+[2025-04-08 16:03:00] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 11:52:16","updated_at":"2025-04-08 11:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-08 16:03:00] Database connection closed
+[2025-04-08 16:03:00] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 16:03:00] Database connection successful
+[2025-04-08 16:03:00] Getting tasks for user_id: 1, category: Work
+[2025-04-08 16:03:00] Found 1 tasks
+[2025-04-08 16:03:00] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 11:52:16","updated_at":"2025-04-08 11:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-08 16:03:00] Database connection closed
+[2025-04-08 16:03:20] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 16:03:20] Database connection successful
+[2025-04-08 16:03:20] Getting tasks for user_id: 1, category: Work
+[2025-04-08 16:03:20] Found 1 tasks
+[2025-04-08 16:03:20] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 11:52:16","updated_at":"2025-04-08 11:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-08 16:03:20] Database connection closed
+[2025-04-08 16:03:20] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 16:03:20] Database connection successful
+[2025-04-08 16:03:20] Getting tasks for user_id: 1, category: Work
+[2025-04-08 16:03:20] Found 1 tasks
+[2025-04-08 16:03:20] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 11:52:16","updated_at":"2025-04-08 11:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-08 16:03:20] Database connection closed
+[2025-04-08 16:03:29] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 16:03:29] Database connection successful
+[2025-04-08 16:03:29] Getting tasks for user_id: 1, category: Work
+[2025-04-08 16:03:29] Found 1 tasks
+[2025-04-08 16:03:29] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 11:52:16","updated_at":"2025-04-08 11:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-08 16:03:29] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-08 16:03:29] Database connection closed
+[2025-04-08 16:03:29] Database connection successful
+[2025-04-08 16:03:29] Getting tasks for user_id: 1, category: Work
+[2025-04-08 16:03:29] Found 1 tasks
+[2025-04-08 16:03:29] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 11:52:16","updated_at":"2025-04-08 11:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-08 16:03:29] Database connection closed
+[2025-04-08 16:44:44] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-08 16:44:44] Database connection successful
+[2025-04-08 16:44:44] Login action requested
+[2025-04-08 16:44:44] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-08 16:44:44] Login attempt for username: Abdi
+[2025-04-08 16:44:44] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-08 16:44:44] User found in database
+[2025-04-08 16:44:44] Comparing passwords: input vs stored
+[2025-04-08 16:44:44] Login successful
+[2025-04-08 16:44:44] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-08 16:44:44] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 16:44:44] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-08 16:44:44] Database connection closed
+[2025-04-10 09:49:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-10 09:49:08] Database connection successful
+[2025-04-10 09:49:08] Login action requested
+[2025-04-10 09:49:08] Raw request body: {"action":"login","username":"abdi","password":"abdi"}
+[2025-04-10 09:49:08] Login attempt for username: abdi
+[2025-04-10 09:49:08] Executing SQL: SELECT * FROM users WHERE username = ? with username: abdi
+[2025-04-10 09:49:08] User found in database
+[2025-04-10 09:49:08] Comparing passwords: input vs stored
+[2025-04-10 09:49:09] Invalid password
+[2025-04-10 09:49:09] Sending response: {"status":"error","message":"Invalid credentials"}
+[2025-04-10 09:49:09] Database connection closed
+[2025-04-10 09:49:13] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-10 09:49:13] Database connection successful
+[2025-04-10 09:49:13] Login action requested
+[2025-04-10 09:49:13] Raw request body: {"action":"login","username":"abdi","password":"abdi"}
+[2025-04-10 09:49:13] Login attempt for username: abdi
+[2025-04-10 09:49:13] Executing SQL: SELECT * FROM users WHERE username = ? with username: abdi
+[2025-04-10 09:49:13] User found in database
+[2025-04-10 09:49:13] Comparing passwords: input vs stored
+[2025-04-10 09:49:13] Invalid password
+[2025-04-10 09:49:13] Sending response: {"status":"error","message":"Invalid credentials"}
+[2025-04-10 09:49:13] Database connection closed
+[2025-04-10 09:49:22] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-10 09:49:22] Database connection successful
+[2025-04-10 09:49:22] Login action requested
+[2025-04-10 09:49:22] Raw request body: {"action":"login","username":"1234","password":"1234"}
+[2025-04-10 09:49:22] Login attempt for username: 1234
+[2025-04-10 09:49:22] Executing SQL: SELECT * FROM users WHERE username = ? with username: 1234
+[2025-04-10 09:49:22] User found in database
+[2025-04-10 09:49:22] Comparing passwords: input vs stored
+[2025-04-10 09:49:22] Login successful
+[2025-04-10 09:49:22] Returning profile pic URL: uploads/profile_1743668482_67ee450253271.jpeg
+[2025-04-10 09:49:22] Sending response: {"status":"success","message":"Login successful","user_id":2,"profile_pic_url":"uploads\/profile_1743668482_67ee450253271.jpeg"}
+[2025-04-10 09:49:22] Sending response: {"status":"success","message":"Login successful","user_id":2,"profile_pic_url":"uploads\/profile_1743668482_67ee450253271.jpeg"}
+[2025-04-10 09:49:22] Database connection closed
+[2025-04-10 09:49:32] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-10 09:49:32] Database connection successful
+[2025-04-10 09:49:32] Login action requested
+[2025-04-10 09:49:32] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-10 09:49:32] Login attempt for username: Abdi
+[2025-04-10 09:49:32] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-10 09:49:32] User found in database
+[2025-04-10 09:49:32] Comparing passwords: input vs stored
+[2025-04-10 09:49:32] Login successful
+[2025-04-10 09:49:32] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-10 09:49:32] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-10 09:49:32] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-10 09:49:32] Database connection closed
+[2025-04-10 09:49:43] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-10 09:49:43] Database connection successful
+[2025-04-10 09:49:43] Login action requested
+[2025-04-10 09:49:43] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-10 09:49:43] Login attempt for username: Abdi
+[2025-04-10 09:49:43] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-10 09:49:43] User found in database
+[2025-04-10 09:49:43] Comparing passwords: input vs stored
+[2025-04-10 09:49:43] Login successful
+[2025-04-10 09:49:43] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-10 09:49:43] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-10 09:49:43] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-10 09:49:43] Database connection closed
+[2025-04-10 09:50:41] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-10 09:50:41] Database connection successful
+[2025-04-10 09:50:41] Getting tasks for user_id: 1, category: Work
+[2025-04-10 09:50:41] Found 1 tasks
+[2025-04-10 09:50:41] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 11:52:16","updated_at":"2025-04-08 11:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-10 09:50:41] Database connection closed
+[2025-04-10 09:50:43] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-10 09:50:43] Database connection successful
+[2025-04-10 09:50:43] Getting tasks for user_id: 1, category: Work
+[2025-04-10 09:50:43] Found 1 tasks
+[2025-04-10 09:50:43] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 11:52:16","updated_at":"2025-04-08 11:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-10 09:50:43] Database connection closed
+[2025-04-10 09:51:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=deleteTask
+[2025-04-10 09:51:08] Database connection successful
+[2025-04-10 09:51:11] API request received: POST /ToDoListApp/screens/backend/api.php?action=deleteTask
+[2025-04-10 09:51:11] Database connection successful
+[2025-04-10 09:51:23] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-10 09:51:23] Database connection successful
+[2025-04-10 09:51:23] Login action requested
+[2025-04-10 09:51:23] Raw request body: {"action":"login","username":"1234","password":"1234"}
+[2025-04-10 09:51:23] Login attempt for username: 1234
+[2025-04-10 09:51:23] Executing SQL: SELECT * FROM users WHERE username = ? with username: 1234
+[2025-04-10 09:51:23] User found in database
+[2025-04-10 09:51:23] Comparing passwords: input vs stored
+[2025-04-10 09:51:23] Login successful
+[2025-04-10 09:51:23] Returning profile pic URL: uploads/profile_1743668482_67ee450253271.jpeg
+[2025-04-10 09:51:23] Sending response: {"status":"success","message":"Login successful","user_id":2,"profile_pic_url":"uploads\/profile_1743668482_67ee450253271.jpeg"}
+[2025-04-10 09:51:23] Sending response: {"status":"success","message":"Login successful","user_id":2,"profile_pic_url":"uploads\/profile_1743668482_67ee450253271.jpeg"}
+[2025-04-10 09:51:23] Database connection closed
+[2025-04-10 09:51:24] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-10 09:51:24] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-10 09:51:24] Database connection successful
+[2025-04-10 09:51:24] Getting tasks for user_id: 2, category: Work
+[2025-04-10 09:51:24] Found 0 tasks
+[2025-04-10 09:51:24] Sending response: {"status":"success","tasks":[]}
+[2025-04-10 09:51:24] Database connection closed
+[2025-04-10 09:51:24] Database connection successful
+[2025-04-10 09:51:24] Getting tasks for user_id: 2, category: Work
+[2025-04-10 09:51:24] Found 0 tasks
+[2025-04-10 09:51:24] Sending response: {"status":"success","tasks":[]}
+[2025-04-10 09:51:24] Database connection closed
+[2025-04-10 09:51:33] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-04-10 09:51:33] Database connection successful
+[2025-04-10 09:51:33] Login action requested
+[2025-04-10 09:51:33] Raw request body: {"action":"login","username":"Abdi","password":"Abdi"}
+[2025-04-10 09:51:33] Login attempt for username: Abdi
+[2025-04-10 09:51:33] Executing SQL: SELECT * FROM users WHERE username = ? with username: Abdi
+[2025-04-10 09:51:33] User found in database
+[2025-04-10 09:51:33] Comparing passwords: input vs stored
+[2025-04-10 09:51:33] Login successful
+[2025-04-10 09:51:33] Returning profile pic URL: uploads/profile_1743669533_67ee491d05ed6.jpg
+[2025-04-10 09:51:33] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-10 09:51:33] Sending response: {"status":"success","message":"Login successful","user_id":1,"profile_pic_url":"uploads\/profile_1743669533_67ee491d05ed6.jpg"}
+[2025-04-10 09:51:33] Database connection closed
+[2025-04-10 09:51:34] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-10 09:51:34] Database connection successful
+[2025-04-10 09:51:34] Getting tasks for user_id: 1, category: Work
+[2025-04-10 09:51:34] Found 1 tasks
+[2025-04-10 09:51:34] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 11:52:16","updated_at":"2025-04-08 11:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-10 09:51:34] Database connection closed
+[2025-04-10 09:51:34] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-04-10 09:51:34] Database connection successful
+[2025-04-10 09:51:34] Getting tasks for user_id: 1, category: Work
+[2025-04-10 09:51:34] Found 1 tasks
+[2025-04-10 09:51:34] Sending response: {"status":"success","tasks":[{"id":1,"user_id":1,"category_id":2,"title":"uitproberen","description":"database","due_date":"2025-04-08","priority":"high","status":"pending","created_at":"2025-04-08 11:52:16","updated_at":"2025-04-08 11:52:16","category_name":"Work","category_color":"#33FF57"}]}
+[2025-04-10 09:51:34] Database connection closed

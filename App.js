@@ -13,7 +13,9 @@ import Hobby from './screens/hobby';
 import MakeTask from './screens/MakeTask';
 import AddCategory from './screens/AddCategory';
 import CategoryScreen from './screens/CategoryScreen';
-import EditCategoryScreen from './screens/EditCategoryScreen';  
+import EditCategoryScreen from './screens/EditCategoryScreen';
+import Login from './screens/login';
+import Register from './screens/register';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,7 +34,9 @@ function App() {
         <Stack.Screen name="MakeTask" component={MakeTask} />
         <Stack.Screen name="AddCategory" component={AddCategory} />
         <Stack.Screen name="CategoryScreen" component={CategoryScreen} />
-        <Stack.Screen name="EditCategory" component={EditCategoryScreen} /> 
+        <Stack.Screen name="EditCategory" component={EditCategoryScreen} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -135,6 +139,9 @@ function HomeScreen({ navigation }) {
         <Text style={styles.listsText}>Lists</Text>
         <TouchableOpacity onPress={toggleSortOrder}>
           <Text style={styles.sortButtonText}>Sort by {'\n'}{sortOrder === 'alphabetical' ? 'Recently Added' : 'Alphabetical'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.loginButtonText}>Go to Login</Text>
         </TouchableOpacity>
         <View style={styles.boxesContainer}>
           {sortCategories(combinedCategories).map(category => (
@@ -242,6 +249,18 @@ const styles = StyleSheet.create({
     left: 120,
     top: -35,  
     color: 'rgba(169, 169, 169, 1)',
+  },
+  loginButton: {
+    backgroundColor: 'rgba(49, 74, 164, 1)',
+    padding: 10,
+    borderRadius: 8,
+    alignSelf: 'center',
+    marginTop: 10,
+  },
+  loginButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
