@@ -6,33 +6,15 @@ import styles from './uiterlijk';
 const Work = ({ navigation }) => {
   const [tasks, setTasks] = useState([]);
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const loadUser = async () => {
-      const userId = await AsyncStorage.getItem('user_id');
-      if (userId) {
-        setUser({ id: userId });
-        loadData(userId);
-      }
-    };
-    loadUser();
-
-    const focusListener = navigation.addListener('focus', () => {
-      loadUser();
-    });
-
-    return () => {
-      navigation.removeListener('focus', focusListener);
-    };
-  }, [navigation]);
+  const [userId, setUserId] = useState(null);
 
   const loadData = async (userId) => {
     try {
-      const response = await fetch('http://10.3.1.47/ToDoListApp/screens/backend/api.php?action=getTasks', {
+      const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=getTasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
           action: 'getTasks',
@@ -41,27 +23,57 @@ const Work = ({ navigation }) => {
         }),
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Server didn't return JSON");
+      }
+
       const data = await response.json();
+      console.log('Server response:', data);
+
       if (data.status === 'success') {
-        setTasks(data.tasks);
+        setTasks(Array.isArray(data.tasks) ? data.tasks : []);
       } else {
-        Alert.alert('Error', 'Failed to load tasks');
+        throw new Error(data.message || 'Failed to load tasks');
       }
     } catch (error) {
-      Alert.alert('Error', 'Failed to connect to server');
+      console.error('Error loading tasks:', error);
+      Alert.alert('Error', error.message || 'Failed to load tasks');
     }
   };
 
+  useEffect(() => {
+    const loadUser = async () => {
+        const storedUserId = await AsyncStorage.getItem('user_id');
+        if (storedUserId) {
+            setUserId(storedUserId);
+            loadData(storedUserId);
+        }
+    };
+
+    loadUser();
+
+    const unsubscribe = navigation.addListener('focus', () => {
+        loadUser(); // Reload data when screen comes into focus
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+
   const deleteTask = async (taskId) => {
     try {
-      const response = await fetch('http://10.3.1.47/ToDoListApp/screens/backend/api.php?action=deleteTask', {
+      const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=deleteTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           action: 'deleteTask',
-          user_id: user.id,
+          user_id: userId,
           task_id: taskId,
         }),
       });
@@ -69,6 +81,7 @@ const Work = ({ navigation }) => {
       const data = await response.json();
       if (data.status === 'success') {
         setTasks(tasks.filter(task => task.id !== taskId));
+        Alert.alert('Success', 'Task deleted successfully');
       } else {
         Alert.alert('Error', data.message || 'Failed to delete task');
       }
@@ -84,8 +97,8 @@ const Work = ({ navigation }) => {
     }));
   };
 
-  const handleBoxPress = (screenName) => {
-    navigation.navigate(screenName, { category: 'Work' });
+  const handleBoxPress = () => {
+    navigation.navigate('MakeTask', { category: 'Work' });
   };
 
   return (
@@ -133,7 +146,7 @@ const Work = ({ navigation }) => {
       </View>
       <TouchableOpacity 
         style={styles.footer}
-        onPress={() => handleBoxPress('MakeTask')}
+        onPress={handleBoxPress}
       >  
         <Image style={styles.footerplus} source={require('../assets/plus.png')} />
       </TouchableOpacity>

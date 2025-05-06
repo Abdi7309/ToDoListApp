@@ -13,28 +13,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
 
 function EditCategoryScreen({ route, navigation }) {
-  const { categoryId } = route.params;  // Get categoryId passed through params
-  const [categoryName, setCategoryName] = useState('');
+  const { categoryId, categoryName: initialName, iconUrl: initialIcon } = route.params;
+  const [categoryName, setCategoryName] = useState(initialName || '');
   const [selectedImage, setSelectedImage] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    const loadCategoryData = async () => {
-      try {
-        const categoriesString = await AsyncStorage.getItem('customCategories');
-        const categories = JSON.parse(categoriesString) || [];
-        const category = categories.find(cat => cat.id === categoryId);  // Find the category by id
-        
-        if (category) {
-          setCategoryName(category.name);
-          setSelectedImage(category.icon);
-        }
-      } catch (error) {
-        console.error('Error loading category data:', error);
+    const loadUserId = async () => {
+      const storedUserId = await AsyncStorage.getItem('user_id');
+      if (storedUserId) {
+        setUserId(storedUserId);
       }
     };
-
-    loadCategoryData();
-  }, [categoryId]);
+    loadUserId();
+  }, []);
 
   const pickImage = async () => {
     try {
@@ -44,43 +36,50 @@ function EditCategoryScreen({ route, navigation }) {
         cropping: true,
         compressImageQuality: 0.8,
       });
-      setSelectedImage(image.path);
+      setSelectedImage(image);
     } catch (error) {
       console.error('Image Picker Error:', error);
     }
   };
 
   const saveCategory = async () => {
-    if (categoryName.trim().length === 0) {
+    if (!categoryName.trim()) {
       Alert.alert('Error', 'Please enter a category name');
       return;
     }
 
     try {
-      const categoriesString = await AsyncStorage.getItem('customCategories');
-      let categories = JSON.parse(categoriesString) || [];
-
-      // Check if the new category name already exists (excluding the category being edited)
-      const categoryExists = categories.some(
-        (category) => category.name.toLowerCase() === categoryName.trim().toLowerCase() && category.id !== categoryId
-      );
-
-      if (categoryExists) {
-        Alert.alert('Error', 'A category with this name already exists.');
-        return;
+      const formData = new FormData();
+      formData.append('user_id', userId);
+      formData.append('category_id', categoryId);
+      formData.append('name', categoryName.trim());
+      
+      if (selectedImage) {
+        formData.append('icon', {
+          uri: selectedImage.path,
+          type: selectedImage.mime,
+          name: 'icon.' + selectedImage.path.split('.').pop()
+        });
       }
 
-      const updatedCategories = categories.map(category =>
-        category.id === categoryId
-          ? { ...category, name: categoryName.trim(), icon: selectedImage || 'menu.png' }
-          : category
-      );
+      const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=updateCategory', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
-      await AsyncStorage.setItem('customCategories', JSON.stringify(updatedCategories));
-      navigation.goBack();  // Navigate back after saving
+      const data = await response.json();
+      if (data.status === 'success') {
+        Alert.alert('Success', 'Category updated successfully', [
+          { text: 'OK', onPress: () => navigation.goBack() }
+        ]);
+      } else {
+        Alert.alert('Error', data.message || 'Failed to update category');
+      }
     } catch (error) {
-      console.error('Error saving category:', error);
-      Alert.alert('Error', 'Failed to save category');
+      Alert.alert('Error', 'Failed to connect to server');
     }
   };
 
@@ -89,29 +88,35 @@ function EditCategoryScreen({ route, navigation }) {
       'Confirm Deletion',
       'Are you sure you want to delete this category?',
       [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
+        { text: 'Cancel', style: 'cancel' },
         {
           text: 'Delete',
           style: 'destructive',
           onPress: async () => {
             try {
-              const categoriesString = await AsyncStorage.getItem('customCategories');
-              let categories = JSON.parse(categoriesString) || [];
-              const updatedCategories = categories.filter(category => category.id !== categoryId);
+              const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=deleteCategory', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  user_id: userId,
+                  category_id: categoryId
+                }),
+              });
 
-              await AsyncStorage.setItem('customCategories', JSON.stringify(updatedCategories));
-              navigation.goBack();  // Navigate back after deletion
+              const data = await response.json();
+              if (data.status === 'success') {
+                navigation.goBack();
+              } else {
+                Alert.alert('Error', data.message || 'Failed to delete category');
+              }
             } catch (error) {
-              console.error('Error deleting category:', error);
-              Alert.alert('Error', 'Failed to delete category');
+              Alert.alert('Error', 'Failed to connect to server');
             }
           },
         },
-      ],
-      { cancelable: false }
+      ]
     );
   };
 
@@ -131,8 +136,8 @@ function EditCategoryScreen({ route, navigation }) {
         <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
           <Text style={styles.imagePickerButtonText}>Select Image</Text>
         </TouchableOpacity>
-        {selectedImage && selectedImage.startsWith('file') ? (
-          <Image source={{ uri: selectedImage }} style={styles.icon1} />
+        {selectedImage && selectedImage.path ? (
+          <Image source={{ uri: selectedImage.path }} style={styles.icon1} />
         ) : (
           <Image style={styles.icon1} source={require('../assets/menu.png')} />
         )}

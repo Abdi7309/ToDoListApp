@@ -44,28 +44,59 @@ function App() {
 
 function HomeScreen({ navigation }) {
   const [taskCounts, setTaskCounts] = useState({});
-  const [customCategories, setCustomCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [sortOrder, setSortOrder] = useState('Recently Added');
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const tasksString = await AsyncStorage.getItem('tasks');
-        const tasks = JSON.parse(tasksString) || [];
+        const storedUserId = await AsyncStorage.getItem('user_id');
+        if (!storedUserId) {
+          navigation.navigate('Login');
+          return;
+        }
+        setUserId(storedUserId);
 
-        const predefinedCategories = ['Alles', 'Work', 'Music', 'Travel', 'Study', 'Home', 'Hobby'];
-        const counts = {};
-        predefinedCategories.forEach(category => {
-          counts[category] = tasks.filter(task => task.page === category).length;
+        // Fetch all categories (both predefined and custom)
+        const categoriesResponse = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=getCategories', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            action: 'getCategories',
+            user_id: storedUserId
+          }),
         });
-        setTaskCounts(counts);
 
-        const customCategoriesString = await AsyncStorage.getItem('customCategories');
-        const loadedCustomCategories = JSON.parse(customCategoriesString) || [];
-        setCustomCategories(loadedCustomCategories.map(category => ({
-          ...category,
-          tasks: tasks.filter(task => task.page === category.name).length,
-        })));
+        const categoriesData = await categoriesResponse.json();
+        if (categoriesData.status === 'success') {
+          const categoriesWithTasks = await Promise.all(
+            categoriesData.categories.map(async (category) => {
+              // Fetch task count for each category
+              const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=getTasks', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  action: 'getTasks',
+                  user_id: storedUserId,
+                  category: category.name,
+                }),
+              });
+
+              const data = await response.json();
+              return {
+                ...category,
+                tasks: data.status === 'success' ? data.tasks.length : 0
+              };
+            })
+          );
+
+          setCategories(categoriesWithTasks);
+        }
       } catch (error) {
         console.error('Error loading data:', error);
       }
@@ -73,42 +104,50 @@ function HomeScreen({ navigation }) {
 
     loadData();
     const focusListener = navigation.addListener('focus', loadData);
-    return () => {
-      navigation.removeListener('focus', focusListener);
-    };
+    return () => navigation.removeListener('focus', focusListener);
   }, [navigation]);
 
   const handleBoxPress = (screenName) => {
+    const category = categories.find(c => c.name === screenName);
     const predefinedScreens = ['Alles', 'Work', 'Music', 'Travel', 'Study', 'Home', 'Hobby', 'MakeTask', 'AddCategory'];
+    
     if (predefinedScreens.includes(screenName)) {
       navigation.navigate(screenName);
     } else {
-      navigation.navigate('CategoryScreen', { category: screenName });
+      navigation.navigate('CategoryScreen', { 
+        category: screenName,
+        iconUrl: category?.icon_url
+      });
     }
   };
 
   const handleLongPress = (category) => {
     navigation.navigate('EditCategory', {
-      categoryName: category.name,
       categoryId: category.id,
-      categoryIcon: category.icon,
+      categoryName: category.name,
+      iconUrl: category.icon_url
     });
   };
 
   const sortCategories = (categories) => {
     const allesCategory = categories.find(category => category.name === 'Alles');
     const otherCategories = categories.filter(category => category.name !== 'Alles');
+    
     otherCategories.sort((a, b) => {
-      const nameA = typeof a === 'string' ? a : a.name;
-      const nameB = typeof b === 'string' ? b : b.name;
       if (sortOrder === 'alphabetical') {
-        return nameA.localeCompare(nameB);
+        return a.name.localeCompare(b.name);
       } else {
-        const idA = typeof a === 'string' ? 0 : a.id;
-        const idB = typeof b === 'string' ? 0 : b.id;
-        return idB - idA;
+        if (a.type === 'custom' && b.type === 'custom') {
+          return b.id - a.id;
+        } else if (a.type === 'custom') {
+          return -1; // Custom categories come first
+        } else if (b.type === 'custom') {
+          return 1; // Custom categories come first
+        }
+        return a.name.localeCompare(b.name); // Sort predefined categories alphabetically
       }
     });
+
     return allesCategory ? [allesCategory, ...otherCategories] : otherCategories;
   };
 
@@ -126,10 +165,14 @@ function HomeScreen({ navigation }) {
     hobby: require('./assets/Hobby.png'),
   };
 
-  const combinedCategories = [
-    ...Object.keys(taskCounts).map(category => ({ name: category, tasks: taskCounts[category], predefined: true })),
-    ...customCategories
-  ];
+  const getImageSource = (category) => {
+    if (category.type === 'predefined') {
+      return images[category.name.toLowerCase()] || require('./assets/menu2.png');
+    } else if (category.icon_url) {
+      return { uri: `http://10.3.1.31/ToDoListApp/screens/backend/${category.icon_url}` };
+    }
+    return require('./assets/menu2.png');
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -144,22 +187,17 @@ function HomeScreen({ navigation }) {
           <Text style={styles.loginButtonText}>Go to Login</Text>
         </TouchableOpacity>
         <View style={styles.boxesContainer}>
-          {sortCategories(combinedCategories).map(category => (
+          {sortCategories(categories).map(category => (
             <TouchableOpacity
               key={category.name}
               style={styles.boxes}
               onPress={() => handleBoxPress(category.name)}
-              onLongPress={() => category.predefined ? null : handleLongPress(category)}
+              onLongPress={() => category.type === 'custom' ? handleLongPress(category) : null}
             >
               <Image
                 style={styles.icoontje}
-                source={
-                  category.predefined
-                    ? images[category.name.toLowerCase()]
-                    : category.icon === 'menu.png'
-                      ? require('./assets/menu2.png')
-                      : { uri: category.icon }
-                }
+                source={getImageSource(category)}
+                resizeMode="cover"
               />
               <Text style={styles.textboxex}>{category.name}</Text>
               <Text style={styles.Tasksboxex}>{category.tasks} Tasks</Text>
@@ -213,6 +251,7 @@ const styles = StyleSheet.create({
     top: 15,
     marginLeft: 15,
     marginBottom: -55,
+    borderRadius: 8, // Add this to make images look better
   },
   textboxex: {
     color: 'black',

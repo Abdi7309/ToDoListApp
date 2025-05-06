@@ -6,14 +6,14 @@ import styles from './uiterlijk';
 const Alles = ({ navigation }) => {
   const [tasks, setTasks] = useState([]);
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
-  const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     const loadUser = async () => {
-      const userData = await AsyncStorage.getItem('user');
-      if (userData) {
-        setUser(JSON.parse(userData));
-        loadData(JSON.parse(userData));
+      const storedUserId = await AsyncStorage.getItem('user_id');
+      if (storedUserId) {
+        setUserId(storedUserId);
+        loadData(storedUserId);
       }
     };
     loadUser();
@@ -27,25 +27,25 @@ const Alles = ({ navigation }) => {
     };
   }, [navigation]);
 
-  const loadData = async (userData) => {
+  const loadData = async (userId) => {
     try {
-      const response = await fetch('http://your-server-address/api.php', {
+      const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=getTasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           action: 'getTasks',
-          user_id: userData.id,
+          user_id: userId,
           category: 'Alles',
         }),
       });
 
       const data = await response.json();
-      if (data.success) {
+      if (data.status === 'success') {
         setTasks(data.tasks);
       } else {
-        Alert.alert('Error', 'Failed to load tasks');
+        Alert.alert('Error', data.message || 'Failed to load tasks');
       }
     } catch (error) {
       Alert.alert('Error', 'Failed to connect to server');
@@ -54,23 +54,24 @@ const Alles = ({ navigation }) => {
 
   const deleteTask = async (taskId) => {
     try {
-      const response = await fetch('http://your-server-address/api.php', {
+      const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=deleteTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           action: 'deleteTask',
-          user_id: user.id,
+          user_id: userId,
           task_id: taskId,
         }),
       });
 
       const data = await response.json();
-      if (data.success) {
+      if (data.status === 'success') {
         setTasks(tasks.filter(task => task.id !== taskId));
+        Alert.alert('Success', 'Task deleted successfully');
       } else {
-        Alert.alert('Error', 'Failed to delete task');
+        Alert.alert('Error', data.message || 'Failed to delete task');
       }
     } catch (error) {
       Alert.alert('Error', 'Failed to connect to server');
@@ -84,6 +85,10 @@ const Alles = ({ navigation }) => {
     }));
   };
 
+  const handleBoxPress = () => {
+    navigation.navigate('MakeTask', { category: 'Alles' });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
@@ -93,7 +98,7 @@ const Alles = ({ navigation }) => {
         <Image style={styles.foto} source={require('../assets/all2.png')} />
       </View>
       <View>
-        <Text style={styles.Text1}>All</Text>
+        <Text style={styles.Text1}>Alles</Text>
         <Text style={styles.Text2}>{tasks.length} Tasks</Text>
       </View>
 
@@ -127,6 +132,12 @@ const Alles = ({ navigation }) => {
           ))}
         </ScrollView>
       </View>
+      <TouchableOpacity 
+        style={styles.footer}
+        onPress={handleBoxPress}
+      >  
+        <Image style={styles.footerplus} source={require('../assets/plus.png')} />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };

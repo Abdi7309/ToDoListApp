@@ -7,14 +7,14 @@ import ImagePicker from 'react-native-image-crop-picker';
 
 const AddCategory = ({ navigation }) => {
   const [categoryName, setCategoryName] = useState('');
+  const [userId, setUserId] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const loadUser = async () => {
-      const userData = await AsyncStorage.getItem('user');
-      if (userData) {
-        setUser(JSON.parse(userData));
+      const storedUserId = await AsyncStorage.getItem('user_id');
+      if (storedUserId) {
+        setUserId(storedUserId);
       }
     };
     loadUser();
@@ -23,19 +23,28 @@ const AddCategory = ({ navigation }) => {
   const pickImage = async () => {
     try {
       const image = await ImagePicker.openPicker({
-        width: 2000,
-        height: 2000,
+        width: 300,
+        height: 300,
         cropping: true,
-        compressImageQuality: 0.8,
+        cropperCircleOverlay: true,
+        mediaType: 'photo',
       });
-      setSelectedImage(image.path);
+
+      setSelectedImage({
+        uri: image.path,
+        width: image.width,
+        height: image.height,
+        mime: image.mime
+      });
     } catch (error) {
-      console.error('Image Picker Error:', error);
+      if (error.message !== 'User cancelled image selection') {
+        Alert.alert('Error', 'Failed to pick image');
+      }
     }
   };
 
   const saveCategory = async () => {
-    if (!user) {
+    if (!userId) {
       Alert.alert('Error', 'User not logged in');
       return;
     }
@@ -46,27 +55,52 @@ const AddCategory = ({ navigation }) => {
     }
 
     try {
-      const response = await fetch('http://your-server-address/api.php', {
+      const formData = new FormData();
+      formData.append('user_id', userId);
+      formData.append('name', categoryName.trim());
+      
+      if (selectedImage) {
+        formData.append('icon', {
+          uri: selectedImage.uri,
+          type: selectedImage.mime,
+          name: 'image.' + selectedImage.mime.split('/')[1]
+        });
+      }
+
+      const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=addCustomCategory', {
         method: 'POST',
+        body: formData,
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'multipart/form-data',
         },
-        body: JSON.stringify({
-          action: 'saveCategory',
-          user_id: user.id,
-          name: categoryName.trim(),
-          icon: selectedImage || 'menu.png',
-        }),
       });
 
       const data = await response.json();
       
-      if (data.success) {
+      if (data.status === "success") {
+        // Get existing custom categories
+        const existingCategoriesString = await AsyncStorage.getItem('customCategories');
+        const existingCategories = existingCategoriesString ? JSON.parse(existingCategoriesString) : [];
+        
+        // Add new category with all the data from the API response
+        const newCategory = {
+          id: data.category.id,
+          name: data.category.name,
+          color: data.category.color,
+          user_id: data.category.user_id,
+          icon: data.category.icon || 'menu.png' // Use uploaded icon or default icon
+        };
+        
+        // Update AsyncStorage
+        await AsyncStorage.setItem('customCategories', JSON.stringify([...existingCategories, newCategory]));
+        
+        Alert.alert('Success', 'Category created successfully');
         navigation.goBack();
       } else {
-        Alert.alert('Error', 'Failed to save category');
+        Alert.alert('Error', data.message || 'Failed to save category');
       }
     } catch (error) {
+      console.error('Error saving category:', error);
       Alert.alert('Error', 'Failed to connect to server');
     }
   };
@@ -75,23 +109,23 @@ const AddCategory = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <View>
         <Text style={styles.TaskText}>New Category</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image style={styles.terug} source={require('../assets/kruis.png')} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
+          {selectedImage ? (
+            <Image source={{ uri: selectedImage.uri }} style={styles.selectedImage} />
+          ) : (
+            <Text>Select Category Icon</Text>
+          )}
         </TouchableOpacity>
         <Text style={styles.planText}>Enter Category Name</Text>
         <TextInput
           style={styles.input}
           value={categoryName}
           onChangeText={setCategoryName}
+          placeholder="Category name"
         />
-        <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
-          <Text style={styles.imagePickerButtonText}>Select Image</Text>
-        </TouchableOpacity>
-        {selectedImage && selectedImage.startsWith('file') ? (
-          <Image source={{ uri: selectedImage }} style={styles.icon1} />
-        ) : (
-          <Image style={styles.icon1} source={require('../assets/menu.png')} />
-        )}
       </View>
       <TouchableOpacity style={styles.saveButton} onPress={saveCategory}>
         <Text style={{ color: 'white', fontSize: 26, fontWeight: '500' }}>Create</Text>
@@ -134,30 +168,6 @@ const styles = StyleSheet.create({
     padding: 8,
     borderBottomWidth: 1,  
   },
-  icon1: {
-    top: 104, 
-    marginLeft: 50,
-    height: 30,
-    width: 30,
-  },
-  imagePickerButton: {
-    height: 40,
-    borderWidth: 0,
-    top: 118,
-    marginLeft: 20,
-    marginRight: 100,
-    margin: 10,
-    padding: 8,
-    fontSize: 16,
-    borderColor: 'grey',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  imagePickerButtonText: {
-    color: 'black',
-    fontSize: 16,
-    top: 30,
-  },
   saveButton: {
     position: 'absolute',
     bottom: 0,
@@ -167,6 +177,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(49, 74, 164, 1)',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  imagePickerButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  selectedImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
   },
 });
 

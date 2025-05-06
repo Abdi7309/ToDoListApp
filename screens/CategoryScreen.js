@@ -1,60 +1,81 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './uiterlijk';
 
 const CategoryScreen = ({ route, navigation }) => {
-  const { category } = route.params;
+  const { category, iconUrl } = route.params;
   const [tasks, setTasks] = useState([]);
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
-  const [categoryData, setCategoryData] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    loadData();
-    const focusListener = navigation.addListener('focus', loadData);
-    return () => navigation.removeListener('focus', loadData);
+    const loadUser = async () => {
+      const storedUserId = await AsyncStorage.getItem('user_id');
+      if (storedUserId) {
+        setUserId(storedUserId);
+        loadData(storedUserId);
+      }
+    };
+    loadUser();
+
+    const focusListener = navigation.addListener('focus', () => {
+      loadUser();
+    });
+
+    return () => {
+      navigation.removeListener('focus', focusListener);
+    };
   }, [navigation]);
 
-  const loadData = async () => {
+  const loadData = async (userId) => {
     try {
-      console.log('Route Params:', route.params);
-      
-      const customCategoriesString = await AsyncStorage.getItem('customCategories');
-      const customCategories = JSON.parse(customCategoriesString) || [];
-      
-      const foundCategory = customCategories.find(cat => cat.name === category);
-      
-      if (foundCategory) {
-        setCategoryData(foundCategory);
-        console.log('Category Found:', foundCategory);
+      const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=getTasks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: userId,
+          category: category,
+          is_custom: true
+        }),
+      });
+
+      const data = await response.json();
+      if (data.status === 'success') {
+        setTasks(data.tasks);
       } else {
-        console.warn('Category not found in AsyncStorage:', category);
+        Alert.alert('Error', data.message || 'Failed to load tasks');
       }
-      
-      const tasksString = await AsyncStorage.getItem('tasks');
-      const allTasks = JSON.parse(tasksString) || [];
-      const filteredTasks = allTasks.filter(task => task.page === category);
-      setTasks(filteredTasks);
     } catch (error) {
-      console.error('Error loading data:', error);
+      Alert.alert('Error', 'Failed to connect to server');
     }
   };
 
-  const deleteTask = async (index) => {
+  const deleteTask = async (taskId) => {
     try {
-      const tasksString = await AsyncStorage.getItem('tasks');
-      let allTasks = JSON.parse(tasksString) || [];
-      
-      const taskToDelete = tasks[index];
+      const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=deleteTask', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'deleteTask',
+          user_id: userId,
+          task_id: taskId,
+        }),
+      });
 
-      allTasks = allTasks.filter(task => 
-        !(task.text === taskToDelete.text && task.description === taskToDelete.description)
-      );
-
-      await AsyncStorage.setItem('tasks', JSON.stringify(allTasks));
-      setTasks(allTasks.filter(task => task.page === category));
+      const data = await response.json();
+      if (data.status === 'success') {
+        setTasks(tasks.filter(task => task.id !== taskId));
+        Alert.alert('Success', 'Task deleted successfully');
+      } else {
+        Alert.alert('Error', data.message || 'Failed to delete task');
+      }
     } catch (error) {
-      console.error('Error deleting task:', error);
+      Alert.alert('Error', 'Failed to connect to server');
     }
   };
 
@@ -65,19 +86,23 @@ const CategoryScreen = ({ route, navigation }) => {
     }));
   };
 
+  const getCategoryIcon = () => {
+    if (iconUrl) {
+      return { uri: `http://10.3.1.31/ToDoListApp/screens/backend/${iconUrl}` };
+    }
+    return require('../assets/menu3.png'); // fallback icon
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
         <Image style={styles.terug} source={require('../assets/pijl.png')} />
       </TouchableOpacity>
       <View>
         <Image 
           style={styles.foto} 
-          source={
-            categoryData?.icon && categoryData.icon.startsWith('file://')
-              ? { uri: categoryData.icon } 
-              : require('../assets/menu3.png')
-          }
+          source={getCategoryIcon()}
+          resizeMode="cover"
         />
       </View>
       <View>
@@ -88,11 +113,14 @@ const CategoryScreen = ({ route, navigation }) => {
       <View style={styles.boxes}>
         <ScrollView>
           {tasks.map((task, index) => (
-            <View key={index} style={styles.taskContainer}>
+            <View key={task.id} style={styles.taskContainer}>
               <View style={styles.taskContent}>
                 <View style={styles.titleRow}>
-                  <Text style={styles.titeltekst}>{task.text}</Text>
-                  <TouchableOpacity style={styles.trashButton} onPress={() => deleteTask(index)}>
+                  <Text style={styles.titeltekst}>{task.title}</Text>
+                  <TouchableOpacity 
+                    style={styles.trashButton} 
+                    onPress={() => deleteTask(task.id)}
+                  >
                     <Image style={styles.trash} source={require('../assets/trash.png')} />
                   </TouchableOpacity>
                 </View>
@@ -101,7 +129,7 @@ const CategoryScreen = ({ route, navigation }) => {
                     {expandedDescriptions[index] 
                       ? task.description 
                       : task.description.length > 14 
-                        ? task.description.substring(0, 14).trim() + '...' 
+                        ? task.description.substring(0, 14).trim() + '...'
                         : task.description
                     }
                   </Text>
@@ -111,10 +139,9 @@ const CategoryScreen = ({ route, navigation }) => {
           ))}
         </ScrollView>
       </View>
-
       <TouchableOpacity 
-        style={styles.footer} 
-        onPress={() => navigation.navigate('MakeTask', { category })}
+        style={styles.footer}
+        onPress={() => navigation.navigate('MakeTask', { category, is_custom: true })}
       >
         <Image style={styles.footerplus} source={require('../assets/plus.png')} />
       </TouchableOpacity>

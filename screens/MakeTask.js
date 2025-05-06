@@ -6,26 +6,40 @@ import RNPickerSelect from 'react-native-picker-select';
 const MakeTask = ({ navigation, route }) => {
   const [text, setText] = useState('');
   const [description, setDescription] = useState('');
-  const [selectedPage, setSelectedPage] = useState('');
-  const [pages, setPages] = useState(['Work', 'Music', 'Travel', 'Study', 'Home', 'Hobby']);
-  const [user, setUser] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(route.params?.category || '');
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    const loadUser = async () => {
-      const userData = await AsyncStorage.getItem('user');
-      if (userData) {
-        setUser(JSON.parse(userData));
+    const loadCategories = async () => {
+      try {
+        const userId = await AsyncStorage.getItem('user_id');
+        const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=getCategories', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user_id: userId
+          }),
+        });
+
+        const data = await response.json();
+        if (data.status === 'success') {
+          const formattedCategories = data.categories.map(cat => ({
+            label: cat.name,
+            value: cat.name
+          }));
+          setCategories(formattedCategories);
+        }
+      } catch (error) {
+        console.error('Error loading categories:', error);
       }
     };
-    loadUser();
+
+    loadCategories();
   }, []);
 
   const saveTask = async () => {
-    if (!user) {
-      Alert.alert('Error', 'User not logged in');
-      return;
-    }
-
     if (!text.trim()) {
       Alert.alert('Error', 'Please enter a title');
       return;
@@ -37,29 +51,66 @@ const MakeTask = ({ navigation, route }) => {
     }
 
     try {
-      const response = await fetch('http://your-server-address/api.php', {
+      const userId = await AsyncStorage.getItem('user_id');
+      if (!userId) {
+        Alert.alert('Error', 'User not logged in');
+        return;
+      }
+
+      const taskData = {
+        action: 'addTask',
+        user_id: userId,
+        title: text.trim(),
+        description: description.trim(),
+        category: selectedCategory,
+      };
+
+      console.log('Sending task data:', taskData);
+
+      const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=addTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
-        body: JSON.stringify({
-          action: 'saveTask',
-          user_id: user.id,
-          title: text.trim(),
-          description: description.trim(),
-          category: selectedPage,
-        }),
+        body: JSON.stringify(taskData),
       });
 
-      const data = await response.json();
-      
-      if (data.success) {
-        navigation.goBack();
+      const responseText = await response.text();
+      console.log('Raw server response:', responseText);
+
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (e) {
+        console.error('Parse error:', e);
+        console.error('Response text:', responseText);
+        Alert.alert('Error', 'Invalid server response');
+        return;
+      }
+
+      if (data.status === 'success') {
+        Alert.alert(
+          'Success',
+          'Task added successfully',
+          [
+            {
+              text: 'OK',
+              onPress: () => {
+                navigation.goBack();
+              }
+            }
+          ]
+        );
       } else {
-        Alert.alert('Error', 'Failed to save task');
+        throw new Error(data.message || 'Failed to save task');
       }
     } catch (error) {
-      Alert.alert('Error', 'Failed to connect to server');
+      console.error('Error saving task:', error);
+      Alert.alert(
+        'Error',
+        error.message || 'Failed to save task. Please try again.'
+      );
     }
   };
 
@@ -75,15 +126,29 @@ const MakeTask = ({ navigation, route }) => {
           style={styles.input}
           value={text}
           onChangeText={setText}
+          placeholder="Task Title"
         />
-        <Image style={styles.icon1} source={require('../assets/menu.png')} />
         <TextInput
           style={styles.input2}
           placeholder="Add Description"
           placeholderTextColor={styles.input2Placeholder.color}
           value={description}
           onChangeText={setDescription}
+          multiline
         />
+        <View style={styles.pickerSelectContainer}>
+          <RNPickerSelect
+            onValueChange={(value) => setSelectedCategory(value)}
+            items={categories}
+            value={selectedCategory}
+            style={{
+              inputIOS: styles.pickerSelectIOS,
+              inputAndroid: styles.pickerSelectAndroid,
+              placeholder: styles.pickerSelectPlaceholder,
+            }}
+            placeholder={{ label: 'Select a category...', value: null }}
+          />
+        </View>
       </View>
       <TouchableOpacity
         style={styles.saveButton}
@@ -130,24 +195,19 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,  
   },
   input2: {
-    height: 40,
-    borderWidth: 0,
+    height: 80,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
     top: 120,
-    marginLeft: 100,
-    marginRight: 100,
-    margin: 10,
+    marginHorizontal: 20,
     padding: 8,
     fontSize: 16,
+    backgroundColor: 'white',
   },
   input2Placeholder: {
     color: 'black',
   },
-  icon1: {
-    top: 164, 
-    marginLeft: 50,
-    height: 30,
-    width: 30,
-  }, 
   saveButton: {
     position: 'absolute',
     bottom: 0,
@@ -159,37 +219,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   pickerSelectContainer: {
-    height: 40,
-    width: 215,
-    top: 120,
-    left: 91,
-  },
-  pickerSelectText: {
-    fontSize: 14,
+    marginTop: 140,
+    marginHorizontal: 20,
   },
   pickerSelectAndroid: {
-    fontSize: 14,
+    fontSize: 16,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderWidth: 0.5,
-    borderColor: 'purple',
+    borderWidth: 1,
+    borderColor: '#ddd',
     borderRadius: 8,
     color: 'black',
-    paddingRight: 30, 
+    paddingRight: 30,
+    backgroundColor: 'white',
   },
   pickerSelectIOS: {
-    fontSize: 14,
+    fontSize: 16,
     paddingVertical: 12,
     paddingHorizontal: 10,
     borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 4,
+    borderColor: '#ddd',
+    borderRadius: 8,
     color: 'black',
-    paddingRight: 30, 
+    paddingRight: 30,
+    backgroundColor: 'white',
   },
   pickerSelectPlaceholder: {
-    fontSize: 14,
     color: 'black',
+    fontSize: 16,
   },
 });
 
