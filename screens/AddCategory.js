@@ -23,23 +23,14 @@ const AddCategory = ({ navigation }) => {
   const pickImage = async () => {
     try {
       const image = await ImagePicker.openPicker({
-        width: 300,
-        height: 300,
+        width: 2000,
+        height: 2000,
         cropping: true,
-        cropperCircleOverlay: true,
-        mediaType: 'photo',
+        compressImageQuality: 0.8,
       });
-
-      setSelectedImage({
-        uri: image.path,
-        width: image.width,
-        height: image.height,
-        mime: image.mime
-      });
+      setSelectedImage(image);
     } catch (error) {
-      if (error.message !== 'User cancelled image selection') {
-        Alert.alert('Error', 'Failed to pick image');
-      }
+      console.error('Image Picker Error:', error);
     }
   };
 
@@ -61,9 +52,9 @@ const AddCategory = ({ navigation }) => {
       
       if (selectedImage) {
         formData.append('icon', {
-          uri: selectedImage.uri,
+          uri: selectedImage.path,
           type: selectedImage.mime,
-          name: 'image.' + selectedImage.mime.split('/')[1]
+          name: 'icon.' + selectedImage.path.split('.').pop()
         });
       }
 
@@ -78,24 +69,9 @@ const AddCategory = ({ navigation }) => {
       const data = await response.json();
       
       if (data.status === "success") {
-        // Get existing custom categories
-        const existingCategoriesString = await AsyncStorage.getItem('customCategories');
-        const existingCategories = existingCategoriesString ? JSON.parse(existingCategoriesString) : [];
-        
-        // Add new category with all the data from the API response
-        const newCategory = {
-          id: data.category.id,
-          name: data.category.name,
-          color: data.category.color,
-          user_id: data.category.user_id,
-          icon: data.category.icon || 'menu.png' // Use uploaded icon or default icon
-        };
-        
-        // Update AsyncStorage
-        await AsyncStorage.setItem('customCategories', JSON.stringify([...existingCategories, newCategory]));
-        
-        Alert.alert('Success', 'Category created successfully');
-        navigation.goBack();
+        Alert.alert('Success', 'Category created successfully', [
+          { text: 'OK', onPress: () => navigation.navigate('HomeScreen') }
+        ]);
       } else {
         Alert.alert('Error', data.message || 'Failed to save category');
       }
@@ -112,20 +88,21 @@ const AddCategory = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image style={styles.terug} source={require('../assets/kruis.png')} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
-          {selectedImage ? (
-            <Image source={{ uri: selectedImage.uri }} style={styles.selectedImage} />
-          ) : (
-            <Text>Select Category Icon</Text>
-          )}
-        </TouchableOpacity>
         <Text style={styles.planText}>Enter Category Name</Text>
         <TextInput
           style={styles.input}
           value={categoryName}
           onChangeText={setCategoryName}
-          placeholder="Category name"
+          placeholder="Category Name"
         />
+        <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
+          <Text style={styles.imagePickerButtonText}>Select Image</Text>
+        </TouchableOpacity>
+        {selectedImage && selectedImage.path ? (
+          <Image source={{ uri: selectedImage.path }} style={styles.icon1} />
+        ) : (
+          <Image style={styles.icon1} source={require('../assets/menu.png')} />
+        )}
       </View>
       <TouchableOpacity style={styles.saveButton} onPress={saveCategory}>
         <Text style={{ color: 'white', fontSize: 26, fontWeight: '500' }}>Create</Text>
@@ -179,14 +156,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imagePickerButton: {
-    alignItems: 'center',
+    height: 40,
+    borderWidth: 0,
+    top: 118,
+    marginLeft: 20,
+    marginRight: 100,
+    margin: 10,
+    padding: 8,
+    fontSize: 16,
+    borderColor: 'grey',
     justifyContent: 'center',
-    marginTop: 20,
+    alignItems: 'center',
   },
-  selectedImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+  imagePickerButtonText: {
+    color: 'black',
+    fontSize: 16,
+    top: 30,
+  },
+  icon1: {
+    top: 104,
+    marginLeft: 50,
+    height: 30,
+    width: 30,
   },
 });
 

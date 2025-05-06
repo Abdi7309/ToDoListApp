@@ -59,6 +59,7 @@ const CategoryScreen = ({ route, navigation }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify({
           action: 'deleteTask',
@@ -66,6 +67,10 @@ const CategoryScreen = ({ route, navigation }) => {
           task_id: taskId,
         }),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const data = await response.json();
       if (data.status === 'success') {
@@ -75,6 +80,7 @@ const CategoryScreen = ({ route, navigation }) => {
         Alert.alert('Error', data.message || 'Failed to delete task');
       }
     } catch (error) {
+      console.error('Error deleting task:', error);
       Alert.alert('Error', 'Failed to connect to server');
     }
   };

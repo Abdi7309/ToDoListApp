@@ -14,7 +14,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 
 function EditCategoryScreen({ route, navigation }) {
   const { categoryId, categoryName: initialName, iconUrl: initialIcon } = route.params;
-  const [categoryName, setCategoryName] = useState(initialName || '');
+  const [name, setName] = useState(initialName || '');
   const [selectedImage, setSelectedImage] = useState(null);
   const [userId, setUserId] = useState(null);
 
@@ -43,7 +43,7 @@ function EditCategoryScreen({ route, navigation }) {
   };
 
   const saveCategory = async () => {
-    if (!categoryName.trim()) {
+    if (!name.trim()) {
       Alert.alert('Error', 'Please enter a category name');
       return;
     }
@@ -52,33 +52,35 @@ function EditCategoryScreen({ route, navigation }) {
       const formData = new FormData();
       formData.append('user_id', userId);
       formData.append('category_id', categoryId);
-      formData.append('name', categoryName.trim());
-      
+      formData.append('name', name.trim());
+
       if (selectedImage) {
-        formData.append('icon', {
+        const imageFile = {
           uri: selectedImage.path,
           type: selectedImage.mime,
           name: 'icon.' + selectedImage.path.split('.').pop()
-        });
+        };
+        formData.append('icon', imageFile);
       }
 
       const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=updateCategory', {
         method: 'POST',
-        body: formData,
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        body: formData
       });
 
       const data = await response.json();
       if (data.status === 'success') {
         Alert.alert('Success', 'Category updated successfully', [
-          { text: 'OK', onPress: () => navigation.goBack() }
+          { text: 'OK', onPress: () => navigation.navigate('HomeScreen') }
         ]);
       } else {
         Alert.alert('Error', data.message || 'Failed to update category');
       }
     } catch (error) {
+      console.error('Error:', error);
       Alert.alert('Error', 'Failed to connect to server');
     }
   };
@@ -86,7 +88,7 @@ function EditCategoryScreen({ route, navigation }) {
   const deleteCategory = async () => {
     Alert.alert(
       'Confirm Deletion',
-      'Are you sure you want to delete this category?',
+      'Are you sure you want to delete this category? All tasks in this category will also be deleted.',
       [
         { text: 'Cancel', style: 'cancel' },
         {
@@ -107,11 +109,12 @@ function EditCategoryScreen({ route, navigation }) {
 
               const data = await response.json();
               if (data.status === 'success') {
-                navigation.goBack();
+                navigation.navigate('HomeScreen');
               } else {
                 Alert.alert('Error', data.message || 'Failed to delete category');
               }
             } catch (error) {
+              console.error('Error:', error);
               Alert.alert('Error', 'Failed to connect to server');
             }
           },
@@ -130,8 +133,8 @@ function EditCategoryScreen({ route, navigation }) {
         <Text style={styles.planText}>Enter Category Name</Text>
         <TextInput
           style={styles.input}
-          value={categoryName}
-          onChangeText={setCategoryName}
+          value={name}
+          onChangeText={setName}
         />
         <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
           <Text style={styles.imagePickerButtonText}>Select Image</Text>

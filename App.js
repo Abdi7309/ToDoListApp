@@ -45,7 +45,7 @@ function App() {
 function HomeScreen({ navigation }) {
   const [taskCounts, setTaskCounts] = useState({});
   const [categories, setCategories] = useState([]);
-  const [sortOrder, setSortOrder] = useState('Recently Added');
+  const [sortOrder, setSortOrder] = useState('oldest'); // Changed from 'Recently Added' to 'oldest'
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
@@ -131,28 +131,48 @@ function HomeScreen({ navigation }) {
 
   const sortCategories = (categories) => {
     const allesCategory = categories.find(category => category.name === 'Alles');
-    const otherCategories = categories.filter(category => category.name !== 'Alles');
+    const predefinedOrder = ['Work', 'Travel', 'Study', 'Music', 'Home', 'Hobby'];
     
-    otherCategories.sort((a, b) => {
-      if (sortOrder === 'alphabetical') {
-        return a.name.localeCompare(b.name);
-      } else {
-        if (a.type === 'custom' && b.type === 'custom') {
-          return b.id - a.id;
-        } else if (a.type === 'custom') {
-          return -1; // Custom categories come first
-        } else if (b.type === 'custom') {
-          return 1; // Custom categories come first
+    let otherCategories = categories.filter(category => category.name !== 'Alles');
+
+    if (sortOrder === 'alphabetical') {
+      otherCategories.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortOrder === 'oldest') {
+      otherCategories.sort((a, b) => {
+        if (a.type === 'predefined' && b.type === 'predefined') {
+          return predefinedOrder.indexOf(a.name) - predefinedOrder.indexOf(b.name);
+        } else if (a.type === 'custom' && b.type === 'custom') {
+          return a.id - b.id; // Oldest first (lowest ID first)
+        } else if (a.type === 'predefined') {
+          return -1; // Predefined categories first
+        } else {
+          return 1;  // Custom categories last
         }
-        return a.name.localeCompare(b.name); // Sort predefined categories alphabetically
-      }
-    });
+      });
+    } else {
+      // Recently Added (default)
+      otherCategories.sort((a, b) => {
+        if (a.type === 'predefined' && b.type === 'predefined') {
+          return predefinedOrder.indexOf(a.name) - predefinedOrder.indexOf(b.name);
+        } else if (a.type === 'custom' && b.type === 'custom') {
+          return b.id - a.id; // Most recent first (highest ID first)
+        } else if (a.type === 'custom') {
+          return -1; // Custom categories first
+        } else {
+          return 1;  // Predefined categories last
+        }
+      });
+    }
 
     return allesCategory ? [allesCategory, ...otherCategories] : otherCategories;
   };
 
   const toggleSortOrder = () => {
-    setSortOrder(prevOrder => prevOrder === 'alphabetical' ? 'recent' : 'alphabetical');
+    setSortOrder(prevOrder => {
+      if (prevOrder === 'alphabetical') return 'oldest';
+      if (prevOrder === 'oldest') return 'recent';
+      return 'alphabetical';
+    });
   };
 
   const images = {
@@ -181,7 +201,11 @@ function HomeScreen({ navigation }) {
         <Image style={styles.menu} source={require('./assets/menu.png')} />
         <Text style={styles.listsText}>Lists</Text>
         <TouchableOpacity onPress={toggleSortOrder}>
-          <Text style={styles.sortButtonText}>Sort by {'\n'}{sortOrder === 'alphabetical' ? 'Recently Added' : 'Alphabetical'}</Text>
+          <Text style={styles.sortButtonText}>Sort by {'\n'}
+            {sortOrder === 'alphabetical' ? 'Standaard' : 
+             sortOrder === 'oldest' ? 'Recently Added' : 
+             'Alphabetical'}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Login')}>
           <Text style={styles.loginButtonText}>Go to Login</Text>

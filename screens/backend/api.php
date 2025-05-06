@@ -430,60 +430,43 @@ if (isset($_GET["action"]) && $_GET["action"] == "addTask") {
 if (isset($_GET["action"]) && $_GET["action"] == "deleteTask") {
     logDebug("deleteTask action requested");
     
-    // Get parameters from either GET or POST
-    $requestData = null;
-    $user_id = null;
-    $task_id = null;
-    
-    // Check if it's a POST request with JSON body
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $requestBody = file_get_contents("php://input");
-        logDebug("Raw request body: " . $requestBody);
-        
-        $data = json_decode($requestBody, true);
-        if ($data !== null) {
-            $user_id = $data['user_id'] ?? null;
-            $task_id = $data['task_id'] ?? null;
-        }
-    } else {
-        // Get parameters from URL for GET requests
-        $user_id = $_GET['user_id'] ?? null;
-        $task_id = $_GET['task_id'] ?? null;
-    }
-
-    // Validate required fields
-    if (!$user_id || !$task_id) {
-        logDebug("Missing required fields");
-        sendResponse(['status' => 'error', 'message' => 'Missing user_id or task_id']);
-        exit;
-    }
-
     try {
+        $requestBody = file_get_contents("php://input");
+        $data = json_decode($requestBody, true);
+        
+        $user_id = $data['user_id'] ?? null;
+        $task_id = $data['task_id'] ?? null;
+
+        if (!$user_id || !$task_id) {
+            throw new Exception("Missing user_id or task_id");
+        }
+
         $conn->begin_transaction();
 
-        // First get the task details
+        // First get the task details including both regular and custom categories
         $stmt = $conn->prepare("
-            SELECT t.*, c.name as category_name 
+            SELECT 
+                t.title, 
+                t.description, 
+                t.category_id,
+                t.custom_category_id,
+                c.name as category_name
             FROM tasks t
             LEFT JOIN categories c ON t.category_id = c.id
             WHERE t.id = ? AND t.user_id = ?
         ");
+        
         $stmt->bind_param("ii", $task_id, $user_id);
         $stmt->execute();
-        $result = $stmt->get_result();
-        $task = $result->fetch_assoc();
+        $task = $stmt->get_result()->fetch_assoc();
 
         if (!$task) {
             throw new Exception("Task not found");
         }
 
-        // Delete the task from its specific category
-        $stmt = $conn->prepare("DELETE FROM tasks WHERE id = ? AND user_id = ?");
-        $stmt->bind_param("ii", $task_id, $user_id);
-        $stmt->execute();
-
-        // If we're deleting from Alles, also delete from specific category
+        // If deleting from Alles category, delete matching tasks from all categories
         if ($task['category_name'] === 'Alles') {
+            // Delete from regular categories
             $stmt = $conn->prepare("
                 DELETE FROM tasks 
                 WHERE user_id = ? 
@@ -493,25 +476,21 @@ if (isset($_GET["action"]) && $_GET["action"] == "deleteTask") {
             $stmt->bind_param("iss", $user_id, $task['title'], $task['description']);
             $stmt->execute();
         } else {
-            // If we're deleting from a specific category, also delete from Alles
-            $alles_stmt = $conn->prepare("
-                SELECT id FROM categories WHERE name = 'Alles'
-            ");
-            $alles_stmt->execute();
-            $alles_result = $alles_stmt->get_result();
-            $alles = $alles_result->fetch_assoc();
+            // Delete the specific task
+            $stmt = $conn->prepare("DELETE FROM tasks WHERE id = ? AND user_id = ?");
+            $stmt->bind_param("ii", $task_id, $user_id);
+            $stmt->execute();
 
-            if ($alles) {
-                $stmt = $conn->prepare("
-                    DELETE FROM tasks 
-                    WHERE user_id = ? 
-                    AND category_id = ? 
-                    AND title = ? 
-                    AND description = ?
-                ");
-                $stmt->bind_param("iiss", $user_id, $alles['id'], $task['title'], $task['description']);
-                $stmt->execute();
-            }
+            // Also delete from Alles category
+            $stmt = $conn->prepare("
+                DELETE FROM tasks 
+                WHERE user_id = ? 
+                AND title = ? 
+                AND description = ?
+                AND category_id IN (SELECT id FROM categories WHERE name = 'Alles')
+            ");
+            $stmt->bind_param("iss", $user_id, $task['title'], $task['description']);
+            $stmt->execute();
         }
 
         $conn->commit();
@@ -519,7 +498,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "deleteTask") {
     } catch (Exception $e) {
         $conn->rollback();
         logDebug("Error in deleteTask: " . $e->getMessage());
-        sendResponse(['status' => 'error', 'message' => 'Failed to delete task']);
+        sendResponse(['status' => 'error', 'message' => $e->getMessage()]);
     }
 }
 
@@ -575,6 +554,118 @@ if (isset($_GET["action"]) && $_GET["action"] == "addCustomCategory") {
             "status" => "error",
             "message" => $e->getMessage()
         ]);
+    }
+}
+
+// Update Category API
+if (isset($_GET["action"]) && $_GET["action"] == "updateCategory") {
+    logDebug("updateCategory action requested");
+    
+    try {
+        $userId = isset($_POST["user_id"]) ? intval($_POST["user_id"]) : 0;
+        $categoryId = isset($_POST["category_id"]) ? intval($_POST["category_id"]) : 0;
+        $name = isset($_POST["name"]) ? trim($_POST["name"]) : "";
+        $iconUrl = null;
+
+        if (!$userId || !$categoryId || empty($name)) {
+            throw new Exception("Missing required fields");
+        }
+
+        $conn->begin_transaction();
+
+        // Handle icon upload if provided
+        if (isset($_FILES["icon"]) && $_FILES["icon"]["error"] === UPLOAD_ERR_OK) {
+            $uploadDir = __DIR__ . '/uploads/categories/';
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+
+            $fileExtension = pathinfo($_FILES["icon"]["name"], PATHINFO_EXTENSION);
+            $fileName = 'category_' . time() . '_' . uniqid() . '.' . $fileExtension;
+            $targetFile = $uploadDir . $fileName;
+
+            if (move_uploaded_file($_FILES["icon"]["tmp_name"], $targetFile)) {
+                $iconUrl = 'uploads/categories/' . $fileName;
+                
+                // Update with new icon
+                $stmt = $conn->prepare("UPDATE custom_categories SET name = ?, icon_url = ? WHERE id = ? AND user_id = ?");
+                $stmt->bind_param("ssii", $name, $iconUrl, $categoryId, $userId);
+            } else {
+                throw new Exception("Failed to upload image");
+            }
+        } else {
+            // Update without changing icon
+            $stmt = $conn->prepare("UPDATE custom_categories SET name = ? WHERE id = ? AND user_id = ?");
+            $stmt->bind_param("sii", $name, $categoryId, $userId);
+        }
+
+        if (!$stmt->execute()) {
+            throw new Exception("Failed to update category");
+        }
+
+        if ($stmt->affected_rows === 0) {
+            throw new Exception("Category not found or no changes made");
+        }
+
+        $conn->commit();
+        sendResponse(["status" => "success", "message" => "Category updated successfully"]);
+    } catch (Exception $e) {
+        $conn->rollback();
+        logDebug("Error: " . $e->getMessage());
+        sendResponse(["status" => "error", "message" => $e->getMessage()]);
+    }
+}
+
+// Delete Category API
+if (isset($_GET["action"]) && $_GET["action"] == "deleteCategory") {
+    logDebug("deleteCategory action requested");
+    
+    try {
+        $requestBody = file_get_contents("php://input");
+        $data = json_decode($requestBody, true);
+        
+        $userId = isset($data['user_id']) ? intval($data['user_id']) : 0;
+        $categoryId = isset($data['category_id']) ? intval($data['category_id']) : 0;
+
+        if (!$userId || !$categoryId) {
+            throw new Exception("Missing user_id or category_id");
+        }
+
+        $conn->begin_transaction();
+
+        // Delete all tasks in this category from Alles category first
+        $stmt = $conn->prepare("
+            DELETE t1 FROM tasks t1
+            INNER JOIN tasks t2 ON t1.title = t2.title AND t1.description = t2.description
+            INNER JOIN categories c ON t1.category_id = c.id
+            WHERE t2.custom_category_id = ? AND t2.user_id = ? AND c.name = 'Alles'
+        ");
+        $stmt->bind_param("ii", $categoryId, $userId);
+        $stmt->execute();
+
+        // Delete tasks from the custom category
+        $stmt = $conn->prepare("DELETE FROM tasks WHERE custom_category_id = ? AND user_id = ?");
+        $stmt->bind_param("ii", $categoryId, $userId);
+        $stmt->execute();
+
+        // Delete the category itself
+        $stmt = $conn->prepare("DELETE FROM custom_categories WHERE id = ? AND user_id = ?");
+        $stmt->bind_param("ii", $categoryId, $userId);
+        
+        if (!$stmt->execute()) {
+            throw new Exception("Failed to delete category");
+        }
+
+        if ($stmt->affected_rows > 0) {
+            $conn->commit();
+            sendResponse(["status" => "success", "message" => "Category deleted successfully"]);
+        } else {
+            throw new Exception("Category not found");
+        }
+    } catch (Exception $e) {
+        $conn->rollback();
+        logDebug("Error in deleteCategory: " . $e->getMessage());
+        sendResponse(["status" => "error", "message" => $e->getMessage()]);
     }
 }
 
