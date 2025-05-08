@@ -342,12 +342,65 @@ if (isset($_GET["action"]) && $_GET["action"] == "addTask") {
 
         $conn->begin_transaction();
 
+        // Check for duplicate task across ALL categories first
+        $stmt = $conn->prepare("
+            SELECT COUNT(*) as count 
+            FROM tasks 
+            WHERE user_id = ? 
+            AND title = ? 
+            AND description = ?
+            AND deleted = 0
+        ");
+        $stmt->bind_param("iss", $userId, $title, $description);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        
+        if ($row && $row['count'] > 0) {
+            throw new Exception("This task already exists in one of your categories");
+        }
+
         // Check if it's a custom category first
         $stmt = $conn->prepare("SELECT id FROM custom_categories WHERE name = ? AND user_id = ?");
         $stmt->bind_param("si", $category, $userId);
         $stmt->execute();
         $customCategoryResult = $stmt->get_result();
         $customCategory = $customCategoryResult->fetch_assoc();
+
+        // Check for duplicate task in the category
+        if ($customCategory) {
+            $stmt = $conn->prepare("
+                SELECT COUNT(*) as count 
+                FROM tasks 
+                WHERE user_id = ? 
+                AND custom_category_id = ? 
+                AND title = ? 
+                AND description = ?
+                AND deleted = 0
+            ");
+            $stmt->bind_param("iiss", $userId, $customCategory['id'], $title, $description);
+        } else {
+            $stmt = $conn->prepare("
+                SELECT c.id, COUNT(t.id) as count 
+                FROM categories c 
+                LEFT JOIN tasks t ON c.id = t.category_id 
+                AND t.user_id = ? 
+                AND t.title = ? 
+                AND t.description = ?
+                AND t.deleted = 0
+                WHERE c.name = ?
+                GROUP BY c.id
+            ");
+            $stmt->bind_param("isss", $userId, $title, $description, $category);
+        }
+        
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        
+        if ($row && $row['count'] > 0) {
+            throw new Exception("A task with this title and description already exists in this category");
+        }
 
         // Get All category ID
         $stmt = $conn->prepare("SELECT id FROM categories WHERE name = 'All'");
@@ -412,7 +465,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "addTask") {
         logDebug("Error adding task: " . $e->getMessage());
         header('Content-Type: application/json');
         ob_end_clean();
-        echo json_encode(["status" => "error", "message" => "Failed to add task: " . $e->getMessage()]);
+        echo json_encode(["status" => "error", "message" => $e->getMessage()]);
         exit();
     }
 }

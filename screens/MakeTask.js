@@ -128,27 +128,15 @@ const MakeTask = ({ navigation, route }) => {
           onChangeText={setText}
           placeholder=""
         />
-        <TextInput
-          style={styles.input2}
-          placeholder="Add Description"
-          placeholderTextColor={styles.input2Placeholder.color}
-          value={description}
-          onChangeText={setDescription}
-          multiline
-        />
-        <View style={styles.pickerSelectContainer}>
-          <RNPickerSelect
-            onValueChange={(value) => setSelectedCategory(value)}
-            items={categories}
-            value={selectedCategory}
-            style={{
-              inputIOS: styles.pickerSelectIOS,
-              inputAndroid: styles.pickerSelectAndroid,
-              placeholder: styles.pickerSelectPlaceholder,
-            }}
-            placeholder={{ label: 'Select a category...', value: null }}
-          />
-        </View>
+          <Image style={styles.icon1} source={require('../assets/menu.png')} />
+          <TextInput
+            style={styles.input2}
+            placeholder="Add description"
+            placeholderTextColor={styles.input2Placeholder.color}
+            onChangeText={setDescription}
+            multiline
+            />
+
       </View>
       <TouchableOpacity
         style={styles.saveButton}
@@ -195,19 +183,23 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,  
   },
   input2: {
-    height: 80,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
+    height: 40,
+    borderWidth: 0,
     top: 120,
-    marginHorizontal: 20,
+    marginLeft: 100,
+    marginRight: 100,
+    margin: 10,
     padding: 8,
-    fontSize: 16,
-    backgroundColor: 'white',
   },
   input2Placeholder: {
     color: 'black',
   },
+  icon1: {
+    top: 164, 
+    marginLeft: 50,
+    height: 30,
+    width: 30,
+  }, 
   saveButton: {
     position: 'absolute',
     bottom: 0,
