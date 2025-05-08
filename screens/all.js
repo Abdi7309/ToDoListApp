@@ -85,10 +85,6 @@ const All = ({ navigation }) => {
     }));
   };
 
-  const handleBoxPress = () => {
-    navigation.navigate('MakeTask', { category: 'All' });
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
