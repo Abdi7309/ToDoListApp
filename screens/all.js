@@ -132,12 +132,6 @@ const All = ({ navigation }) => {
           ))}
         </ScrollView>
       </View>
-      <TouchableOpacity 
-        style={styles.footer}
-        onPress={handleBoxPress}
-      >  
-        <Image style={styles.footerplus} source={require('../assets/plus.png')} />
-      </TouchableOpacity>
     </SafeAreaView>
   );
 };
