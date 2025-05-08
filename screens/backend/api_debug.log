@@ -19608,3 +19608,1524 @@ e: {"status":"success","tasks":[]}
 [2025-05-08 12:27:13] Processing request - user_id: 1, category: U-cars
 [2025-05-08 12:27:13] Found 1 tasks
 [2025-05-08 12:27:13] Sending response: {"status":"success","tasks":[{"id":91,"title":"cars","description":"ii","category_name":"U-cars","created_at":"2025-05-08 12:03:52"}]}
+[2025-05-08 12:30:38] API request received: POST /ToDoListApp/screens/backend/api.php?action=getDeletedTasks
+[2025-05-08 12:30:38] Database connection successful
+[2025-05-08 12:30:38] getDeletedTasks action requested
+[2025-05-08 12:30:38] Sending response: {"status":"success","tasks":[{"id":99,"title":"tt","description":"tt","category_name":"U-cars","created_at":"2025-05-08 12:21:05"},{"id":97,"title":"e","description":"ee","category_name":"U-cars","created_at":"2025-05-08 12:19:17"},{"id":95,"title":"tt","description":"tt","category_name":"U-cars","created_at":"2025-05-08 12:15:42"}]}
+[2025-05-08 12:30:38] Database connection closed
+[2025-05-08 12:30:53] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 12:30:53] Database connection successful
+[2025-05-08 12:30:53] getCategories action requested
+[2025-05-08 12:30:53] Raw request body: {"action":"getCategories","user_id":"1"}
+[2025-05-08 12:30:53] Found 9 categories
+[2025-05-08 12:30:53] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 12:30:53] Database connection successful
+[2025-05-08 12:30:53] getTasks action requested
+[2025-05-08 12:30:53] Raw request body: {"action":"getTasks","user_id":"1","category":"!!!!"}
+[2025-05-08 12:30:53] Processing request - user_id: 1, category: !!!!
+[2025-05-08 12:30:53] Found 0 tasks
+[2025-05-08 12:30:53] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 12:30:53] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 12:30:53] Database connection successful
+[2025-05-08 12:30:53] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 12:30:53] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 12:30:53] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 12:30:53] getTasks action requested
+[2025-05-08 12:30:53] Database connection successful
+[2025-05-08 12:30:53] Raw request body: {"action":"getTasks","user_id":"1","category":"All"}
+[2025-05-08 12:30:53] Processing request - user_id: 1, category: All
+[2025-05-08 12:30:53] Found 5 tasks
+[2025-05-08 12:30:53] Sending response: {"status":"success","tasks":[{"id":92,"title":"cars","description":"ii","category_name":"All","created_at":"2025-05-08 12:03:52"},{"id":90,"title":"travel","description":"travel","category_name":"All","created_at":"2025-05-08 11:49:38"},{"id":88,"title":"q","description":"q","category_name":"All","created_at":"2025-05-08 11:31:04"},{"id":86,"title":"oo","description":"oo","category_name":"All","created_at":"2025-05-08 11:30:32"},{"id":84,"title":"oo","description":"ll","category_name":"All","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 12:30:53] getTasks action requested
+[2025-05-08 12:30:53] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 12:30:53] Processing request - user_id: 1, category: Home
+[2025-05-08 12:30:53] Found 0 tasks
+[2025-05-08 12:30:53] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 12:30:53] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 12:30:53] Database connection successful
+[2025-05-08 12:30:53] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 12:30:53] Database connection successful
+[2025-05-08 12:30:53] getTasks action requested
+[2025-05-08 12:30:53] Raw request body: {"action":"getTasks","user_id":"1","category":"Study"}
+[2025-05-08 12:30:53] Processing request - user_id: 1, category: Study
+[2025-05-08 12:30:53] Found 0 tasks
+[2025-05-08 12:30:53] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 12:30:53] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 12:30:53] Database connection successful
+[2025-05-08 12:30:53] getTasks action requested
+[2025-05-08 12:30:53] Raw request body: {"action":"getTasks","user_id":"1","category":"Hobby"}
+[2025-05-08 12:30:53] getTasks action requested
+[2025-05-08 12:30:53] Processing request - user_id: 1, category: Hobby
+[2025-05-08 12:30:53] Raw request body: {"action":"getTasks","user_id":"1","category":"Music"}
+[2025-05-08 12:30:53] Processing request - user_id: 1, category: Music
+[2025-05-08 12:30:53] Found 0 tasks
+[2025-05-08 12:30:53] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 12:30:53] Found 0 tasks
+[2025-05-08 12:30:53] getTasks action requested
+[2025-05-08 12:30:53] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 12:30:53] Raw request body: {"action":"getTasks","user_id":"1","category":"U-cars"}
+[2025-05-08 12:30:53] Processing request - user_id: 1, category: U-cars
+[2025-05-08 12:30:53] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 12:30:53] Found 1 tasks
+[2025-05-08 12:30:53] Sending response: {"status":"success","tasks":[{"id":91,"title":"cars","description":"ii","category_name":"U-cars","created_at":"2025-05-08 12:03:52"}]}
+[2025-05-08 12:30:53] Database connection successful
+[2025-05-08 12:30:53] Database connection successful
+[2025-05-08 12:30:53] getTasks action requested
+[2025-05-08 12:30:53] Raw request body: {"action":"getTasks","user_id":"1","category":"Work"}
+[2025-05-08 12:30:53] Processing request - user_id: 1, category: Work
+[2025-05-08 12:30:53] getTasks action requested
+[2025-05-08 12:30:53] Found 3 tasks
+y: {"action":"getTasks","user_id":"1","category":"Travel"}
+[2025-05-08 12:30:53] Processing request - user_id: 1, category: Travel
+":87,"title":"q","description":"q","category_name":"Work","created_at":"2025-05-08 11:31:04"},{"id":85,"title":"oo","description":"oo","category_name":"Work","created_at":"2025-05-08 11:30:32"},{"id":83,"title":"oo","description":"ll","category_name":"Work","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 12:30:53] Found 1 tasks
+[2025-05-08 12:30:53] Sending response: {"status":"success","tasks":[{"id":89,"title":"travel","description":"travel","category_name":"Travel","created_at":"2025-05-08 11:49:38"}]}
+[2025-05-08 13:02:12] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:02:12] Database connection successful
+[2025-05-08 13:02:12] getCategories action requested
+[2025-05-08 13:02:12] Raw request body: {"action":"getCategories","user_id":"1"}
+[2025-05-08 13:02:12] Found 9 categories
+[2025-05-08 13:02:12] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:12] Database connection successful
+[2025-05-08 13:02:12] getTasks action requested
+[2025-05-08 13:02:12] Raw request body: {"action":"getTasks","user_id":"1","category":"!!!!"}
+[2025-05-08 13:02:12] Processing request - user_id: 1, category: !!!!
+[2025-05-08 13:02:12] Found 0 tasks
+[2025-05-08 13:02:12] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:02:12] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:12] Database connection successful
+[2025-05-08 13:02:12] getTasks action requested
+[2025-05-08 13:02:12] Raw request body: {"action":"getTasks","user_id":"1","category":"Hobby"}
+[2025-05-08 13:02:12] Processing request - user_id: 1, category: Hobby
+[2025-05-08 13:02:12] Found 0 tasks
+[2025-05-08 13:02:12] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:02:12] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:12] Database connection successful
+[2025-05-08 13:02:12] getTasks action requested
+[2025-05-08 13:02:12] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:12] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 13:02:12] Processing request - user_id: 1, category: Home
+[2025-05-08 13:02:12] Database connection successful
+[2025-05-08 13:02:12] Found 0 tasks
+[2025-05-08 13:02:12] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:02:12] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:12] getTasks action requested
+[2025-05-08 13:02:12] Raw request body: {"action":"getTasks","user_id":"1","category":"Music"}
+[2025-05-08 13:02:12] Processing request - user_id: 1, category: Music
+[2025-05-08 13:02:12] Found 0 tasks
+[2025-05-08 13:02:12] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:02:12] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:12] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:12] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:12] Database connection successful
+[2025-05-08 13:02:12] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:12] getTasks action requested
+[2025-05-08 13:02:12] Raw request body: {"action":"getTasks","user_id":"1","category":"Study"}
+[2025-05-08 13:02:12] Processing request - user_id: 1, category: Study
+[2025-05-08 13:02:12] getTasks action requested
+[2025-05-08 13:02:12] Raw request body: {"action":"getTasks","user_id":"1","category":"Work"}
+[2025-05-08 13:02:12] getTasks action requested
+[2025-05-08 13:02:12] Processing request - user_id: 1, category: Work
+"1","category":"All"}
+[2025-05-08 13:02:12] Found 0 tasks
+[2025-05-08 13:02:12] Processing request - user_id: 1, category: All
+[2025-05-08 13:02:12] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:02:12] Found 3 tasks
+[2025-05-08 13:02:12] Sending response: {"status":"success","tasks":[{"id":87,"title":"q","description":"q","category_name":"Work","created_at":"2025-05-08 11:31:04"},{"id":85,"title":"oo","description":"oo","category_name":"Work","created_at":"2025-05-08 11:30:32"},{"id":83,"title":"oo","description":"ll","category_name":"Work","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:02:12] Found 5 tasks
+[2025-05-08 13:02:12] Sending response: {"status":"success","tasks":[{"id":92,"title":"cars","description":"ii","category_name":"All","created_at":"2025-05-08 12:03:52"},{"id":90,"title":"travel","description":"travel","category_name":"All","created_at":"2025-05-08 11:49:38"},{"id":88,"title":"q","description":"q","category_name":"All","created_at":"2025-05-08 11:31:04"},{"id":86,"title":"oo","description":"oo","category_name":"All","created_at":"2025-05-08 11:30:32"},{"id":84,"title":"oo","description":"ll","category_name":"All","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:02:12] Database connection successful
+[2025-05-08 13:02:12] Database connection successful
+[2025-05-08 13:02:12] getTasks action requested
+[2025-05-08 13:02:12] Raw request body: {"action":"getTasks","user_id":"1","category":"Travel"}
+[2025-05-08 13:02:12] getTasks action requested
+[2025-05-08 13:02:12] Processing request - user_id: 1, category: Travel
+[2025-05-08 13:02:12] Raw request body: {"action":"getTasks","user_id":"1","category":"U-cars"}
+[2025-05-08 13:02:12] Processing request - user_id: 1, category: U-cars
+[2025-05-08 13:02:12] Found 1 tasks
+[2025-05-08 13:02:12] Sending response: {"status":"success","tasks":[{"id":89,"title":"travel","description":"travel","category_name":"Travel","created_at":"2025-05-08 11:49:38"}]}
+[2025-05-08 13:02:12] Found 1 tasks
+[2025-05-08 13:02:12] Sending response: {"status":"success","tasks":[{"id":91,"title":"cars","description":"ii","category_name":"U-cars","created_at":"2025-05-08 12:03:52"}]}
+[2025-05-08 13:02:27] API request received: POST /ToDoListApp/screens/backend/api.php?action=addCustomCategory
+[2025-05-08 13:02:27] Database connection successful
+[2025-05-08 13:02:27] Database connection closed
+[2025-05-08 13:02:38] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:02:38] Database connection successful
+[2025-05-08 13:02:38] getCategories action requested
+[2025-05-08 13:02:38] Raw request body: {"action":"getCategories","user_id":"1"}
+[2025-05-08 13:02:38] Found 9 categories
+[2025-05-08 13:02:39] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:39] Database connection successful
+[2025-05-08 13:02:39] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:39] getTasks action requested
+[2025-05-08 13:02:39] Database connection successful
+[2025-05-08 13:02:39] Raw request body: {"action":"getTasks","user_id":"1","category":"!!!!"}
+[2025-05-08 13:02:39] Processing request - user_id: 1, category: !!!!
+[2025-05-08 13:02:39] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:39] Found 0 tasks
+[2025-05-08 13:02:39] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:02:39] getTasks action requested
+[2025-05-08 13:02:39] Raw request body: {"action":"getTasks","user_id":"1","category":"Hobby"}
+[2025-05-08 13:02:39] Processing request - user_id: 1, category: Hobby
+[2025-05-08 13:02:39] Found 0 tasks
+[2025-05-08 13:02:39] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:02:39] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:39] Database connection successful
+[2025-05-08 13:02:39] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:39] Database connection successful
+[2025-05-08 13:02:39] getTasks action requested
+[2025-05-08 13:02:39] Raw request body: {"action":"getTasks","user_id":"1","category":"Music"}
+[2025-05-08 13:02:39] Processing request - user_id: 1, category: Music
+[2025-05-08 13:02:39] Found 0 tasks
+[2025-05-08 13:02:39] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:02:39] getTasks action requested
+[2025-05-08 13:02:39] Raw request body: {"action":"getTasks","user_id":"1","category":"All"}
+[2025-05-08 13:02:39] Processing request - user_id: 1, category: All
+[2025-05-08 13:02:39] Database connection successful
+[2025-05-08 13:02:39] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:39] Found 5 tasks
+[2025-05-08 13:02:39] Sending response: {"status":"success","tasks":[{"id":92,"title":"cars","description":"ii","category_name":"All","created_at":"2025-05-08 12:03:52"},{"id":90,"title":"travel","description":"travel","category_name":"All","created_at":"2025-05-08 11:49:38"},{"id":88,"title":"q","description":"q","category_name":"All","created_at":"2025-05-08 11:31:04"},{"id":86,"title":"oo","description":"oo","category_name":"All","created_at":"2025-05-08 11:30:32"},{"id":84,"title":"oo","description":"ll","category_name":"All","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:02:39] Database connection successful
+[2025-05-08 13:02:39] getTasks action requested
+[2025-05-08 13:02:39] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 13:02:39] getTasks action requested
+[2025-05-08 13:02:39] Processing request - user_id: 1, category: Home
+[2025-05-08 13:02:39] Raw request body: {"action":"getTasks","user_id":"1","category":"Study"}
+[2025-05-08 13:02:39] Processing request - user_id: 1, category: Study
+[2025-05-08 13:02:39] Found 0 tasks
+[2025-05-08 13:02:39] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:02:39] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:02:39] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:39] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:39] Database connection successful
+[2025-05-08 13:02:39] getTasks action requested
+[2025-05-08 13:02:39] Raw request body: {"action":"getTasks","user_id":"1","category":"U-cars"}
+[2025-05-08 13:02:39] Processing request - user_id: 1, category: U-cars
+[2025-05-08 13:02:39] Found 1 tasks
+[2025-05-08 13:02:39] Sending response: {"status":"success","tasks":[{"id":91,"title":"cars","description":"ii","category_name":"U-cars","created_at":"2025-05-08 12:03:52"}]}
+[2025-05-08 13:02:39] Database connection successful
+[2025-05-08 13:02:39] getTasks action requested
+[2025-05-08 13:02:39] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:02:39] Raw request body: {"action":"getTasks","user_id":"1","category":"Travel"}
+[2025-05-08 13:02:39] Processing request - user_id: 1, category: Travel
+[2025-05-08 13:02:39] Database connection successful
+[2025-05-08 13:02:39] Found 1 tasks
+[2025-05-08 13:02:39] Sending response: {"status":"success","tasks":[{"id":89,"title":"travel","description":"travel","category_name":"Travel","created_at":"2025-05-08 11:49:38"}]}
+[2025-05-08 13:02:39] getTasks action requested
+[2025-05-08 13:02:39] Raw request body: {"action":"getTasks","user_id":"1","category":"Work"}
+[2025-05-08 13:02:39] Processing request - user_id: 1, category: Work
+[2025-05-08 13:02:39] Found 3 tasks
+[2025-05-08 13:02:39] Sending response: {"status":"success","tasks":[{"id":87,"title":"q","description":"q","category_name":"Work","created_at":"2025-05-08 11:31:04"},{"id":85,"title":"oo","description":"oo","category_name":"Work","created_at":"2025-05-08 11:30:32"},{"id":83,"title":"oo","description":"ll","category_name":"Work","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] getCategories action requested
+[2025-05-08 13:03:46] Raw request body: {"action":"getCategories","user_id":"1"}
+[2025-05-08 13:03:46] Found 9 categories
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] getCategories action requested
+[2025-05-08 13:03:46] Raw request body: {"action":"getCategories","user_id":"1"}
+[2025-05-08 13:03:46] Found 9 categories
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"!!!!"}
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: !!!!
+[2025-05-08 13:03:46] Found 0 tasks
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"Music"}
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: Music
+[2025-05-08 13:03:46] Found 0 tasks
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: Home
+[2025-05-08 13:03:46] Found 0 tasks
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"Hobby"}
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"All"}
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: All
+[2025-05-08 13:03:46] Found 0 tasks
+[2025-05-08 13:03:46] Found 5 tasks
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[{"id":92,"title":"cars","description":"ii","category_name":"All","created_at":"2025-05-08 12:03:52"},{"id":90,"title":"travel","description":"travel","category_name":"All","created_at":"2025-05-08 11:49:38"},{"id":88,"title":"q","description":"q","category_name":"All","created_at":"2025-05-08 11:31:04"},{"id":86,"title":"oo","description":"oo","category_name":"All","created_at":"2025-05-08 11:30:32"},{"id":84,"title":"oo","description":"ll","category_name":"All","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"Study"}
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: Study
+[2025-05-08 13:03:46] Found 0 tasks
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"Travel"}
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: Travel
+[2025-05-08 13:03:46] Found 1 tasks
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[{"id":89,"title":"travel","description":"travel","category_name":"Travel","created_at":"2025-05-08 11:49:38"}]}
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"Work"}
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: Work
+[2025-05-08 13:03:46] Found 3 tasks
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[{"id":87,"title":"q","description":"q","category_name":"Work","created_at":"2025-05-08 11:31:04"},{"id":85,"title":"oo","description":"oo","category_name":"Work","created_at":"2025-05-08 11:30:32"},{"id":83,"title":"oo","description":"ll","category_name":"Work","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"U-cars"}
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: U-cars
+[2025-05-08 13:03:46] Found 1 tasks
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[{"id":91,"title":"cars","description":"ii","category_name":"U-cars","created_at":"2025-05-08 12:03:52"}]}
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"All"}
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: All
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] Found 5 tasks
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[{"id":92,"title":"cars","description":"ii","category_name":"All","created_at":"2025-05-08 12:03:52"},{"id":90,"title":"travel","description":"travel","category_name":"All","created_at":"2025-05-08 11:49:38"},{"id":88,"title":"q","description":"q","category_name":"All","created_at":"2025-05-08 11:31:04"},{"id":86,"title":"oo","description":"oo","category_name":"All","created_at":"2025-05-08 11:30:32"},{"id":84,"title":"oo","description":"ll","category_name":"All","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] Database connection successful
+ListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"Music"}
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: Music
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] Found 0 tasks
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"!!!!"}
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: !!!!
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"Hobby"}
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: Hobby
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: Home
+[2025-05-08 13:03:46] Found 0 tasks
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:03:46] Found 0 tasks
+[2025-05-08 13:03:46] Found 0 tasks
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"U-cars"}
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"Study"}
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: U-cars
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: Study
+[2025-05-08 13:03:46] Found 1 tasks
+[2025-05-08 13:03:46] Found 0 tasks
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[{"id":91,"title":"cars","description":"ii","category_name":"U-cars","created_at":"2025-05-08 12:03:52"}]}
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"Work"}
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: Work
+[2025-05-08 13:03:46] Database connection successful
+[2025-05-08 13:03:46] Found 3 tasks
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[{"id":87,"title":"q","description":"q","category_name":"Work","created_at":"2025-05-08 11:31:04"},{"id":85,"title":"oo","description":"oo","category_name":"Work","created_at":"2025-05-08 11:30:32"},{"id":83,"title":"oo","description":"ll","category_name":"Work","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:03:46] getTasks action requested
+[2025-05-08 13:03:46] Raw request body: {"action":"getTasks","user_id":"1","category":"Travel"}
+[2025-05-08 13:03:46] Processing request - user_id: 1, category: Travel
+[2025-05-08 13:03:46] Found 1 tasks
+[2025-05-08 13:03:46] Sending response: {"status":"success","tasks":[{"id":89,"title":"travel","description":"travel","category_name":"Travel","created_at":"2025-05-08 11:49:38"}]}
+[2025-05-08 13:04:11] API request received: POST /ToDoListApp/screens/backend/api.php?action=addCustomCategory
+[2025-05-08 13:04:11] Database connection successful
+[2025-05-08 13:04:11] Database connection closed
+[2025-05-08 13:04:17] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:04:17] Database connection successful
+[2025-05-08 13:04:18] getCategories action requested
+[2025-05-08 13:04:18] Raw request body: {"action":"getCategories","user_id":"1"}
+[2025-05-08 13:04:18] Found 9 categories
+[2025-05-08 13:04:18] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:18] Database connection successful
+[2025-05-08 13:04:18] getTasks action requested
+[2025-05-08 13:04:18] Raw request body: {"action":"getTasks","user_id":"1","category":"Music"}
+[2025-05-08 13:04:18] Processing request - user_id: 1, category: Music
+[2025-05-08 13:04:18] Found 0 tasks
+[2025-05-08 13:04:18] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:04:18] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:18] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:18] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:18] Database connection successful
+[2025-05-08 13:04:18] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:18] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:18] Database connection successful
+[2025-05-08 13:04:18] Database connection successful
+[2025-05-08 13:04:18] getTasks action requested
+[2025-05-08 13:04:18] Raw request body: {"action":"getTasks","user_id":"1","category":"All"}
+[2025-05-08 13:04:18] getTasks action requested
+[2025-05-08 13:04:18] Processing request - user_id: 1, category: All
+[2025-05-08 13:04:18] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 13:04:18] Processing request - user_id: 1, category: Home
+[2025-05-08 13:04:18] Found 5 tasks
+[2025-05-08 13:04:18] Sending response: {"status":"success","tasks":[{"id":92,"title":"cars","description":"ii","category_name":"All","created_at":"2025-05-08 12:03:52"},{"id":90,"title":"travel","description":"travel","category_name":"All","created_at":"2025-05-08 11:49:38"},{"id":88,"title":"q","description":"q","category_name":"All","created_at":"2025-05-08 11:31:04"},{"id":86,"title":"oo","description":"oo","category_name":"All","created_at":"2025-05-08 11:30:32"},{"id":84,"title":"oo","description":"ll","category_name":"All","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:04:18] Found 0 tasks
+[2025-05-08 13:04:18] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:04:18] getTasks action requested
+[2025-05-08 13:04:18] Raw request body: {"action":"getTasks","user_id":"1","category":"!!!!"}
+[2025-05-08 13:04:18] getTasks action requested
+[2025-05-08 13:04:18] Database connection successful
+[2025-05-08 13:04:18] Processing request - user_id: 1, category: !!!!
+[2025-05-08 13:04:18] Raw request body: {"action":"getTasks","user_id":"1","category":"Hobby"}
+[2025-05-08 13:04:18] Processing request - user_id: 1, category: Hobby
+[2025-05-08 13:04:18] Found 0 tasks
+[2025-05-08 13:04:18] Found 0 tasks
+[2025-05-08 13:04:18] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:04:18] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:04:18] getTasks action requested
+[2025-05-08 13:04:18] Raw request body: {"action":"getTasks","user_id":"1","category":"Study"}
+[2025-05-08 13:04:18] Processing request - user_id: 1, category: Study
+[2025-05-08 13:04:18] Found 0 tasks
+[2025-05-08 13:04:18] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:04:18] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:18] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:18] Database connection successful
+[2025-05-08 13:04:18] getTasks action requested
+[2025-05-08 13:04:18] Raw request body: {"action":"getTasks","user_id":"1","category":"U-cars"}
+[2025-05-08 13:04:18] Processing request - user_id: 1, category: U-cars
+[2025-05-08 13:04:18] Found 1 tasks
+[2025-05-08 13:04:18] Sending response: {"status":"success","tasks":[{"id":91,"title":"cars","description":"ii","category_name":"U-cars","created_at":"2025-05-08 12:03:52"}]}
+[2025-05-08 13:04:18] Database connection successful
+[2025-05-08 13:04:18] getTasks action requested
+[2025-05-08 13:04:18] Raw request body: {"action":"getTasks","user_id":"1","category":"Travel"}
+[2025-05-08 13:04:18] Processing request - user_id: 1, category: Travel
+[2025-05-08 13:04:18] Found 1 tasks
+[2025-05-08 13:04:18] Sending response: {"status":"success","tasks":[{"id":89,"title":"travel","description":"travel","category_name":"Travel","created_at":"2025-05-08 11:49:38"}]}
+[2025-05-08 13:04:18] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:18] Database connection successful
+[2025-05-08 13:04:18] getTasks action requested
+[2025-05-08 13:04:18] Raw request body: {"action":"getTasks","user_id":"1","category":"Work"}
+[2025-05-08 13:04:18] Processing request - user_id: 1, category: Work
+[2025-05-08 13:04:18] Found 3 tasks
+[2025-05-08 13:04:18] Sending response: {"status":"success","tasks":[{"id":87,"title":"q","description":"q","category_name":"Work","created_at":"2025-05-08 11:31:04"},{"id":85,"title":"oo","description":"oo","category_name":"Work","created_at":"2025-05-08 11:30:32"},{"id":83,"title":"oo","description":"ll","category_name":"Work","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:04:26] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-05-08 13:04:26] Database connection successful
+[2025-05-08 13:04:26] Login action requested
+[2025-05-08 13:04:26] Raw request body: {"action":"login","username":"1234","password":"1234"}
+[2025-05-08 13:04:26] Attempting login for username: 1234
+[2025-05-08 13:04:26] User found, verifying password
+[2025-05-08 13:04:26] Password verified, login successful
+[2025-05-08 13:04:26] Sending response: {"status":"success","message":"Login successful","user_id":1}
+[2025-05-08 13:04:26] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:04:26] Database connection successful
+[2025-05-08 13:04:26] getCategories action requested
+[2025-05-08 13:04:26] Raw request body: {"action":"getCategories","user_id":"1"}
+[2025-05-08 13:04:26] Found 9 categories
+[2025-05-08 13:04:26] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:27] Database connection successful
+[2025-05-08 13:04:27] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:27] Database connection successful
+[2025-05-08 13:04:27] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:27] Database connection successful
+[2025-05-08 13:04:27] getTasks action requested
+[2025-05-08 13:04:27] Raw request body: {"action":"getTasks","user_id":"1","category":"!!!!"}
+[2025-05-08 13:04:27] Processing request - user_id: 1, category: !!!!
+[2025-05-08 13:04:27] Found 0 tasks
+[2025-05-08 13:04:27] getTasks action requested
+[2025-05-08 13:04:27] Raw request body: {"action":"getTasks","user_id":"1","category":"All"}
+[2025-05-08 13:04:27] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:04:27] Processing request - user_id: 1, category: All
+[2025-05-08 13:04:27] getTasks action requested
+[2025-05-08 13:04:27] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 13:04:27] Found 5 tasks
+est - user_id: 1, category: Home
+[2025-05-08 13:04:27] Sending response: {"status":"success","tasks":[{"id":92,"title":"cars","description":"ii","category_name":"All","created_at":"2025-05-08 12:03:52"},{"id":90,"title":"travel","description":"travel","category_name":"All","created_at":"2025-05-08 11:49:38"},{"id":88,"title":"q","description":"q","category_name":"All","created_at":"2025-05-08 11:31:04"},{"id":86,"title":"oo","description":"oo","category_name":"All","created_at":"2025-05-08 11:30:32"},{"id":84,"title":"oo","description":"ll","category_name":"All","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:04:27] Found 0 tasks
+[2025-05-08 13:04:27] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:04:27] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:27] Database connection successful
+[2025-05-08 13:04:27] getTasks action requested
+[2025-05-08 13:04:27] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:27] Raw request body: {"action":"getTasks","user_id":"1","category":"Music"}
+[2025-05-08 13:04:27] Processing request - user_id: 1, category: Music
+[2025-05-08 13:04:27] Database connection successful
+[2025-05-08 13:04:27] Found 0 tasks
+[2025-05-08 13:04:27] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:04:27] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:27] Database connection successful
+[2025-05-08 13:04:27] getTasks action requested
+[2025-05-08 13:04:27] Raw request body: {"action":"getTasks","user_id":"1","category":"Hobby"}
+[2025-05-08 13:04:27] Processing request - user_id: 1, category: Hobby
+[2025-05-08 13:04:27] Found 0 tasks
+[2025-05-08 13:04:27] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:04:27] getTasks action requested
+[2025-05-08 13:04:27] Raw request body: {"action":"getTasks","user_id":"1","category":"Study"}
+[2025-05-08 13:04:27] Processing request - user_id: 1, category: Study
+[2025-05-08 13:04:27] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:27] Found 0 tasks
+[2025-05-08 13:04:27] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:04:27] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:27] Database connection successful
+[2025-05-08 13:04:27] getTasks action requested
+[2025-05-08 13:04:27] Raw request body: {"action":"getTasks","user_id":"1","category":"U-cars"}
+[2025-05-08 13:04:27] Processing request - user_id: 1, category: U-cars
+[2025-05-08 13:04:27] Found 1 tasks
+[2025-05-08 13:04:27] Sending response: {"status":"success","tasks":[{"id":91,"title":"cars","description":"ii","category_name":"U-cars","created_at":"2025-05-08 12:03:52"}]}
+[2025-05-08 13:04:27] Database connection successful
+[2025-05-08 13:04:27] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:27] getTasks action requested
+[2025-05-08 13:04:27] Raw request body: {"action":"getTasks","user_id":"1","category":"Travel"}
+[2025-05-08 13:04:27] Processing request - user_id: 1, category: Travel
+[2025-05-08 13:04:27] Found 1 tasks
+[2025-05-08 13:04:27] Sending response: {"status":"success","tasks":[{"id":89,"title":"travel","description":"travel","category_name":"Travel","created_at":"2025-05-08 11:49:38"}]}
+[2025-05-08 13:04:27] Database connection successful
+[2025-05-08 13:04:27] getTasks action requested
+[2025-05-08 13:04:27] Raw request body: {"action":"getTasks","user_id":"1","category":"Work"}
+[2025-05-08 13:04:27] Processing request - user_id: 1, category: Work
+[2025-05-08 13:04:27] Found 3 tasks
+[2025-05-08 13:04:27] Sending response: {"status":"success","tasks":[{"id":87,"title":"q","description":"q","category_name":"Work","created_at":"2025-05-08 11:31:04"},{"id":85,"title":"oo","description":"oo","category_name":"Work","created_at":"2025-05-08 11:30:32"},{"id":83,"title":"oo","description":"ll","category_name":"Work","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:04:39] API request received: POST /ToDoListApp/screens/backend/api.php?action=addCustomCategory
+[2025-05-08 13:04:39] Database connection successful
+[2025-05-08 13:04:39] Database connection closed
+[2025-05-08 13:04:50] API request received: POST /ToDoListApp/screens/backend/api.php?action=addCustomCategory
+[2025-05-08 13:04:50] Database connection successful
+[2025-05-08 13:04:50] Database connection closed
+[2025-05-08 13:04:54] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:04:54] Database connection successful
+[2025-05-08 13:04:54] getCategories action requested
+[2025-05-08 13:04:54] Raw request body: {"action":"getCategories","user_id":"1"}
+[2025-05-08 13:04:54] Found 9 categories
+[2025-05-08 13:04:54] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:54] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:54] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:54] Database connection successful
+[2025-05-08 13:04:54] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:54] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:54] Database connection successful
+[2025-05-08 13:04:54] getTasks action requested
+[2025-05-08 13:04:54] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 13:04:54] getTasks action requested
+[2025-05-08 13:04:54] Processing request - user_id: 1, category: Home
+[2025-05-08 13:04:54] Raw request body: {"action":"getTasks","user_id":"1","category":"Music"}
+[2025-05-08 13:04:54] Processing request - user_id: 1, category: Music
+[2025-05-08 13:04:54] getTasks action requested
+[2025-05-08 13:04:54] Found 0 tasks
+[2025-05-08 13:04:54] Raw request body: {"action":"getTasks","user_id":"1","category":"!!!!"}
+[2025-05-08 13:04:54] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:04:54] Found 0 tasks
+[2025-05-08 13:04:54] Processing request - user_id: 1, category: !!!!
+[2025-05-08 13:04:54] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:04:54] Found 0 tasks
+[2025-05-08 13:04:54] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:04:54] Database connection successful
+[2025-05-08 13:04:54] getTasks action requested
+[2025-05-08 13:04:54] Raw request body: {"action":"getTasks","user_id":"1","category":"Hobby"}
+[2025-05-08 13:04:54] getTasks action requested
+[2025-05-08 13:04:54] Raw request body: {"action":"getTasks","user_id":"1","category":"All"}
+[2025-05-08 13:04:54] Processing request - user_id: 1, category: All
+[2025-05-08 13:04:54] Found 0 tasks
+[2025-05-08 13:04:54] Found 5 tasks
+[2025-05-08 13:04:54] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:04:54] Sending response: {"status":"success","tasks":[{"id":92,"title":"cars","description":"ii","category_name":"All","created_at":"2025-05-08 12:03:52"},{"id":90,"title":"travel","description":"travel","category_name":"All","created_at":"2025-05-08 11:49:38"},{"id":88,"title":"q","description":"q","category_name":"All","created_at":"2025-05-08 11:31:04"},{"id":86,"title":"oo","description":"oo","category_name":"All","created_at":"2025-05-08 11:30:32"},{"id":84,"title":"oo","description":"ll","category_name":"All","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:04:54] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:54] Database connection successful
+[2025-05-08 13:04:54] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:54] Database connection successful
+[2025-05-08 13:04:54] getTasks action requested
+[2025-05-08 13:04:54] Raw request body: {"action":"getTasks","user_id":"1","category":"Travel"}
+[2025-05-08 13:04:54] Processing request - user_id: 1, category: Travel
+[2025-05-08 13:04:54] Found 1 tasks
+[2025-05-08 13:04:54] Sending response: {"status":"success","tasks":[{"id":89,"title":"travel","description":"travel","category_name":"Travel","created_at":"2025-05-08 11:49:38"}]}
+[2025-05-08 13:04:54] getTasks action requested
+[2025-05-08 13:04:54] Raw request body: {"action":"getTasks","user_id":"1","category":"U-cars"}
+[2025-05-08 13:04:54] Processing request - user_id: 1, category: U-cars
+[2025-05-08 13:04:54] Found 1 tasks
+[2025-05-08 13:04:54] Sending response: {"status":"success","tasks":[{"id":91,"title":"cars","description":"ii","category_name":"U-cars","created_at":"2025-05-08 12:03:52"}]}
+[2025-05-08 13:04:54] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:54] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:04:54] Database connection successful
+[2025-05-08 13:04:54] getTasks action requested
+[2025-05-08 13:04:54] Raw request body: {"action":"getTasks","user_id":"1","category":"Study"}
+[2025-05-08 13:04:54] Processing request - user_id: 1, category: Study
+[2025-05-08 13:04:54] Found 0 tasks
+[2025-05-08 13:04:54] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:04:54] Database connection successful
+[2025-05-08 13:04:54] getTasks action requested
+[2025-05-08 13:04:54] Raw request body: {"action":"getTasks","user_id":"1","category":"Work"}
+[2025-05-08 13:04:54] Processing request - user_id: 1, category: Work
+[2025-05-08 13:04:54] Found 3 tasks
+[2025-05-08 13:04:54] Sending response: {"status":"success","tasks":[{"id":87,"title":"q","description":"q","category_name":"Work","created_at":"2025-05-08 11:31:04"},{"id":85,"title":"oo","description":"oo","category_name":"Work","created_at":"2025-05-08 11:30:32"},{"id":83,"title":"oo","description":"ll","category_name":"Work","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:05:00] API request received: POST /ToDoListApp/screens/backend/api.php?action=getDeletedTasks
+[2025-05-08 13:05:00] Database connection successful
+[2025-05-08 13:05:00] getDeletedTasks action requested
+[2025-05-08 13:05:00] Sending response: {"status":"success","tasks":[{"id":99,"title":"tt","description":"tt","category_name":"U-cars","created_at":"2025-05-08 12:21:05"},{"id":97,"title":"e","description":"ee","category_name":"U-cars","created_at":"2025-05-08 12:19:17"},{"id":95,"title":"tt","description":"tt","category_name":"U-cars","created_at":"2025-05-08 12:15:42"}]}
+[2025-05-08 13:05:00] Database connection closed
+[2025-05-08 13:05:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:05:01] Database connection successful
+[2025-05-08 13:05:01] getCategories action requested
+[2025-05-08 13:05:01] Raw request body: {"action":"getCategories","user_id":"1"}
+[2025-05-08 13:05:01] Found 9 categories
+[2025-05-08 13:05:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:05:01] Database connection successful
+[2025-05-08 13:05:01] getTasks action requested
+[2025-05-08 13:05:01] Raw request body: {"action":"getTasks","user_id":"1","category":"!!!!"}
+[2025-05-08 13:05:01] Processing request - user_id: 1, category: !!!!
+[2025-05-08 13:05:01] Found 0 tasks
+[2025-05-08 13:05:01] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:05:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:05:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:05:01] Database connection successful
+[2025-05-08 13:05:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:05:01] Database connection successful
+[2025-05-08 13:05:01] getTasks action requested
+[2025-05-08 13:05:01] Raw request body: {"action":"getTasks","user_id":"1","category":"Music"}
+[2025-05-08 13:05:01] Processing request - user_id: 1, category: Music
+[2025-05-08 13:05:01] getTasks action requested
+[2025-05-08 13:05:01] Found 0 tasks
+[2025-05-08 13:05:01] Raw request body: {"action":"getTasks","user_id":"1","category":"Hobby"}
+[2025-05-08 13:05:01] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:05:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:05:01] Processing request - user_id: 1, category: Hobby
+[2025-05-08 13:05:01] Found 0 tasks
+[2025-05-08 13:05:01] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:05:01] Database connection successful
+[2025-05-08 13:05:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:05:01] Database connection successful
+[2025-05-08 13:05:01] getTasks action requested
+[2025-05-08 13:05:01] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 13:05:01] Processing request - user_id: 1, category: Home
+[2025-05-08 13:05:01] Found 0 tasks
+[2025-05-08 13:05:01] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:05:01] getTasks action requested
+[2025-05-08 13:05:01] Raw request body: {"action":"getTasks","user_id":"1","category":"Study"}
+[2025-05-08 13:05:01] Processing request - user_id: 1, category: Study
+[2025-05-08 13:05:01] Found 0 tasks
+[2025-05-08 13:05:01] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:05:01] getTasks action requested
+[2025-05-08 13:05:01] Raw request body: {"action":"getTasks","user_id":"1","category":"All"}
+[2025-05-08 13:05:01] Processing request - user_id: 1, category: All
+[2025-05-08 13:05:01] Found 5 tasks
+[2025-05-08 13:05:01] Sending response: {"status":"success","tasks":[{"id":92,"title":"cars","description":"ii","category_name":"All","created_at":"2025-05-08 12:03:52"},{"id":90,"title":"travel","description":"travel","category_name":"All","created_at":"2025-05-08 11:49:38"},{"id":88,"title":"q","description":"q","category_name":"All","created_at":"2025-05-08 11:31:04"},{"id":86,"title":"oo","description":"oo","category_name":"All","created_at":"2025-05-08 11:30:32"},{"id":84,"title":"oo","description":"ll","category_name":"All","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:05:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:05:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:05:01] Database connection successful
+[2025-05-08 13:05:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:05:01] Database connection successful
+[2025-05-08 13:05:01] Database connection successful
+[2025-05-08 13:05:01] getTasks action requested
+[2025-05-08 13:05:01] Raw request body: {"action":"getTasks","user_id":"1","category":"Travel"}
+[2025-05-08 13:05:01] Processing request - user_id: 1, category: Travel
+[2025-05-08 13:05:01] getTasks action requested
+[2025-05-08 13:05:01] getTasks action requested
+[2025-05-08 13:05:01] Raw request body: {"action":"getTasks","user_id":"1","category":"Work"}
+[2025-05-08 13:05:01] Found 1 tasks
+[2025-05-08 13:05:01] Raw request body: {"action":"getTasks","user_id":"1","category":"U-cars"}
+[2025-05-08 13:05:01] Processing request - user_id: 1, category: Work
+[2025-05-08 13:05:01] Processing request - user_id: 1, category: U-cars
+[2025-05-08 13:05:01] Sending response: {"status":"success","tasks":[{"id":89,"title":"travel","description":"travel","category_name":"Travel","created_at":"2025-05-08 11:49:38"}]}
+[2025-05-08 13:05:01] Found 1 tasks
+[2025-05-08 13:05:01] Sending response: {"status":"success","tasks":[{"id":87,"title":"q","description":"q","category_name":"Work","created_at":"2025-05-08 11:31:04"},{"id":85,"title":"oo","description":"oo","category_name":"Work","created_at":"2025-05-08 11:30:32"},{"id":83,"title":"oo","description":"ll","category_name":"Work","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:05:01] Sending response: {"status":"success","tasks":[{"id":91,"title":"cars","description":"ii","category_name":"U-cars","created_at":"2025-05-08 12:03:52"}]}
+[2025-05-08 13:05:07] API request received: POST /ToDoListApp/screens/backend/api.php?action=addCustomCategory
+[2025-05-08 13:05:07] Database connection successful
+[2025-05-08 13:05:07] Database connection closed
+[2025-05-08 13:06:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:06:21] Database connection successful
+[2025-05-08 13:06:21] getCategories action requested
+[2025-05-08 13:06:21] Raw request body: {"action":"getCategories","user_id":"1"}
+[2025-05-08 13:06:21] Found 9 categories
+[2025-05-08 13:06:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:06:21] Database connection successful
+[2025-05-08 13:06:21] getCategories action requested
+[2025-05-08 13:06:21] Raw request body: {"action":"getCategories","user_id":"1"}
+[2025-05-08 13:06:21] Found 9 categories
+[2025-05-08 13:06:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:21] Database connection successful
+[2025-05-08 13:06:21] getTasks action requested
+[2025-05-08 13:06:21] Raw request body: {"action":"getTasks","user_id":"1","category":"!!!!"}
+[2025-05-08 13:06:21] Processing request - user_id: 1, category: !!!!
+[2025-05-08 13:06:21] Found 0 tasks
+[2025-05-08 13:06:21] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:21] Database connection successful
+[2025-05-08 13:06:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:21] getTasks action requested
+[2025-05-08 13:06:21] Raw request body: {"action":"getTasks","user_id":"1","category":"All"}
+[2025-05-08 13:06:21] Processing request - user_id: 1, category: All
+[2025-05-08 13:06:21] Database connection successful
+[2025-05-08 13:06:21] Found 5 tasks
+[2025-05-08 13:06:21] Sending response: {"status":"success","tasks":[{"id":92,"title":"cars","description":"ii","category_name":"All","created_at":"2025-05-08 12:03:52"},{"id":90,"title":"travel","description":"travel","category_name":"All","created_at":"2025-05-08 11:49:38"},{"id":88,"title":"q","description":"q","category_name":"All","created_at":"2025-05-08 11:31:04"},{"id":86,"title":"oo","description":"oo","category_name":"All","created_at":"2025-05-08 11:30:32"},{"id":84,"title":"oo","description":"ll","category_name":"All","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:06:21] getTasks action requested
+[2025-05-08 13:06:21] Raw request body: {"action":"getTasks","user_id":"1","category":"Study"}
+[2025-05-08 13:06:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:21] Processing request - user_id: 1, category: Study
+[2025-05-08 13:06:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:21] Found 0 tasks
+[2025-05-08 13:06:21] Database connection successful
+[2025-05-08 13:06:21] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:21] Database connection successful
+[2025-05-08 13:06:21] getTasks action requested
+[2025-05-08 13:06:21] Database connection successful
+[2025-05-08 13:06:21] Raw request body: {"action":"getTasks","user_id":"1","category":"Hobby"}
+[2025-05-08 13:06:21] getTasks action requested
+[2025-05-08 13:06:21] Raw request body: {"action":"getTasks","user_id":"1","category":"Music"}
+[2025-05-08 13:06:21] Processing request - user_id: 1, category: Hobby
+[2025-05-08 13:06:21] Processing request - user_id: 1, category: Music
+[2025-05-08 13:06:21] Found 0 tasks
+[2025-05-08 13:06:21] Found 0 tasks
+[2025-05-08 13:06:21] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:21] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:21] getTasks action requested
+[2025-05-08 13:06:21] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 13:06:21] Processing request - user_id: 1, category: Home
+[2025-05-08 13:06:21] Found 0 tasks
+[2025-05-08 13:06:21] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:21] Database connection successful
+[2025-05-08 13:06:21] getTasks action requested
+[2025-05-08 13:06:21] Raw request body: {"action":"getTasks","user_id":"1","category":"Travel"}
+[2025-05-08 13:06:21] Processing request - user_id: 1, category: Travel
+[2025-05-08 13:06:21] Found 1 tasks
+[2025-05-08 13:06:21] Sending response: {"status":"success","tasks":[{"id":89,"title":"travel","description":"travel","category_name":"Travel","created_at":"2025-05-08 11:49:38"}]}
+[2025-05-08 13:06:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:21] Database connection successful
+[2025-05-08 13:06:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:21] getTasks action requested
+[2025-05-08 13:06:21] Database connection successful
+[2025-05-08 13:06:21] Raw request body: {"action":"getTasks","user_id":"1","category":"U-cars"}
+[2025-05-08 13:06:21] Processing request - user_id: 1, category: U-cars
+[2025-05-08 13:06:21] Found 1 tasks
+[2025-05-08 13:06:21] Sending response: {"status":"success","tasks":[{"id":91,"title":"cars","description":"ii","category_name":"U-cars","created_at":"2025-05-08 12:03:52"}]}
+[2025-05-08 13:06:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:21] getTasks action requested
+[2025-05-08 13:06:21] Raw request body: {"action":"getTasks","user_id":"1","category":"!!!!"}
+[2025-05-08 13:06:21] Processing request - user_id: 1, category: !!!!
+[2025-05-08 13:06:21] Found 0 tasks
+[2025-05-08 13:06:21] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:21] getTasks action requested
+[2025-05-08 13:06:21] Raw request body: {"action":"getTasks","user_id":"1","category":"Work"}
+[2025-05-08 13:06:21] Processing request - user_id: 1, category: Work
+[2025-05-08 13:06:21] Found 3 tasks
+[2025-05-08 13:06:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:21] Sending response: {"status":"success","tasks":[{"id":87,"title":"q","description":"q","category_name":"Work","created_at":"2025-05-08 11:31:04"},{"id":85,"title":"oo","description":"oo","category_name":"Work","created_at":"2025-05-08 11:30:32"},{"id":83,"title":"oo","description":"ll","category_name":"Work","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:06:21] Database connection successful
+[2025-05-08 13:06:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:21] getTasks action requested
+[2025-05-08 13:06:21] Raw request body: {"action":"getTasks","user_id":"1","category":"All"}
+[2025-05-08 13:06:21] Processing request - user_id: 1, category: All
+[2025-05-08 13:06:21] Found 5 tasks
+[2025-05-08 13:06:21] Sending response: {"status":"success","tasks":[{"id":92,"title":"cars","description":"ii","category_name":"All","created_at":"2025-05-08 12:03:52"},{"id":90,"title":"travel","description":"travel","category_name":"All","created_at":"2025-05-08 11:49:38"},{"id":88,"title":"q","description":"q","category_name":"All","created_at":"2025-05-08 11:31:04"},{"id":86,"title":"oo","description":"oo","category_name":"All","created_at":"2025-05-08 11:30:32"},{"id":84,"title":"oo","description":"ll","category_name":"All","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:06:21] Database connection successful
+[2025-05-08 13:06:21] getTasks action requested
+[2025-05-08 13:06:21] Raw request body: {"action":"getTasks","user_id":"1","category":"Hobby"}
+[2025-05-08 13:06:21] Processing request - user_id: 1, category: Hobby
+[2025-05-08 13:06:21] Found 0 tasks
+[2025-05-08 13:06:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:21] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:22] Database connection successful
+[2025-05-08 13:06:22] getTasks action requested
+[2025-05-08 13:06:22] getTasks action requested
+[2025-05-08 13:06:22] Raw request body: {"action":"getTasks","user_id":"1","category":"Music"}
+[2025-05-08 13:06:22] Processing request - user_id: 1, category: Music
+[2025-05-08 13:06:22] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 13:06:22] Processing request - user_id: 1, category: Home
+[2025-05-08 13:06:22] Found 0 tasks
+[2025-05-08 13:06:22] Found 0 tasks
+[2025-05-08 13:06:22] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:22] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:22] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:22] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:22] Database connection successful
+[2025-05-08 13:06:22] Database connection successful
+[2025-05-08 13:06:22] getTasks action requested
+[2025-05-08 13:06:22] Raw request body: {"action":"getTasks","user_id":"1","category":"Travel"}
+[2025-05-08 13:06:22] Processing request - user_id: 1, category: Travel
+","category":"U-cars"}
+[2025-05-08 13:06:22] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:22] Processing request - user_id: 1, category: U-cars
+[2025-05-08 13:06:22] Found 1 tasks
+[2025-05-08 13:06:22] Found 1 tasks
+[2025-05-08 13:06:22] Sending response: {"status":"success","tasks":[{"id":89,"title":"travel","description":"travel","category_name":"Travel","created_at":"2025-05-08 11:49:38"}]}
+[2025-05-08 13:06:22] Sending response: {"status":"success","tasks":[{"id":91,"title":"cars","description":"ii","category_name":"U-cars","created_at":"2025-05-08 12:03:52"}]}
+[2025-05-08 13:06:22] Database connection successful
+[2025-05-08 13:06:22] getTasks action requested
+[2025-05-08 13:06:22] Raw request body: {"action":"getTasks","user_id":"1","category":"Study"}
+[2025-05-08 13:06:22] Processing request - user_id: 1, category: Study
+[2025-05-08 13:06:22] Found 0 tasks
+[2025-05-08 13:06:22] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:22] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:22] Database connection successful
+[2025-05-08 13:06:22] getTasks action requested
+[2025-05-08 13:06:22] Raw request body: {"action":"getTasks","user_id":"1","category":"Work"}
+[2025-05-08 13:06:22] Processing request - user_id: 1, category: Work
+[2025-05-08 13:06:22] Found 3 tasks
+[2025-05-08 13:06:22] Sending response: {"status":"success","tasks":[{"id":87,"title":"q","description":"q","category_name":"Work","created_at":"2025-05-08 11:31:04"},{"id":85,"title":"oo","description":"oo","category_name":"Work","created_at":"2025-05-08 11:30:32"},{"id":83,"title":"oo","description":"ll","category_name":"Work","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:06:32] API request received: POST /ToDoListApp/screens/backend/api.php?action=addCustomCategory
+[2025-05-08 13:06:32] Database connection successful
+[2025-05-08 13:06:32] Database connection closed
+[2025-05-08 13:06:37] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:06:37] Database connection successful
+[2025-05-08 13:06:37] getCategories action requested
+[2025-05-08 13:06:37] Raw request body: {"action":"getCategories","user_id":"1"}
+[2025-05-08 13:06:37] Found 9 categories
+[2025-05-08 13:06:38] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:38] Database connection successful
+[2025-05-08 13:06:38] getTasks action requested
+[2025-05-08 13:06:38] Raw request body: {"action":"getTasks","user_id":"1","category":"!!!!"}
+[2025-05-08 13:06:38] Processing request - user_id: 1, category: !!!!
+[2025-05-08 13:06:38] Found 0 tasks
+[2025-05-08 13:06:38] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:38] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:38] Database connection successful
+[2025-05-08 13:06:38] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:38] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:38] Database connection successful
+[2025-05-08 13:06:38] Database connection successful
+[2025-05-08 13:06:38] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:38] getTasks action requested
+[2025-05-08 13:06:38] Raw request body: {"action":"getTasks","user_id":"1","category":"All"}
+[2025-05-08 13:06:38] Processing request - user_id: 1, category: All
+[2025-05-08 13:06:38] Found 5 tasks
+[2025-05-08 13:06:38] Sending response: {"status":"success","tasks":[{"id":92,"title":"cars","description":"ii","category_name":"All","created_at":"2025-05-08 12:03:52"},{"id":90,"title":"travel","description":"travel","category_name":"All","created_at":"2025-05-08 11:49:38"},{"id":88,"title":"q","description":"q","category_name":"All","created_at":"2025-05-08 11:31:04"},{"id":86,"title":"oo","description":"oo","category_name":"All","created_at":"2025-05-08 11:30:32"},{"id":84,"title":"oo","description":"ll","category_name":"All","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:06:38] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:38] getTasks action requested
+[2025-05-08 13:06:38] Raw request body: {"action":"getTasks","user_id":"1","category":"Music"}
+[2025-05-08 13:06:38] Processing request - user_id: 1, category: Music
+[2025-05-08 13:06:38] getTasks action requested
+[2025-05-08 13:06:38] Raw request body: {"action":"getTasks","user_id":"1","category":"Hobby"}
+[2025-05-08 13:06:38] Found 0 tasks
+[2025-05-08 13:06:38] Processing request - user_id: 1, category: Hobby
+[2025-05-08 13:06:38] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:38] Found 0 tasks
+[2025-05-08 13:06:38] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:38] Database connection successful
+[2025-05-08 13:06:38] getTasks action requested
+[2025-05-08 13:06:38] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 13:06:38] Processing request - user_id: 1, category: Home
+[2025-05-08 13:06:38] Found 0 tasks
+[2025-05-08 13:06:38] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:38] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:38] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:38] Database connection successful
+[2025-05-08 13:06:38] Database connection successful
+[2025-05-08 13:06:38] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:38] Database connection successful
+[2025-05-08 13:06:38] Database connection successful
+[2025-05-08 13:06:38] getTasks action requested
+[2025-05-08 13:06:38] Raw request body: {"action":"getTasks","user_id":"1","category":"Work"}
+[2025-05-08 13:06:38] getTasks action requested
+[2025-05-08 13:06:38] Processing request - user_id: 1, category: Work
+[2025-05-08 13:06:38] Raw request body: {"action":"getTasks","user_id":"1","category":"U-cars"}
+[2025-05-08 13:06:38] Processing request - user_id: 1, category: U-cars
+[2025-05-08 13:06:38] Found 3 tasks
+[2025-05-08 13:06:38] Sending response: {"status":"success","tasks":[{"id":87,"title":"q","description":"q","category_name":"Work","created_at":"2025-05-08 11:31:04"},{"id":85,"title":"oo","description":"oo","category_name":"Work","created_at":"2025-05-08 11:30:32"},{"id":83,"title":"oo","description":"ll","category_name":"Work","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:06:38] getTasks action requested
+[2025-05-08 13:06:38] Found 1 tasks
+[2025-05-08 13:06:38] getTasks action requested
+[2025-05-08 13:06:38] Raw request body: {"action":"getTasks","user_id":"1","category":"Travel"}
+[2025-05-08 13:06:38] Sending response: {"status":"success","tasks":[{"id":91,"title":"cars","description":"ii","category_name":"U-cars","created_at":"2025-05-08 12:03:52"}]}
+[2025-05-08 13:06:38] Raw request body: {"action":"getTasks","user_id":"1","category":"Study"}
+[2025-05-08 13:06:38] Processing request - user_id: 1, category: Travel
+[2025-05-08 13:06:38] Processing request - user_id: 1, category: Study
+[2025-05-08 13:06:38] Found 1 tasks
+[2025-05-08 13:06:38] Found 0 tasks
+[2025-05-08 13:06:38] Sending response: {"status":"success","tasks":[{"id":89,"title":"travel","description":"travel","category_name":"Travel","created_at":"2025-05-08 11:49:38"}]}
+[2025-05-08 13:06:38] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:39] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:39] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:39] Database connection successful
+[2025-05-08 13:06:39] getTasks action requested
+[2025-05-08 13:06:39] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 13:06:39] Processing request - user_id: 1, category: Home
+[2025-05-08 13:06:39] Found 0 tasks
+[2025-05-08 13:06:39] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:39] Database connection successful
+[2025-05-08 13:06:39] getTasks action requested
+[2025-05-08 13:06:39] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 13:06:39] Processing request - user_id: 1, category: Home
+[2025-05-08 13:06:39] Found 0 tasks
+[2025-05-08 13:06:39] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:41] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:06:41] Database connection successful
+[2025-05-08 13:06:41] getCategories action requested
+[2025-05-08 13:06:41] Raw request body: {"user_id":"1"}
+[2025-05-08 13:06:41] Found 9 categories
+[2025-05-08 13:06:45] API request received: POST /ToDoListApp/screens/backend/api.php?action=addTask
+[2025-05-08 13:06:45] Database connection successful
+[2025-05-08 13:06:45] Add Task action requested
+[2025-05-08 13:06:45] Raw request body: {"action":"addTask","user_id":"1","title":"pp","description":"p","category":"Home"}
+[2025-05-08 13:06:45] Processing task: user_id=1, title=pp, category=Home
+[2025-05-08 13:06:45] Task added successfully
+[2025-05-08 13:06:47] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:47] Database connection successful
+[2025-05-08 13:06:47] getTasks action requested
+[2025-05-08 13:06:47] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 13:06:47] Processing request - user_id: 1, category: Home
+[2025-05-08 13:06:47] Found 1 tasks
+[2025-05-08 13:06:47] Sending response: {"status":"success","tasks":[{"id":103,"title":"pp","description":"p","category_name":"Home","created_at":"2025-05-08 13:06:45"}]}
+[2025-05-08 13:06:48] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:06:48] Database connection successful
+[2025-05-08 13:06:48] getCategories action requested
+[2025-05-08 13:06:48] Raw request body: {"action":"getCategories","user_id":"1"}
+[2025-05-08 13:06:48] Found 9 categories
+[2025-05-08 13:06:48] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:48] Database connection successful
+[2025-05-08 13:06:48] getTasks action requested
+[2025-05-08 13:06:48] Raw request body: {"action":"getTasks","user_id":"1","category":"All"}
+[2025-05-08 13:06:48] Processing request - user_id: 1, category: All
+[2025-05-08 13:06:48] Found 6 tasks
+[2025-05-08 13:06:48] Sending response: {"status":"success","tasks":[{"id":104,"title":"pp","description":"p","category_name":"All","created_at":"2025-05-08 13:06:45"},{"id":92,"title":"cars","description":"ii","category_name":"All","created_at":"2025-05-08 12:03:52"},{"id":90,"title":"travel","description":"travel","category_name":"All","created_at":"2025-05-08 11:49:38"},{"id":88,"title":"q","description":"q","category_name":"All","created_at":"2025-05-08 11:31:04"},{"id":86,"title":"oo","description":"oo","category_name":"All","created_at":"2025-05-08 11:30:32"},{"id":84,"title":"oo","description":"ll","category_name":"All","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:06:48] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:48] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:48] Database connection successful
+[2025-05-08 13:06:48] Database connection successful
+[2025-05-08 13:06:48] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:48] Database connection successful
+[2025-05-08 13:06:48] getTasks action requested
+[2025-05-08 13:06:48] Raw request body: {"action":"getTasks","user_id":"1","category":"Hobby"}
+[2025-05-08 13:06:48] getTasks action requested
+[2025-05-08 13:06:48] Processing request - user_id: 1, category: Hobby
+[2025-05-08 13:06:48] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 13:06:48] Processing request - user_id: 1, category: Home
+[2025-05-08 13:06:48] Found 0 tasks
+[2025-05-08 13:06:48] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:48] Found 1 tasks
+eived: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:48] Sending response: {"status":"success","tasks":[{"id":103,"title":"pp","description":"p","category_name":"Home","created_at":"2025-05-08 13:06:45"}]}
+[2025-05-08 13:06:48] getTasks action requested
+[2025-05-08 13:06:48] Raw request body: {"action":"getTasks","user_id":"1","category":"Music"}
+[2025-05-08 13:06:48] Database connection successful
+[2025-05-08 13:06:48] Processing request - user_id: 1, category: Music
+[2025-05-08 13:06:48] Found 0 tasks
+[2025-05-08 13:06:48] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:48] getTasks action requested
+[2025-05-08 13:06:48] Raw request body: {"action":"getTasks","user_id":"1","category":"!!!!"}
+[2025-05-08 13:06:48] Processing request - user_id: 1, category: !!!!
+[2025-05-08 13:06:48] Found 0 tasks
+[2025-05-08 13:06:48] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:48] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:48] Database connection successful
+[2025-05-08 13:06:48] getTasks action requested
+[2025-05-08 13:06:48] Raw request body: {"action":"getTasks","user_id":"1","category":"Study"}
+[2025-05-08 13:06:48] Processing request - user_id: 1, category: Study
+[2025-05-08 13:06:48] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:48] Found 0 tasks
+[2025-05-08 13:06:48] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:06:48] Database connection successful
+[2025-05-08 13:06:48] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:48] Database connection successful
+[2025-05-08 13:06:48] getTasks action requested
+[2025-05-08 13:06:48] Raw request body: {"action":"getTasks","user_id":"1","category":"Work"}
+[2025-05-08 13:06:48] Processing request - user_id: 1, category: Work
+[2025-05-08 13:06:48] Found 3 tasks
+[2025-05-08 13:06:48] getTasks action requested
+[2025-05-08 13:06:48] Sending response: {"status":"success","tasks":[{"id":87,"title":"q","description":"q","category_name":"Work","created_at":"2025-05-08 11:31:04"},{"id":85,"title":"oo","description":"oo","category_name":"Work","created_at":"2025-05-08 11:30:32"},{"id":83,"title":"oo","description":"ll","category_name":"Work","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:06:48] Raw request body: {"action":"getTasks","user_id":"1","category":"U-cars"}
+[2025-05-08 13:06:48] Processing request - user_id: 1, category: U-cars
+[2025-05-08 13:06:48] Found 1 tasks
+[2025-05-08 13:06:48] Sending response: {"status":"success","tasks":[{"id":91,"title":"cars","description":"ii","category_name":"U-cars","created_at":"2025-05-08 12:03:52"}]}
+[2025-05-08 13:06:48] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:06:48] Database connection successful
+[2025-05-08 13:06:48] getTasks action requested
+[2025-05-08 13:06:48] Raw request body: {"action":"getTasks","user_id":"1","category":"Travel"}
+[2025-05-08 13:06:48] Processing request - user_id: 1, category: Travel
+[2025-05-08 13:06:48] Found 1 tasks
+[2025-05-08 13:06:48] Sending response: {"status":"success","tasks":[{"id":89,"title":"travel","description":"travel","category_name":"Travel","created_at":"2025-05-08 11:49:38"}]}
+[2025-05-08 13:07:07] API request received: POST /ToDoListApp/screens/backend/api.php?action=updateCategory
+[2025-05-08 13:07:07] Database connection successful
+[2025-05-08 13:07:07] Database connection closed
+[2025-05-08 13:08:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=updateCategory
+[2025-05-08 13:08:01] Database connection successful
+[2025-05-08 13:08:01] Database connection closed
+[2025-05-08 13:08:04] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:08:04] Database connection successful
+[2025-05-08 13:08:04] getCategories action requested
+[2025-05-08 13:08:04] Raw request body: {"action":"getCategories","user_id":"1"}
+[2025-05-08 13:08:04] Found 9 categories
+[2025-05-08 13:08:04] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:04] Database connection successful
+[2025-05-08 13:08:04] getTasks action requested
+[2025-05-08 13:08:04] Raw request body: {"action":"getTasks","user_id":"1","category":"!!!!"}
+[2025-05-08 13:08:04] Processing request - user_id: 1, category: !!!!
+[2025-05-08 13:08:04] Found 0 tasks
+[2025-05-08 13:08:04] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:04] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:04] Database connection successful
+[2025-05-08 13:08:04] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:04] getTasks action requested
+[2025-05-08 13:08:04] Raw request body: {"action":"getTasks","user_id":"1","category":"All"}
+[2025-05-08 13:08:04] Processing request - user_id: 1, category: All
+[2025-05-08 13:08:04] Found 6 tasks
+[2025-05-08 13:08:04] Sending response: {"status":"success","tasks":[{"id":104,"title":"pp","description":"p","category_name":"All","created_at":"2025-05-08 13:06:45"},{"id":92,"title":"cars","description":"ii","category_name":"All","created_at":"2025-05-08 12:03:52"},{"id":90,"title":"travel","description":"travel","category_name":"All","created_at":"2025-05-08 11:49:38"},{"id":88,"title":"q","description":"q","category_name":"All","created_at":"2025-05-08 11:31:04"},{"id":86,"title":"oo","description":"oo","category_name":"All","created_at":"2025-05-08 11:30:32"},{"id":84,"title":"oo","description":"ll","category_name":"All","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:08:04] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:04] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:04] Database connection successful
+[2025-05-08 13:08:04] Database connection successful
+[2025-05-08 13:08:04] getTasks action requested
+[2025-05-08 13:08:04] Raw request body: {"action":"getTasks","user_id":"1","category":"Music"}
+[2025-05-08 13:08:04] Processing request - user_id: 1, category: Music
+[2025-05-08 13:08:04] Found 0 tasks
+[2025-05-08 13:08:04] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:04] getTasks action requested
+[2025-05-08 13:08:04] Raw request body: {"action":"getTasks","user_id":"1","category":"Hobby"}
+[2025-05-08 13:08:04] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:04] Processing request - user_id: 1, category: Hobby
+[2025-05-08 13:08:04] Database connection successful
+[2025-05-08 13:08:04] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:04] getTasks action requested
+[2025-05-08 13:08:04] Raw request body: {"action":"getTasks","user_id":"1","category":"Travel"}
+[2025-05-08 13:08:04] Processing request - user_id: 1, category: Travel
+[2025-05-08 13:08:04] getTasks action requested
+[2025-05-08 13:08:04] Raw request body: {"action":"getTasks","user_id":"1","category":"Home"}
+[2025-05-08 13:08:04] Found 1 tasks
+[2025-05-08 13:08:04] Processing request - user_id: 1, category: Home
+[2025-05-08 13:08:04] Sending response: {"status":"success","tasks":[{"id":89,"title":"travel","description":"travel","category_name":"Travel","created_at":"2025-05-08 11:49:38"}]}
+[2025-05-08 13:08:04] Found 1 tasks
+[2025-05-08 13:08:04] Sending response: {"status":"success","tasks":[{"id":103,"title":"pp","description":"p","category_name":"Home","created_at":"2025-05-08 13:06:45"}]}
+[2025-05-08 13:08:04] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:04] Database connection successful
+[2025-05-08 13:08:04] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:04] getTasks action requested
+[2025-05-08 13:08:04] Raw request body: {"action":"getTasks","user_id":"1","category":"Work"}
+[2025-05-08 13:08:04] Processing request - user_id: 1, category: Work
+[2025-05-08 13:08:04] Found 3 tasks
+[2025-05-08 13:08:04] Sending response: {"status":"success","tasks":[{"id":87,"title":"q","description":"q","category_name":"Work","created_at":"2025-05-08 11:31:04"},{"id":85,"title":"oo","description":"oo","category_name":"Work","created_at":"2025-05-08 11:30:32"},{"id":83,"title":"oo","description":"ll","category_name":"Work","created_at":"2025-05-08 11:28:14"}]}
+[2025-05-08 13:08:04] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:04] Database connection successful
+[2025-05-08 13:08:04] getTasks action requested
+[2025-05-08 13:08:04] Raw request body: {"action":"getTasks","user_id":"1","category":"Study"}
+[2025-05-08 13:08:04] Processing request - user_id: 1, category: Study
+[2025-05-08 13:08:04] Database connection successful
+[2025-05-08 13:08:04] Found 0 tasks
+[2025-05-08 13:08:04] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:04] getTasks action requested
+[2025-05-08 13:08:04] Raw request body: {"action":"getTasks","user_id":"1","category":"U-cars"}
+[2025-05-08 13:08:04] Processing request - user_id: 1, category: U-cars
+[2025-05-08 13:08:04] Found 1 tasks
+[2025-05-08 13:08:04] Sending response: {"status":"success","tasks":[{"id":91,"title":"cars","description":"ii","category_name":"U-cars","created_at":"2025-05-08 12:03:52"}]}
+[2025-05-08 13:08:14] API request received: POST /ToDoListApp/screens/backend/api.php?action=login
+[2025-05-08 13:08:15] Database connection successful
+[2025-05-08 13:08:15] Login action requested
+[2025-05-08 13:08:15] Raw request body: {"action":"login","username":"abdi","password":"abdi"}
+[2025-05-08 13:08:15] Attempting login for username: abdi
+[2025-05-08 13:08:15] User found, verifying password
+[2025-05-08 13:08:15] Password verified, login successful
+[2025-05-08 13:08:15] Sending response: {"status":"success","message":"Login successful","user_id":2}
+[2025-05-08 13:08:15] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:08:15] Database connection successful
+[2025-05-08 13:08:15] getCategories action requested
+[2025-05-08 13:08:15] Raw request body: {"action":"getCategories","user_id":"2"}
+[2025-05-08 13:08:15] Found 9 categories
+[2025-05-08 13:08:15] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:15] Database connection successful
+[2025-05-08 13:08:15] getTasks action requested
+[2025-05-08 13:08:15] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:15] Raw request body: {"action":"getTasks","user_id":"2","category":"All"}
+[2025-05-08 13:08:15] Processing request - user_id: 2, category: All
+[2025-05-08 13:08:15] Database connection successful
+[2025-05-08 13:08:15] Found 1 tasks
+[2025-05-08 13:08:15] Sending response: {"status":"success","tasks":[{"id":94,"title":"work","description":"work","category_name":"All","created_at":"2025-05-08 12:05:14"}]}
+[2025-05-08 13:08:15] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:15] getTasks action requested
+[2025-05-08 13:08:15] Raw request body: {"action":"getTasks","user_id":"2","category":"Cars"}
+[2025-05-08 13:08:15] Processing request - user_id: 2, category: Cars
+[2025-05-08 13:08:15] Database connection successful
+[2025-05-08 13:08:15] Found 0 tasks
+[2025-05-08 13:08:15] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:15] getTasks action requested
+[2025-05-08 13:08:15] Raw request body: {"action":"getTasks","user_id":"2","category":"Home"}
+[2025-05-08 13:08:15] Processing request - user_id: 2, category: Home
+[2025-05-08 13:08:15] Found 0 tasks
+[2025-05-08 13:08:15] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:15] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:15] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:15] Database connection successful
+[2025-05-08 13:08:15] Database connection successful
+[2025-05-08 13:08:15] getTasks action requested
+[2025-05-08 13:08:15] Raw request body: {"action":"getTasks","user_id":"2","category":"Hobby"}
+[2025-05-08 13:08:15] getTasks action requested
+[2025-05-08 13:08:15] Processing request - user_id: 2, category: Hobby
+[2025-05-08 13:08:15] Raw request body: {"action":"getTasks","user_id":"2","category":"Music"}
+[2025-05-08 13:08:15] Processing request - user_id: 2, category: Music
+[2025-05-08 13:08:15] Found 0 tasks
+[2025-05-08 13:08:15] Found 0 tasks
+[2025-05-08 13:08:15] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:15] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:15] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:15] Database connection successful
+[2025-05-08 13:08:15] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:15] Database connection successful
+[2025-05-08 13:08:15] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:15] getTasks action requested
+[2025-05-08 13:08:15] Raw request body: {"action":"getTasks","user_id":"2","category":"Travel"}
+[2025-05-08 13:08:15] Processing request - user_id: 2, category: Travel
+[2025-05-08 13:08:15] Database connection successful
+[2025-05-08 13:08:15] Found 0 tasks
+[2025-05-08 13:08:15] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:15] getTasks action requested
+[2025-05-08 13:08:15] Raw request body: {"action":"getTasks","user_id":"2","category":"Study"}
+[2025-05-08 13:08:15] Processing request - user_id: 2, category: Study
+[2025-05-08 13:08:15] Found 0 tasks
+[2025-05-08 13:08:15] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:15] getTasks action requested
+[2025-05-08 13:08:15] Raw request body: {"action":"getTasks","user_id":"2","category":"qq"}
+[2025-05-08 13:08:15] Processing request - user_id: 2, category: qq
+[2025-05-08 13:08:15] Found 0 tasks
+[2025-05-08 13:08:15] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:15] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:15] Database connection successful
+[2025-05-08 13:08:15] getTasks action requested
+[2025-05-08 13:08:15] Raw request body: {"action":"getTasks","user_id":"2","category":"Work"}
+[2025-05-08 13:08:15] Processing request - user_id: 2, category: Work
+[2025-05-08 13:08:15] Found 1 tasks
+[2025-05-08 13:08:15] Sending response: {"status":"success","tasks":[{"id":93,"title":"work","description":"work","category_name":"Work","created_at":"2025-05-08 12:05:14"}]}
+[2025-05-08 13:08:21] API request received: POST /ToDoListApp/screens/backend/api.php?action=addCustomCategory
+[2025-05-08 13:08:21] Database connection successful
+[2025-05-08 13:08:21] Database connection closed
+[2025-05-08 13:08:24] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:08:24] Database connection successful
+[2025-05-08 13:08:24] getCategories action requested
+[2025-05-08 13:08:24] Raw request body: {"action":"getCategories","user_id":"2"}
+[2025-05-08 13:08:24] Found 9 categories
+[2025-05-08 13:08:24] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:24] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:24] Database connection successful
+[2025-05-08 13:08:24] getTasks action requested
+[2025-05-08 13:08:24] Raw request body: {"action":"getTasks","user_id":"2","category":"Cars"}
+[2025-05-08 13:08:24] Processing request - user_id: 2, category: Cars
+[2025-05-08 13:08:24] Found 0 tasks
+[2025-05-08 13:08:24] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:24] Database connection successful
+[2025-05-08 13:08:24] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:24] getTasks action requested
+[2025-05-08 13:08:24] Raw request body: {"action":"getTasks","user_id":"2","category":"All"}
+[2025-05-08 13:08:24] Processing request - user_id: 2, category: All
+[2025-05-08 13:08:24] Found 1 tasks
+[2025-05-08 13:08:24] Sending response: {"status":"success","tasks":[{"id":94,"title":"work","description":"work","category_name":"All","created_at":"2025-05-08 12:05:14"}]}
+[2025-05-08 13:08:24] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:24] Database connection successful
+[2025-05-08 13:08:24] Database connection successful
+[2025-05-08 13:08:24] getTasks action requested
+[2025-05-08 13:08:24] Raw request body: {"action":"getTasks","user_id":"2","category":"Hobby"}
+[2025-05-08 13:08:24] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:24] Processing request - user_id: 2, category: Hobby
+[2025-05-08 13:08:24] Found 0 tasks
+[2025-05-08 13:08:24] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:24] getTasks action requested
+[2025-05-08 13:08:24] Raw request body: {"action":"getTasks","user_id":"2","category":"Home"}
+[2025-05-08 13:08:24] Processing request - user_id: 2, category: Home
+[2025-05-08 13:08:24] Found 0 tasks
+[2025-05-08 13:08:24] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:24] getTasks action requested
+[2025-05-08 13:08:24] Raw request body: {"action":"getTasks","user_id":"2","category":"Music"}
+[2025-05-08 13:08:24] Processing request - user_id: 2, category: Music
+[2025-05-08 13:08:24] Found 0 tasks
+[2025-05-08 13:08:24] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:24] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:24] Database connection successful
+[2025-05-08 13:08:24] getTasks action requested
+[2025-05-08 13:08:24] Raw request body: {"action":"getTasks","user_id":"2","category":"qq"}
+[2025-05-08 13:08:24] Processing request - user_id: 2, category: qq
+[2025-05-08 13:08:24] Found 0 tasks
+[2025-05-08 13:08:24] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:24] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:24] Database connection successful
+[2025-05-08 13:08:24] getTasks action requested
+[2025-05-08 13:08:24] Raw request body: {"action":"getTasks","user_id":"2","category":"Study"}
+[2025-05-08 13:08:24] Processing request - user_id: 2, category: Study
+[2025-05-08 13:08:24] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:24] Found 0 tasks
+[2025-05-08 13:08:24] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:24] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:08:24] Database connection successful
+[2025-05-08 13:08:24] Database connection successful
+[2025-05-08 13:08:24] getTasks action requested
+[2025-05-08 13:08:24] Raw request body: {"action":"getTasks","user_id":"2","category":"Travel"}
+[2025-05-08 13:08:24] Processing request - user_id: 2, category: Travel
+[2025-05-08 13:08:24] Found 0 tasks
+[2025-05-08 13:08:24] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:08:24] getTasks action requested
+[2025-05-08 13:08:24] Raw request body: {"action":"getTasks","user_id":"2","category":"Work"}
+[2025-05-08 13:08:24] Processing request - user_id: 2, category: Work
+[2025-05-08 13:08:24] Found 1 tasks
+[2025-05-08 13:08:24] Sending response: {"status":"success","tasks":[{"id":93,"title":"work","description":"work","category_name":"Work","created_at":"2025-05-08 12:05:14"}]}
+[2025-05-08 13:10:07] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:10:07] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:10:07] Database connection successful
+[2025-05-08 13:10:08] getCategories action requested
+[2025-05-08 13:10:08] getCategories action requested
+[2025-05-08 13:10:08] Raw request body: {"action":"getCategories","user_id":"2"}
+[2025-05-08 13:10:08] Found 9 categories
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] getTasks action requested
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"Cars"}
+[2025-05-08 13:10:08] Database connection successful
+ category: Cars
+[2025-05-08 13:10:08] Found 0 tasks
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:10:08] getTasks action requested
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"All"}
+[2025-05-08 13:10:08] Processing request - user_id: 2, category: All
+[2025-05-08 13:10:08] Found 1 tasks
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[{"id":94,"title":"work","description":"work","category_name":"All","created_at":"2025-05-08 12:05:14"}]}
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] getTasks action requested
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"Home"}
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"Hobby"}
+[2025-05-08 13:10:08] Processing request - user_id: 2, category: Home
+[2025-05-08 13:10:08] Processing request - user_id: 2, category: Hobby
+[2025-05-08 13:10:08] Found 0 tasks
+[2025-05-08 13:10:08] Found 0 tasks
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] getTasks action requested
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"Music"}
+[2025-05-08 13:10:08] Processing request - user_id: 2, category: Music
+[2025-05-08 13:10:08] Found 0 tasks
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:10:08] getTasks action requested
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"Study"}
+[2025-05-08 13:10:08] Processing request - user_id: 2, category: Study
+[2025-05-08 13:10:08] Found 0 tasks
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] getTasks action requested
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"qq"}
+[2025-05-08 13:10:08] Processing request - user_id: 2, category: qq
+[2025-05-08 13:10:08] Found 0 tasks
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] getTasks action requested
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"Work"}
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] Processing request - user_id: 2, category: Work
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] getTasks action requested
+[2025-05-08 13:10:08] Found 1 tasks
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"Hobby"}
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[{"id":93,"title":"work","description":"work","category_name":"Work","created_at":"2025-05-08 12:05:14"}]}
+[2025-05-08 13:10:08] Processing request - user_id: 2, category: Hobby
+[2025-05-08 13:10:08] Found 0 tasks
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:10:08] getTasks action requested
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"Cars"}
+[2025-05-08 13:10:08] Processing request - user_id: 2, category: Cars
+[2025-05-08 13:10:08] getTasks action requested
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"All"}
+[2025-05-08 13:10:08] Found 0 tasks
+[2025-05-08 13:10:08] Processing request - user_id: 2, category: All
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:10:08] Found 1 tasks
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[{"id":94,"title":"work","description":"work","category_name":"All","created_at":"2025-05-08 12:05:14"}]}
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] getTasks action requested
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"Music"}
+Tasks
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"Travel"}
+[2025-05-08 13:10:08] Processing request - user_id: 2, category: Travel
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] Found 0 tasks
+[2025-05-08 13:10:08] Found 0 tasks
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] getTasks action requested
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"Study"}
+[2025-05-08 13:10:08] Processing request - user_id: 2, category: Study
+[2025-05-08 13:10:08] Found 0 tasks
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:10:08] getTasks action requested
+[2025-05-08 13:10:08] getTasks action requested
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"qq"}
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"Home"}
+[2025-05-08 13:10:08] Processing request - user_id: 2, category: qq
+[2025-05-08 13:10:08] Processing request - user_id: 2, category: Home
+[2025-05-08 13:10:08] Found 0 tasks
+[2025-05-08 13:10:08] Found 0 tasks
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] getTasks action requested
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"Travel"}
+[2025-05-08 13:10:08] Processing request - user_id: 2, category: Travel
+[2025-05-08 13:10:08] Found 0 tasks
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:10:08] Database connection successful
+[2025-05-08 13:10:08] getTasks action requested
+[2025-05-08 13:10:08] Raw request body: {"action":"getTasks","user_id":"2","category":"Work"}
+[2025-05-08 13:10:08] Processing request - user_id: 2, category: Work
+[2025-05-08 13:10:08] Found 1 tasks
+[2025-05-08 13:10:08] Sending response: {"status":"success","tasks":[{"id":93,"title":"work","description":"work","category_name":"Work","created_at":"2025-05-08 12:05:14"}]}
+[2025-05-08 13:10:20] API request received: POST /ToDoListApp/screens/backend/api.php?action=addCustomCategory
+[2025-05-08 13:10:20] Database connection successful
+[2025-05-08 13:10:20] Database connection closed
+[2025-05-08 13:11:15] API request received: POST /ToDoListApp/screens/backend/api.php?action=addCustomCategory
+[2025-05-08 13:11:15] Database connection successful
+[2025-05-08 13:11:15] Database connection closed
+[2025-05-08 13:12:00] API request received: POST /ToDoListApp/screens/backend/api.php?action=addCustomCategory
+[2025-05-08 13:12:00] Database connection successful
+[2025-05-08 13:12:00] addCustomCategory action requested
+[2025-05-08 13:12:00] Sending response: {"status":"success","message":"Category created successfully","icon_url":null}
+[2025-05-08 13:12:00] Database connection closed
+[2025-05-08 13:12:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:12:01] Database connection successful
+[2025-05-08 13:12:01] getCategories action requested
+[2025-05-08 13:12:01] Raw request body: {"action":"getCategories","user_id":"2"}
+[2025-05-08 13:12:01] Found 10 categories
+[2025-05-08 13:12:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:01] Database connection successful
+[2025-05-08 13:12:01] getTasks action requested
+[2025-05-08 13:12:01] Raw request body: {"action":"getTasks","user_id":"2","category":"All"}
+[2025-05-08 13:12:01] Processing request - user_id: 2, category: All
+[2025-05-08 13:12:01] Found 1 tasks
+[2025-05-08 13:12:01] Sending response: {"status":"success","tasks":[{"id":94,"title":"work","description":"work","category_name":"All","created_at":"2025-05-08 12:05:14"}]}
+[2025-05-08 13:12:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:01] Database connection successful
+[2025-05-08 13:12:01] Database connection successful
+[2025-05-08 13:12:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:01] getTasks action requested
+[2025-05-08 13:12:01] getTasks action requested
+[2025-05-08 13:12:01] Database connection successful
+[2025-05-08 13:12:01] Raw request body: {"action":"getTasks","user_id":"2","category":"Cars"}
+[2025-05-08 13:12:01] Raw request body: {"action":"getTasks","user_id":"2","category":"Hobby"}
+[2025-05-08 13:12:01] Processing request - user_id: 2, category: Cars
+[2025-05-08 13:12:01] Processing request - user_id: 2, category: Hobby
+[2025-05-08 13:12:01] Found 0 tasks
+[2025-05-08 13:12:01] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:12:01] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:12:01] Database connection successful
+[2025-05-08 13:12:01] getTasks action requested
+[2025-05-08 13:12:01] Raw request body: {"action":"getTasks","user_id":"2","category":"op"}
+[2025-05-08 13:12:01] Processing request - user_id: 2, category: op
+[2025-05-08 13:12:01] Found 0 tasks
+[2025-05-08 13:12:01] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:12:01] getTasks action requested
+[2025-05-08 13:12:01] Raw request body: {"action":"getTasks","user_id":"2","category":"Music"}
+[2025-05-08 13:12:01] Processing request - user_id: 2, category: Music
+[2025-05-08 13:12:01] getTasks action requested
+[2025-05-08 13:12:01] Raw request body: {"action":"getTasks","user_id":"2","category":"Home"}
+[2025-05-08 13:12:01] Processing request - user_id: 2, category: Home
+[2025-05-08 13:12:01] Found 0 tasks
+[2025-05-08 13:12:01] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:12:01] Found 0 tasks
+[2025-05-08 13:12:01] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:12:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:01] Database connection successful
+[2025-05-08 13:12:01] getTasks action requested
+[2025-05-08 13:12:01] Raw request body: {"action":"getTasks","user_id":"2","category":"qq"}
+[2025-05-08 13:12:01] Processing request - user_id: 2, category: qq
+[2025-05-08 13:12:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:01] Found 0 tasks
+[2025-05-08 13:12:01] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:12:01] Database connection successful
+[2025-05-08 13:12:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:01] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:01] getTasks action requested
+[2025-05-08 13:12:01] Raw request body: {"action":"getTasks","user_id":"2","category":"Travel"}
+[2025-05-08 13:12:01] Database connection successful
+[2025-05-08 13:12:01] Processing request - user_id: 2, category: Travel
+[2025-05-08 13:12:01] Found 0 tasks
+[2025-05-08 13:12:01] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:12:01] getTasks action requested
+[2025-05-08 13:12:01] Raw request body: {"action":"getTasks","user_id":"2","category":"Study"}
+[2025-05-08 13:12:01] Processing request - user_id: 2, category: Study
+[2025-05-08 13:12:01] Database connection successful
+[2025-05-08 13:12:01] Found 0 tasks
+[2025-05-08 13:12:01] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:12:01] getTasks action requested
+[2025-05-08 13:12:01] Raw request body: {"action":"getTasks","user_id":"2","category":"Work"}
+[2025-05-08 13:12:01] Processing request - user_id: 2, category: Work
+[2025-05-08 13:12:01] Found 1 tasks
+[2025-05-08 13:12:01] Sending response: {"status":"success","tasks":[{"id":93,"title":"work","description":"work","category_name":"Work","created_at":"2025-05-08 12:05:14"}]}
+[2025-05-08 13:12:59] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:12:59] Database connection successful
+[2025-05-08 13:12:59] getCategories action requested
+[2025-05-08 13:12:59] Raw request body: {"action":"getCategories","user_id":"2"}
+[2025-05-08 13:12:59] Found 10 categories
+[2025-05-08 13:12:59] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:59] Database connection successful
+ListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:59] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:59] Database connection successful
+[2025-05-08 13:12:59] getTasks action requested
+[2025-05-08 13:12:59] Raw request body: {"action":"getTasks","user_id":"2","category":"All"}
+[2025-05-08 13:12:59] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:59] Processing request - user_id: 2, category: All
+[2025-05-08 13:12:59] Found 1 tasks
+[2025-05-08 13:12:59] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:59] Database connection successful
+[2025-05-08 13:12:59] Sending response: {"status":"success","tasks":[{"id":94,"title":"work","description":"work","category_name":"All","created_at":"2025-05-08 12:05:14"}]}
+[2025-05-08 13:12:59] Database connection successful
+[2025-05-08 13:12:59] getTasks action requested
+[2025-05-08 13:12:59] Raw request body: {"action":"getTasks","user_id":"2","category":"Hobby"}
+[2025-05-08 13:12:59] Processing request - user_id: 2, category: Hobby
+[2025-05-08 13:12:59] Database connection successful
+[2025-05-08 13:12:59] Found 0 tasks
+[2025-05-08 13:12:59] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:12:59] getTasks action requested
+[2025-05-08 13:12:59] Raw request body: {"action":"getTasks","user_id":"2","category":"Home"}
+[2025-05-08 13:12:59] Processing request - user_id: 2, category: Home
+[2025-05-08 13:12:59] getTasks action requested
+[2025-05-08 13:12:59] Raw request body: {"action":"getTasks","user_id":"2","category":"Music"}
+[2025-05-08 13:12:59] Found 0 tasks
+[2025-05-08 13:12:59] Processing request - user_id: 2, category: Music
+[2025-05-08 13:12:59] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:12:59] getTasks action requested
+[2025-05-08 13:12:59] Found 0 tasks
+[2025-05-08 13:12:59] Raw request body: {"action":"getTasks","user_id":"2","category":"Cars"}
+[2025-05-08 13:12:59] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:12:59] Processing request - user_id: 2, category: Cars
+[2025-05-08 13:12:59] Found 0 tasks
+[2025-05-08 13:12:59] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:12:59] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:59] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:59] Database connection successful
+[2025-05-08 13:12:59] getTasks action requested
+[2025-05-08 13:12:59] Raw request body: {"action":"getTasks","user_id":"2","category":"op"}
+[2025-05-08 13:12:59] Processing request - user_id: 2, category: op
+[2025-05-08 13:12:59] Found 0 tasks
+[2025-05-08 13:12:59] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:59] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:12:59] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:59] Database connection successful
+[2025-05-08 13:12:59] Database connection successful
+[2025-05-08 13:12:59] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:12:59] Database connection successful
+[2025-05-08 13:12:59] Database connection successful
+[2025-05-08 13:12:59] getTasks action requested
+[2025-05-08 13:12:59] Raw request body: {"action":"getTasks","user_id":"2","category":"Work"}
+[2025-05-08 13:12:59] Raw request body: {"action":"getTasks","user_id":"2","category":"Study"}
+[2025-05-08 13:12:59] Processing request - user_id: 2, category: Work
+[2025-05-08 13:12:59] Processing request - user_id: 2, category: Study
+[2025-05-08 13:12:59] Found 1 tasks
+[2025-05-08 13:12:59] Found 0 tasks
+[2025-05-08 13:12:59] getTasks action requested
+[2025-05-08 13:12:59] Sending response: {"status":"success","tasks":[{"id":93,"title":"work","description":"work","category_name":"Work","created_at":"2025-05-08 12:05:14"}]}
+[2025-05-08 13:12:59] Sending response: {"status":"success","tasks":[]}
+","category":"Travel"}
+[2025-05-08 13:12:59] Processing request - user_id: 2, category: Travel
+[2025-05-08 13:12:59] getTasks action requested
+[2025-05-08 13:12:59] Raw request body: {"action":"getTasks","user_id":"2","category":"qq"}
+[2025-05-08 13:12:59] Processing request - user_id: 2, category: qq
+[2025-05-08 13:12:59] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:12:59] Found 0 tasks
+[2025-05-08 13:12:59] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:13:54] API request received: POST /ToDoListApp/screens/backend/api.php?action=updateCategory
+[2025-05-08 13:13:54] Database connection successful
+[2025-05-08 13:13:54] updateCategory action requested
+[2025-05-08 13:13:55] Sending response: {"status":"success","message":"Category updated successfully"}
+[2025-05-08 13:13:55] Database connection closed
+[2025-05-08 13:13:56] API request received: POST /ToDoListApp/screens/backend/api.php?action=getCategories
+[2025-05-08 13:13:56] Database connection successful
+[2025-05-08 13:13:56] getCategories action requested
+[2025-05-08 13:13:56] Raw request body: {"action":"getCategories","user_id":"2"}
+[2025-05-08 13:13:56] Found 10 categories
+[2025-05-08 13:13:56] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:13:56] Database connection successful
+[2025-05-08 13:13:56] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:13:56] Database connection successful
+[2025-05-08 13:13:56] getTasks action requested
+[2025-05-08 13:13:56] Raw request body: {"action":"getTasks","user_id":"2","category":"All"}
+[2025-05-08 13:13:56] Processing request - user_id: 2, category: All
+[2025-05-08 13:13:56] Found 1 tasks
+[2025-05-08 13:13:56] getTasks action requested
+[2025-05-08 13:13:56] Sending response: {"status":"success","tasks":[{"id":94,"title":"work","description":"work","category_name":"All","created_at":"2025-05-08 12:05:14"}]}
+[2025-05-08 13:13:56] Raw request body: {"action":"getTasks","user_id":"2","category":"Home"}
+[2025-05-08 13:13:56] Processing request - user_id: 2, category: Home
+[2025-05-08 13:13:56] Found 0 tasks
+[2025-05-08 13:13:56] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:13:56] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:13:56] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:13:56] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:13:56] Database connection successful
+[2025-05-08 13:13:56] Database connection successful
+[2025-05-08 13:13:56] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:13:56] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:13:56] Database connection successful
+[2025-05-08 13:13:56] getTasks action requested
+[2025-05-08 13:13:56] Raw request body: {"action":"getTasks","user_id":"2","category":"Music"}
+[2025-05-08 13:13:56] getTasks action requested
+[2025-05-08 13:13:56] Processing request - user_id: 2, category: Music
+[2025-05-08 13:13:56] Raw request body: {"action":"getTasks","user_id":"2","category":"Cars"}
+[2025-05-08 13:13:56] Processing request - user_id: 2, category: Cars
+[2025-05-08 13:13:56] Database connection successful
+[2025-05-08 13:13:56] Database connection successful
+[2025-05-08 13:13:56] Found 0 tasks
+[2025-05-08 13:13:56] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:13:56] Found 0 tasks
+[2025-05-08 13:13:56] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:13:56] getTasks action requested
+[2025-05-08 13:13:56] Raw request body: {"action":"getTasks","user_id":"2","category":"qq"}
+[2025-05-08 13:13:56] Processing request - user_id: 2, category: qq
+[2025-05-08 13:13:56] Found 0 tasks
+[2025-05-08 13:13:56] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:13:56] getTasks action requested
+[2025-05-08 13:13:56] getTasks action requested
+[2025-05-08 13:13:56] Raw request body: {"action":"getTasks","user_id":"2","category":"Hobby"}
+[2025-05-08 13:13:56] Raw request body: {"action":"getTasks","user_id":"2","category":"opt"}
+[2025-05-08 13:13:56] Processing request - user_id: 2, category: Hobby
+[2025-05-08 13:13:56] Processing request - user_id: 2, category: opt
+[2025-05-08 13:13:56] Found 0 tasks
+[2025-05-08 13:13:56] Found 0 tasks
+[2025-05-08 13:13:56] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:13:56] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:13:56] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:13:56] Database connection successful
+[2025-05-08 13:13:56] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:13:56] Database connection successful
+[2025-05-08 13:13:56] API request received: POST /ToDoListApp/screens/backend/api.php?action=getTasks
+[2025-05-08 13:13:56] Raw request body: {"action":"getTasks","user_id":"2","category":"Study"}
+[2025-05-08 13:13:56] Processing request - user_id: 2, category: Study
+[2025-05-08 13:13:56] Found 0 tasks
+[2025-05-08 13:13:56] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:13:56] getTasks action requested
+[2025-05-08 13:13:56] Raw request body: {"action":"getTasks","user_id":"2","category":"Travel"}
+[2025-05-08 13:13:56] Processing request - user_id: 2, category: Travel
+[2025-05-08 13:13:56] Found 0 tasks
+[2025-05-08 13:13:56] Sending response: {"status":"success","tasks":[]}
+[2025-05-08 13:13:56] Database connection successful
+[2025-05-08 13:13:56] getTasks action requested
+[2025-05-08 13:13:56] Raw request body: {"action":"getTasks","user_id":"2","category":"Work"}
+[2025-05-08 13:13:56] Processing request - user_id: 2, category: Work
+[2025-05-08 13:13:56] Found 1 tasks
+[2025-05-08 13:13:56] Sending response: {"status":"success","tasks":[{"id":93,"title":"work","description":"work","category_name":"Work","created_at":"2025-05-08 12:05:14"}]}

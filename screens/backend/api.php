@@ -804,6 +804,237 @@ if (isset($_GET["action"]) && $_GET["action"] == "permanentDelete") {
     }
 }
 
+// Add Custom Category API
+if (isset($_GET["action"]) && $_GET["action"] == "addCustomCategory") {
+    logDebug("addCustomCategory action requested");
+    
+    try {
+        $user_id = isset($_POST["user_id"]) ? intval($_POST["user_id"]) : 0;
+        $name = isset($_POST["name"]) ? trim($_POST["name"]) : "";
+        
+        if (!$user_id || empty($name)) {
+            throw new Exception("User ID and category name are required");
+        }
+
+        // Check if category name already exists for this user
+        $stmt = $conn->prepare("
+            SELECT id FROM custom_categories 
+            WHERE user_id = ? AND name = ?
+        ");
+        $stmt->bind_param("is", $user_id, $name);
+        $stmt->execute();
+        if ($stmt->get_result()->num_rows > 0) {
+            throw new Exception("Category name already exists");
+        }
+
+        $icon_url = null;
+        // Handle icon upload if present
+        if (isset($_FILES['icon']) && $_FILES['icon']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = __DIR__ . '/uploads/categories/';
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+
+            $fileExtension = pathinfo($_FILES['icon']['name'], PATHINFO_EXTENSION);
+            $fileName = 'category_' . time() . '_' . uniqid() . '.' . $fileExtension;
+            $targetFile = $uploadDir . $fileName;
+
+            if (move_uploaded_file($_FILES['icon']['tmp_name'], $targetFile)) {
+                $icon_url = 'uploads/categories/' . $fileName;
+            }
+        }
+
+        // Insert the new category
+        if ($icon_url) {
+            $stmt = $conn->prepare("
+                INSERT INTO custom_categories (user_id, name, icon_url) 
+                VALUES (?, ?, ?)
+            ");
+            $stmt->bind_param("iss", $user_id, $name, $icon_url);
+        } else {
+            $stmt = $conn->prepare("
+                INSERT INTO custom_categories (user_id, name) 
+                VALUES (?, ?)
+            ");
+            $stmt->bind_param("is", $user_id, $name);
+        }
+
+        if (!$stmt->execute()) {
+            throw new Exception("Failed to create category");
+        }
+
+        sendResponse([
+            "status" => "success", 
+            "message" => "Category created successfully",
+            "icon_url" => $icon_url
+        ]);
+
+    } catch (Exception $e) {
+        logDebug("Error in addCustomCategory: " . $e->getMessage());
+        sendResponse(["status" => "error", "message" => $e->getMessage()]);
+    }
+}
+
+// Update Category API
+if (isset($_GET["action"]) && $_GET["action"] == "updateCategory") {
+    logDebug("updateCategory action requested");
+    
+    try {
+        $user_id = isset($_POST["user_id"]) ? intval($_POST["user_id"]) : 0;
+        $category_id = isset($_POST["category_id"]) ? intval($_POST["category_id"]) : 0;
+        $name = isset($_POST["name"]) ? trim($_POST["name"]) : "";
+        
+        if (!$user_id || !$category_id || empty($name)) {
+            throw new Exception("User ID, category ID and name are required");
+        }
+
+        // Check if new name already exists for this user (excluding current category)
+        $stmt = $conn->prepare("
+            SELECT id FROM custom_categories 
+            WHERE user_id = ? AND name = ? AND id != ?
+        ");
+        $stmt->bind_param("isi", $user_id, $name, $category_id);
+        $stmt->execute();
+        if ($stmt->get_result()->num_rows > 0) {
+            throw new Exception("Category name already exists");
+        }
+
+        $conn->begin_transaction();
+
+        // Handle new icon upload if present
+        if (isset($_FILES['icon']) && $_FILES['icon']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = __DIR__ . '/uploads/categories/';
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
+
+            $fileExtension = pathinfo($_FILES['icon']['name'], PATHINFO_EXTENSION);
+            $fileName = 'category_' . time() . '_' . uniqid() . '.' . $fileExtension;
+            $targetFile = $uploadDir . $fileName;
+
+            if (move_uploaded_file($_FILES['icon']['tmp_name'], $targetFile)) {
+                // Delete old icon if exists
+                $stmt = $conn->prepare("SELECT icon_url FROM custom_categories WHERE id = ? AND user_id = ?");
+                $stmt->bind_param("ii", $category_id, $user_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                if ($oldIcon = $result->fetch_assoc()) {
+                    if ($oldIcon['icon_url']) {
+                        $oldIconPath = __DIR__ . '/' . $oldIcon['icon_url'];
+                        if (file_exists($oldIconPath)) {
+                            unlink($oldIconPath);
+                        }
+                    }
+                }
+
+                // Update category with new icon
+                $icon_url = 'uploads/categories/' . $fileName;
+                $stmt = $conn->prepare("
+                    UPDATE custom_categories 
+                    SET name = ?, icon_url = ?
+                    WHERE id = ? AND user_id = ?
+                ");
+                $stmt->bind_param("ssii", $name, $icon_url, $category_id, $user_id);
+            }
+        } else {
+            // Update only the name
+            $stmt = $conn->prepare("
+                UPDATE custom_categories 
+                SET name = ?
+                WHERE id = ? AND user_id = ?
+            ");
+            $stmt->bind_param("sii", $name, $category_id, $user_id);
+        }
+
+        if (!$stmt->execute()) {
+            throw new Exception("Failed to update category");
+        }
+
+        // Update category name in tasks
+        $stmt = $conn->prepare("
+            UPDATE tasks 
+            SET title = CONCAT(?, ' - ', SUBSTRING_INDEX(title, ' - ', -1))
+            WHERE custom_category_id = ? AND user_id = ?
+        ");
+        $stmt->bind_param("sii", $name, $category_id, $user_id);
+        $stmt->execute();
+
+        $conn->commit();
+        sendResponse(["status" => "success", "message" => "Category updated successfully"]);
+
+    } catch (Exception $e) {
+        $conn->rollback();
+        logDebug("Error in updateCategory: " . $e->getMessage());
+        sendResponse(["status" => "error", "message" => $e->getMessage()]);
+    }
+}
+
+// Delete Category API
+if (isset($_GET["action"]) && $_GET["action"] == "deleteCategory") {
+    logDebug("deleteCategory action requested");
+    
+    try {
+        $requestBody = file_get_contents("php://input");
+        $data = json_decode($requestBody, true);
+        
+        $user_id = $data['user_id'] ?? null;
+        $category_id = $data['category_id'] ?? null;
+
+        if (!$user_id || !$category_id) {
+            throw new Exception("User ID and category ID are required");
+        }
+
+        $conn->begin_transaction();
+
+        // Get category info
+        $stmt = $conn->prepare("
+            SELECT icon_url 
+            FROM custom_categories 
+            WHERE id = ? AND user_id = ?
+        ");
+        $stmt->bind_param("ii", $category_id, $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $category = $result->fetch_assoc();
+
+        // Delete associated tasks first
+        $stmt = $conn->prepare("
+            DELETE FROM tasks 
+            WHERE custom_category_id = ? AND user_id = ?
+        ");
+        $stmt->bind_param("ii", $category_id, $user_id);
+        if (!$stmt->execute()) {
+            throw new Exception("Failed to delete associated tasks");
+        }
+
+        // Delete the category
+        $stmt = $conn->prepare("
+            DELETE FROM custom_categories 
+            WHERE id = ? AND user_id = ?
+        ");
+        $stmt->bind_param("ii", $category_id, $user_id);
+        if (!$stmt->execute()) {
+            throw new Exception("Failed to delete category");
+        }
+
+        // Delete icon file if exists
+        if ($category && $category['icon_url']) {
+            $iconPath = __DIR__ . '/' . $category['icon_url'];
+            if (file_exists($iconPath)) {
+                unlink($iconPath);
+            }
+        }
+
+        $conn->commit();
+        sendResponse(["status" => "success", "message" => "Category deleted successfully"]);
+
+    } catch (Exception $e) {
+        $conn->rollback();
+        logDebug("Error in deleteCategory: " . $e->getMessage());
+        sendResponse(["status" => "error", "message" => $e->getMessage()]);
+    }
+}
+
 $conn->close();
 logDebug("Database connection closed");
 ?>
