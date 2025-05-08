@@ -986,25 +986,44 @@ if (isset($_GET["action"]) && $_GET["action"] == "deleteCategory") {
 
         $conn->begin_transaction();
 
-        // Get category info
+        // Get category info and associated tasks
         $stmt = $conn->prepare("
-            SELECT icon_url 
-            FROM custom_categories 
-            WHERE id = ? AND user_id = ?
+            SELECT cc.icon_url, t.title, t.description
+            FROM custom_categories cc
+            LEFT JOIN tasks t ON cc.id = t.custom_category_id
+            WHERE cc.id = ? AND cc.user_id = ?
         ");
         $stmt->bind_param("ii", $category_id, $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
-        $category = $result->fetch_assoc();
+        
+        $category = null;
+        $tasksToDelete = [];
+        
+        while ($row = $result->fetch_assoc()) {
+            if (!$category && $row['icon_url']) {
+                $category = ['icon_url' => $row['icon_url']];
+            }
+            if ($row['title'] && $row['description']) {
+                $tasksToDelete[] = [
+                    'title' => $row['title'],
+                    'description' => $row['description']
+                ];
+            }
+        }
 
-        // Delete associated tasks first
-        $stmt = $conn->prepare("
-            DELETE FROM tasks 
-            WHERE custom_category_id = ? AND user_id = ?
-        ");
-        $stmt->bind_param("ii", $category_id, $user_id);
-        if (!$stmt->execute()) {
-            throw new Exception("Failed to delete associated tasks");
+        // Delete tasks from both custom category and All category
+        foreach ($tasksToDelete as $task) {
+            $stmt = $conn->prepare("
+                DELETE FROM tasks 
+                WHERE user_id = ? 
+                AND title = ? 
+                AND description = ?
+            ");
+            $stmt->bind_param("iss", $user_id, $task['title'], $task['description']);
+            if (!$stmt->execute()) {
+                throw new Exception("Failed to delete associated tasks");
+            }
         }
 
         // Delete the category
