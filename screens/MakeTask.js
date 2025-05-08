@@ -13,7 +13,7 @@ const MakeTask = ({ navigation, route }) => {
     const loadCategories = async () => {
       try {
         const userId = await AsyncStorage.getItem('user_id');
-        const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=getCategories', {
+        const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=getCategories', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ const MakeTask = ({ navigation, route }) => {
 
       console.log('Sending task data:', taskData);
 
-      const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=addTask', {
+      const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=addTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ const MakeTask = ({ navigation, route }) => {
           style={styles.input}
           value={text}
           onChangeText={setText}
-          placeholder="Task Title"
+          placeholder=""
         />
         <TextInput
           style={styles.input2}

@@ -3,7 +3,7 @@ import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity, Alert } 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './uiterlijk';
 
-const Alles = ({ navigation }) => {
+const All = ({ navigation }) => {
   const [tasks, setTasks] = useState([]);
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
   const [userId, setUserId] = useState(null);
@@ -29,7 +29,7 @@ const Alles = ({ navigation }) => {
 
   const loadData = async (userId) => {
     try {
-      const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=getTasks', {
+      const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=getTasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ const Alles = ({ navigation }) => {
         body: JSON.stringify({
           action: 'getTasks',
           user_id: userId,
-          category: 'Alles',
+          category: 'All',
         }),
       });
 
@@ -54,7 +54,7 @@ const Alles = ({ navigation }) => {
 
   const deleteTask = async (taskId) => {
     try {
-      const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=deleteTask', {
+      const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=deleteTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ const Alles = ({ navigation }) => {
   };
 
   const handleBoxPress = () => {
-    navigation.navigate('MakeTask', { category: 'Alles' });
+    navigation.navigate('MakeTask', { category: 'All' });
   };
 
   return (
@@ -98,7 +98,7 @@ const Alles = ({ navigation }) => {
         <Image style={styles.foto} source={require('../assets/all2.png')} />
       </View>
       <View>
-        <Text style={styles.Text1}>Alles</Text>
+        <Text style={styles.Text1}>All</Text>
         <Text style={styles.Text2}>{tasks.length} Tasks</Text>
       </View>
 
@@ -142,4 +142,4 @@ const Alles = ({ navigation }) => {
   );
 };
 
-export default Alles;
+export default All;

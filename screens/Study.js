@@ -29,7 +29,7 @@ const Study = ({ navigation }) => {
 
   const loadData = async (userId) => {
     try {
-      const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=getTasks', {
+      const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=getTasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ const Study = ({ navigation }) => {
 
   const deleteTask = async (taskId) => {
     try {
-      const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=deleteTask', {
+      const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=deleteTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

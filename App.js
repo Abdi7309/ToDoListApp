@@ -3,7 +3,7 @@ import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View, Image, Tou
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Alles from './screens/alles';
+import All from './screens/all';
 import Werk from './screens/work';
 import Music from './screens/music';
 import Travel from './screens/Travel';
@@ -16,6 +16,7 @@ import CategoryScreen from './screens/CategoryScreen';
 import EditCategoryScreen from './screens/EditCategoryScreen';
 import Login from './screens/login';
 import Register from './screens/register';
+import DeletedTasks from './screens/DeletedTasks';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,7 +25,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="Alles" component={Alles} />
+        <Stack.Screen name="All" component={All} />
         <Stack.Screen name="Work" component={Werk} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Music" component={Music} />
@@ -37,6 +38,7 @@ function App() {
         <Stack.Screen name="EditCategory" component={EditCategoryScreen} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="DeletedTasks" component={DeletedTasks} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -45,7 +47,7 @@ function App() {
 function HomeScreen({ navigation }) {
   const [taskCounts, setTaskCounts] = useState({});
   const [categories, setCategories] = useState([]);
-  const [sortOrder, setSortOrder] = useState('oldest'); // Changed from 'Recently Added' to 'oldest'
+  const [sortOrder, setSortOrder] = useState('oldest'); 
   const [userId, setUserId] = useState(null);
 
   useEffect(() => {
@@ -59,7 +61,7 @@ function HomeScreen({ navigation }) {
         setUserId(storedUserId);
 
         // Fetch all categories (both predefined and custom)
-        const categoriesResponse = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=getCategories', {
+        const categoriesResponse = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=getCategories', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -75,7 +77,7 @@ function HomeScreen({ navigation }) {
           const categoriesWithTasks = await Promise.all(
             categoriesData.categories.map(async (category) => {
               // Fetch task count for each category
-              const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=getTasks', {
+              const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=getTasks', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -109,7 +111,7 @@ function HomeScreen({ navigation }) {
 
   const handleBoxPress = (screenName) => {
     const category = categories.find(c => c.name === screenName);
-    const predefinedScreens = ['Alles', 'Work', 'Music', 'Travel', 'Study', 'Home', 'Hobby', 'MakeTask', 'AddCategory'];
+    const predefinedScreens = ['All', 'Work', 'Music', 'Travel', 'Study', 'Home', 'Hobby', 'MakeTask', 'AddCategory'];
     
     if (predefinedScreens.includes(screenName)) {
       navigation.navigate(screenName);
@@ -130,10 +132,10 @@ function HomeScreen({ navigation }) {
   };
 
   const sortCategories = (categories) => {
-    const allesCategory = categories.find(category => category.name === 'Alles');
+    const allCategory = categories.find(category => category.name === 'All');
     const predefinedOrder = ['Work', 'Travel', 'Study', 'Music', 'Home', 'Hobby'];
     
-    let otherCategories = categories.filter(category => category.name !== 'Alles');
+    let otherCategories = categories.filter(category => category.name !== 'All');
 
     if (sortOrder === 'alphabetical') {
       otherCategories.sort((a, b) => a.name.localeCompare(b.name));
@@ -164,7 +166,7 @@ function HomeScreen({ navigation }) {
       });
     }
 
-    return allesCategory ? [allesCategory, ...otherCategories] : otherCategories;
+    return allCategory ? [allCategory, ...otherCategories] : otherCategories;
   };
 
   const toggleSortOrder = () => {
@@ -176,7 +178,7 @@ function HomeScreen({ navigation }) {
   };
 
   const images = {
-    alles: require('./assets/all.png'),
+    all: require('./assets/all.png'),
     work: require('./assets/work.png'),
     music: require('./assets/music.png'),
     travel: require('./assets/travel.png'),
@@ -189,7 +191,7 @@ function HomeScreen({ navigation }) {
     if (category.type === 'predefined') {
       return images[category.name.toLowerCase()] || require('./assets/menu2.png');
     } else if (category.icon_url) {
-      return { uri: `http://10.3.1.31/ToDoListApp/screens/backend/${category.icon_url}` };
+      return { uri: `http://10.3.1.58/ToDoListApp/screens/backend/${category.icon_url}` };
     }
     return require('./assets/menu2.png');
   };
@@ -206,6 +208,9 @@ function HomeScreen({ navigation }) {
              sortOrder === 'oldest' ? 'Recently Added' : 
              'Alphabetical'}
           </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.deletedTasksButton} onPress={() => navigation.navigate('DeletedTasks')}>
+          <Text style={styles.deletedTasksButtonText}>View Deleted Tasks</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Login')}>
           <Text style={styles.loginButtonText}>Go to Login</Text>
@@ -322,6 +327,19 @@ const styles = StyleSheet.create({
   },
   loginButtonText: {
     color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  deletedTasksButton: {
+    backgroundColor: 'rgba(169, 169, 169, 0.2)',
+    padding: 10,
+    borderRadius: 8,
+    alignSelf: 'center',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  deletedTasksButtonText: {
+    color: 'rgba(49, 74, 164, 1)',
     fontSize: 16,
     fontWeight: 'bold',
   },

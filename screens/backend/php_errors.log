@@ -1,130 +1,40 @@
-[06-May-2025 10:13:55 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Can't create table `webapp`.`tasks` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:102
+[08-May-2025 10:51:05 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'color' in 'field list' in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:124
 Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(102): mysqli->query('CREATE TABLE IF...')
+#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(124): mysqli->prepare('INSERT IGNORE I...')
 #1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 102
-[06-May-2025 10:14:02 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Can't create table `webapp`.`tasks` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:102
+  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 124
+[08-May-2025 10:51:05 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'color' in 'field list' in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:124
 Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(102): mysqli->query('CREATE TABLE IF...')
+#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(124): mysqli->prepare('INSERT IGNORE I...')
 #1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 102
-[06-May-2025 10:14:04 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Can't create table `webapp`.`tasks` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:102
+  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 124
+[08-May-2025 10:51:08 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'color' in 'field list' in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:124
 Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(102): mysqli->query('CREATE TABLE IF...')
+#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(124): mysqli->prepare('INSERT IGNORE I...')
 #1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 102
-[06-May-2025 10:14:12 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'webapp.categories' doesn't exist in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:121
+  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 124
+[08-May-2025 10:51:08 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'color' in 'field list' in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:124
 Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(121): mysqli_stmt->execute()
+#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(124): mysqli->prepare('INSERT IGNORE I...')
 #1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 121
-[06-May-2025 10:14:22 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Can't create table `webapp`.`tasks` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:102
+  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 124
+[08-May-2025 10:51:11 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'color' in 'field list' in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:124
 Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(102): mysqli->query('CREATE TABLE IF...')
+#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(124): mysqli->prepare('INSERT IGNORE I...')
 #1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 102
-[06-May-2025 10:14:28 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'webapp.categories' doesn't exist in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:121
+  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 124
+[08-May-2025 10:51:11 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'color' in 'field list' in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:124
 Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(121): mysqli_stmt->execute()
+#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(124): mysqli->prepare('INSERT IGNORE I...')
 #1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 121
-[06-May-2025 10:14:32 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Can't create table `webapp`.`tasks` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:102
+  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 124
+[08-May-2025 10:52:04 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'color' in 'field list' in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:124
 Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(102): mysqli->query('CREATE TABLE IF...')
+#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(124): mysqli->prepare('INSERT IGNORE I...')
 #1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 102
-[06-May-2025 10:14:39 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Can't create table `webapp`.`tasks` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:102
+  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 124
+[08-May-2025 10:52:04 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown column 'color' in 'field list' in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:124
 Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(102): mysqli->query('CREATE TABLE IF...')
+#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(124): mysqli->prepare('INSERT IGNORE I...')
 #1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 102
-[06-May-2025 10:15:00 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'webapp.categories' doesn't exist in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:121
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(121): mysqli_stmt->execute()
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 121
-[06-May-2025 10:16:30 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Can't create table `webapp`.`tasks` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:102
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(102): mysqli->query('CREATE TABLE IF...')
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 102
-[06-May-2025 10:16:39 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Can't create table `webapp`.`tasks` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:102
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(102): mysqli->query('CREATE TABLE IF...')
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 102
-[06-May-2025 10:19:21 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Can't create table `webapp`.`tasks` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:102
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(102): mysqli->query('CREATE TABLE IF...')
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 102
-[06-May-2025 10:19:51 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Can't create table `webapp`.`tasks` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:102
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(102): mysqli->query('CREATE TABLE IF...')
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 102
-[06-May-2025 10:19:58 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Can't create table `webapp`.`tasks` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:102
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(102): mysqli->query('CREATE TABLE IF...')
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 102
-[06-May-2025 10:58:18 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'webapp.categories' doesn't exist in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:132
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(132): mysqli_stmt->execute()
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 132
-[06-May-2025 10:58:18 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'webapp.categories' doesn't exist in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:129
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(129): mysqli->prepare('INSERT IGNORE I...')
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 129
-[06-May-2025 10:58:19 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'webapp.categories' doesn't exist in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:132
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(132): mysqli_stmt->execute()
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 132
-[06-May-2025 10:58:19 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'webapp.categories' doesn't exist in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:132
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(132): mysqli_stmt->execute()
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 132
-[06-May-2025 10:58:19 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'webapp.categories' doesn't exist in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:132
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(132): mysqli_stmt->execute()
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 132
-[06-May-2025 10:58:19 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'webapp.categories' doesn't exist in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:132
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(132): mysqli_stmt->execute()
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 132
-[06-May-2025 10:58:19 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'webapp.categories' doesn't exist in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:129
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(129): mysqli->prepare('INSERT IGNORE I...')
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 129
-[06-May-2025 10:58:19 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'webapp.categories' doesn't exist in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:132
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(132): mysqli_stmt->execute()
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 132
-[06-May-2025 10:58:19 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'webapp.categories' doesn't exist in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:132
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(132): mysqli_stmt->execute()
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 132
-[06-May-2025 10:58:19 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'webapp.categories' doesn't exist in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:129
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(129): mysqli->prepare('INSERT IGNORE I...')
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 129
-[06-May-2025 10:58:19 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'webapp.categories' doesn't exist in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:129
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(129): mysqli->prepare('INSERT IGNORE I...')
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 129
-[06-May-2025 10:58:19 Europe/Berlin] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'webapp.categories' doesn't exist in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php:129
-Stack trace:
-#0 C:\xampp\htdocs\ToDoListApp\screens\backend\api.php(129): mysqli->prepare('INSERT IGNORE I...')
-#1 {main}
-  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 129
+  thrown in C:\xampp\htdocs\ToDoListApp\screens\backend\api.php on line 124

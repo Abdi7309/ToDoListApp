@@ -58,7 +58,7 @@ const AddCategory = ({ navigation }) => {
         });
       }
 
-      const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=addCustomCategory', {
+      const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=addCustomCategory', {
         method: 'POST',
         body: formData,
         headers: {
@@ -93,7 +93,7 @@ const AddCategory = ({ navigation }) => {
           style={styles.input}
           value={categoryName}
           onChangeText={setCategoryName}
-          placeholder="Category Name"
+          placeholder=" "
         />
         <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
           <Text style={styles.imagePickerButtonText}>Select Image</Text>

@@ -63,7 +63,7 @@ function EditCategoryScreen({ route, navigation }) {
         formData.append('icon', imageFile);
       }
 
-      const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=updateCategory', {
+      const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=updateCategory', {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -96,7 +96,7 @@ function EditCategoryScreen({ route, navigation }) {
           style: 'destructive',
           onPress: async () => {
             try {
-              const response = await fetch('http://10.3.1.31/ToDoListApp/screens/backend/api.php?action=deleteCategory', {
+              const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=deleteCategory', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
