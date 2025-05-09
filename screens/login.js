@@ -10,7 +10,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=login', {
+      const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

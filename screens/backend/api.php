@@ -636,6 +636,37 @@ if (isset($_GET["action"]) && $_GET["action"] == "restoreTask") {
     }
 }
 
+// Add checkDeletedTask endpoint
+if (isset($_GET["action"]) && $_GET["action"] == "checkDeletedTask") {
+    $data = json_decode(file_get_contents("php://input"));
+    $userId = $data->user_id ?? null;
+    $title = $data->title ?? null;
+    $description = $data->description ?? null;
+    $category = $data->category ?? null;
+
+    // Check for deleted task with same title and description, regardless of category
+    $stmt = $conn->prepare("
+        SELECT t.id 
+        FROM tasks t
+        WHERE t.user_id = ? 
+        AND t.title = ? 
+        AND t.description = ?
+        AND t.deleted = 1
+        LIMIT 1
+    ");
+
+    $stmt->bind_param("iss", $userId, $title, $description);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($row = $result->fetch_assoc()) {
+        sendResponse(['status' => 'found', 'task_id' => $row['id']]);
+    } else {
+        sendResponse(['status' => 'not_found']);
+    }
+    exit();
+}
+
 // Modify getTasks query to exclude deleted items
 if (isset($_GET["action"]) && $_GET["action"] == "getTasks") {
     logDebug("getTasks action requested");

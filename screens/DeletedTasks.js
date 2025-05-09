@@ -12,7 +12,7 @@ export default function DeletedTasks({ navigation }) {
   const loadDeletedTasks = async () => {
     try {
       const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=getDeletedTasks', {
+      const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=getDeletedTasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export default function DeletedTasks({ navigation }) {
   const handleRestore = async (taskId) => {
     try {
       const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=restoreTask', {
+      const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=restoreTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export default function DeletedTasks({ navigation }) {
   const handlePermanentDelete = async (taskId) => {
     try {
       const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=permanentDelete', {
+      const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=permanentDelete', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

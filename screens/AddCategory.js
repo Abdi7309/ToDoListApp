@@ -58,7 +58,7 @@ const AddCategory = ({ navigation }) => {
         });
       }
 
-      const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=addCustomCategory', {
+      const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=addCustomCategory', {
         method: 'POST',
         body: formData,
         headers: {

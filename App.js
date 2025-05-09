@@ -17,13 +17,14 @@ import EditCategoryScreen from './screens/EditCategoryScreen';
 import Login from './screens/login';
 import Register from './screens/register';
 import DeletedTasks from './screens/DeletedTasks';
+import { CustomMenu } from './screens/CustomMenu';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="HomeScreen" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="All" component={All} />
         <Stack.Screen name="Work" component={Werk} />
@@ -47,8 +48,22 @@ function App() {
 function HomeScreen({ navigation }) {
   const [taskCounts, setTaskCounts] = useState({});
   const [categories, setCategories] = useState([]);
-  const [sortOrder, setSortOrder] = useState('oldest'); 
+  const [sortOrder, setSortOrder] = useState('standard'); 
   const [userId, setUserId] = useState(null);
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  useEffect(() => {
+    // Make setSortOrder globally available but in a safer way
+    global.setSortOrder = (newValue) => {
+      setSortOrder(typeof newValue === 'function' ? newValue(sortOrder) : newValue);
+    };
+    global.currentSortOrder = sortOrder;
+
+    return () => {
+      delete global.setSortOrder;
+      delete global.currentSortOrder;
+    };
+  }, [sortOrder]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -61,7 +76,7 @@ function HomeScreen({ navigation }) {
         setUserId(storedUserId);
 
         // Fetch all categories (both predefined and custom)
-        const categoriesResponse = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=getCategories', {
+        const categoriesResponse = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=getCategories', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -77,7 +92,7 @@ function HomeScreen({ navigation }) {
           const categoriesWithTasks = await Promise.all(
             categoriesData.categories.map(async (category) => {
               // Fetch task count for each category
-              const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=getTasks', {
+              const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=getTasks', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -139,12 +154,12 @@ function HomeScreen({ navigation }) {
 
     if (sortOrder === 'alphabetical') {
       otherCategories.sort((a, b) => a.name.localeCompare(b.name));
-    } else if (sortOrder === 'oldest') {
+    } else if (sortOrder === 'standard') {
       otherCategories.sort((a, b) => {
         if (a.type === 'predefined' && b.type === 'predefined') {
           return predefinedOrder.indexOf(a.name) - predefinedOrder.indexOf(b.name);
         } else if (a.type === 'custom' && b.type === 'custom') {
-          return a.id - b.id; // Oldest first (lowest ID first)
+          return a.id - b.id; // standard first (lowest ID first)
         } else if (a.type === 'predefined') {
           return -1; // Predefined categories first
         } else {
@@ -171,8 +186,8 @@ function HomeScreen({ navigation }) {
 
   const toggleSortOrder = () => {
     setSortOrder(prevOrder => {
-      if (prevOrder === 'alphabetical') return 'oldest';
-      if (prevOrder === 'oldest') return 'recent';
+      if (prevOrder === 'alphabetical') return 'standard';
+      if (prevOrder === 'standard') return 'recent';
       return 'alphabetical';
     });
   };
@@ -191,7 +206,7 @@ function HomeScreen({ navigation }) {
     if (category.type === 'predefined') {
       return images[category.name.toLowerCase()] || require('./assets/menu2.png');
     } else if (category.icon_url) {
-      return { uri: `http://10.3.1.58/ToDoListApp/screens/backend/${category.icon_url}` };
+      return { uri: `http://10.3.1.65/ToDoListApp/screens/backend/${category.icon_url}` };
     }
     return require('./assets/menu2.png');
   };
@@ -199,22 +214,18 @@ function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar />
+      <CustomMenu 
+        isVisible={menuVisible}
+        onClose={() => setMenuVisible(false)}
+        navigation={navigation}
+        currentSortOrder={sortOrder}
+        setSortOrder={setSortOrder}
+      />
       <ScrollView>
-        <Image style={styles.menu} source={require('./assets/menu.png')} />
+        <TouchableOpacity onPress={() => setMenuVisible(true)}>
+          <Image style={styles.menu} source={require('./assets/menu.png')} />
+        </TouchableOpacity>
         <Text style={styles.listsText}>Lists</Text>
-        <TouchableOpacity onPress={toggleSortOrder}>
-          <Text style={styles.sortButtonText}>Sort by {'\n'}
-            {sortOrder === 'alphabetical' ? 'Standaard' : 
-             sortOrder === 'oldest' ? 'Recently Added' : 
-             'Alphabetical'}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.deletedTasksButton} onPress={() => navigation.navigate('DeletedTasks')}>
-          <Text style={styles.deletedTasksButtonText}>View Deleted Tasks</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.loginButtonText}>Go to Login</Text>
-        </TouchableOpacity>
         <View style={styles.boxesContainer}>
           {sortCategories(categories).map(category => (
             <TouchableOpacity
@@ -300,9 +311,9 @@ const styles = StyleSheet.create({
     height: 70,
     width: 70,
     borderRadius: 50,
-    left: 300,
-    marginBottom: -80,
-    bottom: 105,
+    position: 'absolute',
+    right: 20,
+    bottom: 20,
     backgroundColor: 'rgba(49, 74, 164, 1)',
   },
   footerplus: {
@@ -313,7 +324,7 @@ const styles = StyleSheet.create({
   },
   sortButtonText: {
     fontSize: 16,
-    textAlign: 'center', // <-- the magic
+    textAlign: 'center',
     left: 120,
     top: -35,  
     color: 'rgba(169, 169, 169, 1)',

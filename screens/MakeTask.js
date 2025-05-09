@@ -13,7 +13,7 @@ const MakeTask = ({ navigation, route }) => {
     const loadCategories = async () => {
       try {
         const userId = await AsyncStorage.getItem('user_id');
-        const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=getCategories', {
+        const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=getCategories', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -57,6 +57,47 @@ const MakeTask = ({ navigation, route }) => {
         return;
       }
 
+      // First check for deleted tasks with same title and description
+      const checkResponse = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=checkDeletedTask', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: userId,
+          title: text.trim(),
+          description: description.trim(),
+          new_category: selectedCategory // Add new category info
+        }),
+      });
+
+      const checkData = await checkResponse.json();
+      
+      if (checkData.status === 'found') {
+        // If found, restore the deleted task
+        const restoreResponse = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=restoreTask', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            task_id: checkData.task_id,
+            user_id: userId,
+          }),
+        });
+
+        const restoreData = await restoreResponse.json();
+        if (restoreData.status === 'success') {
+          Alert.alert(
+            'Task Restored',
+            'A previously deleted task was restored',
+            [{ text: 'OK', onPress: () => navigation.goBack() }]
+          );
+          return;
+        }
+      }
+
+      // If no deleted task found, proceed with creating new task
       const taskData = {
         action: 'addTask',
         user_id: userId,
@@ -67,7 +108,7 @@ const MakeTask = ({ navigation, route }) => {
 
       console.log('Sending task data:', taskData);
 
-      const response = await fetch('http://10.3.1.58/ToDoListApp/screens/backend/api.php?action=addTask', {
+      const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=addTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
