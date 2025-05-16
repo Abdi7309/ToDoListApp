@@ -15,7 +15,7 @@ const Register = () => {
     }
 
     try {
-      const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=register', {
+      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

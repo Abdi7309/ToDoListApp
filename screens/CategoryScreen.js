@@ -1,12 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet, SafeAreaView, Image, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, SafeAreaView, Image, TouchableOpacity, Alert, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import createStyles from './uiterlijk';
 
 const CategoryScreen = ({ route, navigation }) => {
   const { category, iconUrl } = route.params;
   const [tasks, setTasks] = useState([]);
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
   const [userId, setUserId] = useState(null);
+  const [dimensions, setDimensions] = useState({
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height
+  });
+
+  const isLandscape = dimensions.width > dimensions.height;
+  const styles = createStyles(isLandscape);
+
+  useEffect(() => {
+    const updateDimensions = ({ window }) => {
+      setDimensions({
+        width: window.width,
+        height: window.height
+      });
+    };
+
+    const subscription = Dimensions.addEventListener('change', updateDimensions);
+    return () => subscription.remove();
+  }, []);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -29,7 +49,7 @@ const CategoryScreen = ({ route, navigation }) => {
 
   const loadData = async (userId) => {
     try {
-      const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=getTasks', {
+      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=getTasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,7 +74,7 @@ const CategoryScreen = ({ route, navigation }) => {
 
   const deleteTask = async (taskId) => {
     try {
-      const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=deleteTask', {
+      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=deleteTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -93,7 +113,7 @@ const CategoryScreen = ({ route, navigation }) => {
 
   const getCategoryIcon = () => {
     if (iconUrl) {
-      return { uri: `http://10.3.1.65/ToDoListApp/screens/backend/${iconUrl}` };
+      return { uri: `http://10.3.1.86/ToDoListApp/screens/backend/${iconUrl}` };
     }
     return require('../assets/menu3.png'); // fallback icon
   };
@@ -103,17 +123,30 @@ const CategoryScreen = ({ route, navigation }) => {
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <Image style={styles.terug} source={require('../assets/pijl.png')} />
       </TouchableOpacity>
-      <View>
-        <Image 
-          style={styles.foto} 
-          source={getCategoryIcon()}
-          resizeMode="cover"
-        />
-      </View>
-      <View>
-        <Text style={styles.Text1}>{category}</Text>
-        <Text style={styles.Text2}>{tasks.length} Tasks</Text>
-      </View>
+      
+      {isLandscape ? (
+        <View style={styles.headerContainer}>
+          <Image 
+            style={styles.foto} 
+            source={getCategoryIcon()}
+            resizeMode="cover"
+          />
+          <View style={styles.textContainer}>
+            <Text style={styles.Text1}>{category}</Text>
+            <Text style={styles.Text2}>{tasks.length} Tasks</Text>
+          </View>
+        </View>
+      ) : (
+        <View style={styles.portraitHeaderContainer}>
+          <Image 
+            style={styles.foto} 
+            source={getCategoryIcon()}
+            resizeMode="cover"
+          />
+          <Text style={styles.Text1}>{category}</Text>
+          <Text style={styles.Text2}>{tasks.length} Tasks</Text>
+        </View>
+      )}
 
       <View style={styles.boxes}>
         <ScrollView>
@@ -153,111 +186,5 @@ const CategoryScreen = ({ route, navigation }) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'rgba(49, 74, 164, 1)',
-    flex: 1,
-  },
-
-  boxes: {
-    backgroundColor: 'rgba(245, 245, 245, 1)',
-    width: '100%',
-    top: '1%',
-    height: '61%',
-    paddingBottom: 10,
-    borderTopLeftRadius: 35,
-    borderTopRightRadius: 35,
-  },
-  titeltekst: {
-    top: 16,
-    fontSize: 24,
-    color: 'black',
-    fontWeight: '600',
-  },
-  descriptiontekst: {
-    color: 'rgba(169, 169, 169, 1)',
-    fontSize: 20,
-    top: 10,
-    paddingLeft: 2,
-    flexWrap: 'wrap',
-  },
-  terug: {
-    width: 20,
-    height: 20,
-    marginLeft: 30,
-    marginTop: 50,
-  },
-  deleteButton: {
-    color: 'red',
-    marginLeft: 30,
-    marginBottom: 10,
-  },
-  foto: {
-    top: "160%",
-    marginLeft: 40,
-    borderRadius: 1000,
-    height: 60, 
-    width: 60,
-  },
-  Text1: {
-    marginTop: 115,
-    color: 'white',
-    fontSize: 32,
-    left:50,
-    
-  },
-  Text2: {
-    color: 'white',
-    marginBottom: 20,
-    fontSize: 12,
-    left:50,
-  },
-  trash: {
-    top: 16,
-    height: 40,
-    width: 40,
-  },
-  trashContainer: {
-    position: 'absolute',
-    right: '10%',
-    top: 30,
-  },
-  trashButton: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  footer: {
-    height: 70,
-    width: 70,
-    borderRadius: 50,
-    position: 'absolute',
-    right: 20,
-    bottom: 20,
-    backgroundColor: 'rgba(49, 74, 164, 1)',
-  },
-  footerplus: {
-    height: 25,
-    width: 25,
-    left: 22,
-    top: 21,
-  },
-  taskContainer: {
-    paddingHorizontal: 20,
-    marginVertical: 10,
-  },
-  taskContent: {
-    flex: 1,
-  },
-  titleRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 5,
-  }
-
-});
 
 export default CategoryScreen;

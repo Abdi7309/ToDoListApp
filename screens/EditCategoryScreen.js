@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-  Image,
-  View,
-  Alert,
+  Text, TextInput, TouchableOpacity, SafeAreaView, Image, View, Alert,
+  KeyboardAvoidingView, Platform, ScrollView, Dimensions
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
+import createStyles from './editCategoryStyles';
 
 function EditCategoryScreen({ route, navigation }) {
   const { categoryId, categoryName: initialName, iconUrl: initialIcon } = route.params;
   const [name, setName] = useState(initialName || '');
   const [selectedImage, setSelectedImage] = useState(null);
   const [userId, setUserId] = useState(null);
+
+  const [dimensions, setDimensions] = useState({
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height
+  });
+  
+  const isLandscape = dimensions.width > dimensions.height;
+  const styles = createStyles(isLandscape);
 
   useEffect(() => {
     const loadUserId = async () => {
@@ -26,6 +29,18 @@ function EditCategoryScreen({ route, navigation }) {
       }
     };
     loadUserId();
+  }, []);
+
+  useEffect(() => {
+    const updateDimensions = ({ window }) => {
+      setDimensions({
+        width: window.width,
+        height: window.height
+      });
+    };
+
+    const subscription = Dimensions.addEventListener('change', updateDimensions);
+    return () => subscription.remove();
   }, []);
 
   const pickImage = async () => {
@@ -63,7 +78,7 @@ function EditCategoryScreen({ route, navigation }) {
         formData.append('icon', imageFile);
       }
 
-      const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=updateCategory', {
+      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=updateCategory', {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -96,7 +111,7 @@ function EditCategoryScreen({ route, navigation }) {
           style: 'destructive',
           onPress: async () => {
             try {
-              const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=deleteCategory', {
+              const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=deleteCategory', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -125,125 +140,50 @@ function EditCategoryScreen({ route, navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <Text style={styles.TaskText}>Edit</Text>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image style={styles.terug} source={require('../assets/kruis.png')} />
-        </TouchableOpacity>
-        <Text style={styles.planText}>Enter Category Name</Text>
-        <TextInput
-          style={styles.input}
-          value={name}
-          onChangeText={setName}
-        />
-        <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
-          <Text style={styles.imagePickerButtonText}>Select Image</Text>
-        </TouchableOpacity>
-        {selectedImage && selectedImage.path ? (
-          <Image source={{ uri: selectedImage.path }} style={styles.icon1} />
-        ) : (
-          <Image style={styles.icon1} source={require('../assets/menu.png')} />
-        )}
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{flex: 1}}
+      >
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.header}>
+            <Text style={styles.TaskText}>Edit</Text>
+            <TouchableOpacity 
+              style={styles.closeButton} 
+              onPress={() => navigation.goBack()}
+            >
+              <Image style={styles.terug} source={require('../assets/kruis.png')} />
+            </TouchableOpacity>
+          </View>
 
-      </View>
-      <TouchableOpacity style={styles.saveButton} onPress={saveCategory}>
-        <Text style={styles.saveButtonText}>Save</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.deleteButton} onPress={deleteCategory}>
-        <Text style={styles.deleteButtonText}>Delete</Text>
-      </TouchableOpacity>
+          <View style={styles.formContainer}>
+            <Text style={styles.planText}>Enter Category Name</Text>
+            <TextInput
+              style={styles.input}
+              value={name}
+              onChangeText={setName}
+            />
+            <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
+              <Text style={styles.imagePickerButtonText}>Select Image</Text>
+            </TouchableOpacity>
+            {selectedImage && selectedImage.path ? (
+              <Image source={{ uri: selectedImage.path }} style={styles.icon1} />
+            ) : (
+              <Image style={styles.icon1} source={require('../assets/menu.png')} />
+            )}
+          </View>
+        </ScrollView>
+
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.saveButton} onPress={saveCategory}>
+            <Text style={styles.saveButtonText}>Save</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.deleteButton} onPress={deleteCategory}>
+            <Text style={styles.deleteButtonText}>Delete</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'rgba(245, 245, 245, 1)',
-    flex: 1,
-  },
-  terug: {
-    width: 25,
-    height: 25,
-    left: 350,
-    top: 20,
-  },
-  TaskText: {
-    color: 'black',
-    top: 50,
-    left: 180,
-    fontSize: 25,
-    fontWeight: '600',
-  },
-  planText: {
-    color: 'rgba(169, 169, 169, 1)',
-    top: 95,
-    left: 30,
-    fontSize: 13,
-  },
-  input: {
-    height: 90,
-    borderWidth: 0,
-    top: 95,
-    fontSize: 40,
-    borderColor: 'grey',
-    margin: 10,
-    padding: 8,
-    borderBottomWidth: 1,
-  },
-  icon1: {
-    top: 104,
-    marginLeft: 50,
-    height: 30,
-    width: 30,
-  },
-  imagePickerButton: {
-    height: 40,
-    borderWidth: 0,
-    top: 118,
-    marginLeft: 20,
-    marginRight: 100,
-    margin: 10,
-    padding: 8,
-    fontSize: 16,
-    borderColor: 'grey',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  imagePickerButtonText: {
-    color: 'black',
-    fontSize: 16,
-    top: 30,
-  },
-  saveButton: {
-    position: 'absolute',
-    bottom: 65,
-    left: 0,
-    right: 0,
-    height: 65,
-    backgroundColor: 'rgba(49, 74, 164, 1)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  saveButtonText: {
-    color: 'white',
-    fontSize: 26,
-    fontWeight: '500',
-  },
-  deleteButton: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 65,
-    backgroundColor: 'rgba(220, 53, 69, 1)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  deleteButtonText: {
-    color: 'white',
-    fontSize: 26,
-    fontWeight: '500',
-  },
-});
 
 export default EditCategoryScreen;

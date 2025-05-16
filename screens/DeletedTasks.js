@@ -1,9 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function DeletedTasks({ navigation }) {
   const [deletedTasks, setDeletedTasks] = useState([]);
+  const [dimensions, setDimensions] = useState({
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height
+  });
+  
+  const isLandscape = dimensions.width > dimensions.height;
+
+  useEffect(() => {
+    const updateDimensions = ({ window }) => {
+      setDimensions({
+        width: window.width,
+        height: window.height
+      });
+    };
+
+    const subscription = Dimensions.addEventListener('change', updateDimensions);
+    return () => subscription.remove();
+  }, []);
 
   useEffect(() => {
     loadDeletedTasks();
@@ -12,7 +30,7 @@ export default function DeletedTasks({ navigation }) {
   const loadDeletedTasks = async () => {
     try {
       const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=getDeletedTasks', {
+      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=getDeletedTasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,7 +52,7 @@ export default function DeletedTasks({ navigation }) {
   const handleRestore = async (taskId) => {
     try {
       const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=restoreTask', {
+      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=restoreTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,7 +75,7 @@ export default function DeletedTasks({ navigation }) {
   const handlePermanentDelete = async (taskId) => {
     try {
       const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=permanentDelete', {
+      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=permanentDelete', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -79,11 +97,11 @@ export default function DeletedTasks({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <View style={[styles.header]}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image style={styles.backButton} source={require('../assets/pijl.png')} />
         </TouchableOpacity>
-        <Text style={styles.title}>Deleted Tasks</Text>
+        <Text style={[styles.title, isLandscape && styles.titleLandscape]}>Deleted Tasks</Text>
       </View>
 
       <ScrollView style={styles.taskList}>
@@ -127,18 +145,28 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(49, 74, 164, 1)',
     paddingTop: 40,
   },
+  headerLandscape: {
+    justifyContent: 'center',
+  },
   backButton: {
     top: -8,
     width: 20,
     height: 20,
   },
   title: {
-    top: -8,
     fontSize: 20,
-    left: 80,
     color: 'white',
     fontWeight: 'bold',
     marginLeft: 20,
+    top: -8,
+    left: 80,
+  },
+  titleLandscape: {
+    position: 'absolute',
+    marginTop: 35,
+    left: 0,
+    right: 0,
+    textAlign: 'center',
   },
   taskList: {
     padding: 20,

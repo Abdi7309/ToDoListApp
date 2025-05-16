@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -51,9 +51,26 @@ function HomeScreen({ navigation }) {
   const [sortOrder, setSortOrder] = useState('standard'); 
   const [userId, setUserId] = useState(null);
   const [menuVisible, setMenuVisible] = useState(false);
+  const [orientation, setOrientation] = useState('portrait');
+
+  const getOrientationStyles = () => ({
+    boxesContainer: {
+      ...styles.boxesContainer,
+      justifyContent: 'flex-start', // Changed from space-around
+      paddingHorizontal: orientation === 'landscape' ? 30 : 30,
+      gap: orientation === 'landscape' ? 27 : 45,
+    },
+    boxes: {
+      ...styles.boxes,
+      width: orientation === 'landscape'
+        ? (Dimensions.get('window').width - 100) / 4.5 // Adjusted divisor
+        : 150,
+      height: orientation === 'landscape' ? 150 : 150,
+      marginRight: orientation === 'landscape' ? 10 : 0, // Added margin
+    }
+  });
 
   useEffect(() => {
-    // Make setSortOrder globally available but in a safer way
     global.setSortOrder = (newValue) => {
       setSortOrder(typeof newValue === 'function' ? newValue(sortOrder) : newValue);
     };
@@ -66,6 +83,21 @@ function HomeScreen({ navigation }) {
   }, [sortOrder]);
 
   useEffect(() => {
+    const updateOrientation = () => {
+      const { width, height } = Dimensions.get('window');
+      setOrientation(width > height ? 'landscape' : 'portrait');
+    };
+
+    updateOrientation();
+    Dimensions.addEventListener('change', updateOrientation);
+
+    return () => {
+      const dimensionsHandler = Dimensions.addEventListener('change', updateOrientation);
+      dimensionsHandler.remove();
+    };
+  }, []);
+
+  useEffect(() => {
     const loadData = async () => {
       try {
         const storedUserId = await AsyncStorage.getItem('user_id');
@@ -75,8 +107,7 @@ function HomeScreen({ navigation }) {
         }
         setUserId(storedUserId);
 
-        // Fetch all categories (both predefined and custom)
-        const categoriesResponse = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=getCategories', {
+        const categoriesResponse = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=getCategories', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -91,8 +122,7 @@ function HomeScreen({ navigation }) {
         if (categoriesData.status === 'success') {
           const categoriesWithTasks = await Promise.all(
             categoriesData.categories.map(async (category) => {
-              // Fetch task count for each category
-              const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=getTasks', {
+              const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=getTasks', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -159,24 +189,23 @@ function HomeScreen({ navigation }) {
         if (a.type === 'predefined' && b.type === 'predefined') {
           return predefinedOrder.indexOf(a.name) - predefinedOrder.indexOf(b.name);
         } else if (a.type === 'custom' && b.type === 'custom') {
-          return a.id - b.id; // standard first (lowest ID first)
+          return a.id - b.id;
         } else if (a.type === 'predefined') {
-          return -1; // Predefined categories first
+          return -1;
         } else {
-          return 1;  // Custom categories last
+          return 1;
         }
       });
     } else {
-      // Recently Added (default)
       otherCategories.sort((a, b) => {
         if (a.type === 'predefined' && b.type === 'predefined') {
           return predefinedOrder.indexOf(a.name) - predefinedOrder.indexOf(b.name);
         } else if (a.type === 'custom' && b.type === 'custom') {
-          return b.id - a.id; // Most recent first (highest ID first)
+          return b.id - a.id;
         } else if (a.type === 'custom') {
-          return -1; // Custom categories first
+          return -1;
         } else {
-          return 1;  // Predefined categories last
+          return 1;
         }
       });
     }
@@ -206,10 +235,12 @@ function HomeScreen({ navigation }) {
     if (category.type === 'predefined') {
       return images[category.name.toLowerCase()] || require('./assets/menu2.png');
     } else if (category.icon_url) {
-      return { uri: `http://10.3.1.65/ToDoListApp/screens/backend/${category.icon_url}` };
+      return { uri: `http://10.3.1.86/ToDoListApp/screens/backend/${category.icon_url}` };
     }
     return require('./assets/menu2.png');
   };
+
+  const dynamicStyles = getOrientationStyles();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -226,11 +257,11 @@ function HomeScreen({ navigation }) {
           <Image style={styles.menu} source={require('./assets/menu.png')} />
         </TouchableOpacity>
         <Text style={styles.listsText}>Lists</Text>
-        <View style={styles.boxesContainer}>
+        <View style={dynamicStyles.boxesContainer}>
           {sortCategories(categories).map(category => (
             <TouchableOpacity
               key={category.name}
-              style={styles.boxes}
+              style={dynamicStyles.boxes}
               onPress={() => handleBoxPress(category.name)}
               onLongPress={() => category.type === 'custom' ? handleLongPress(category) : null}
             >
@@ -271,19 +302,14 @@ const styles = StyleSheet.create({
   },
   boxesContainer: {
     flexDirection: 'row',
-    flexWrap: 'wrap',  
-    justifyContent: 'space-between',  
-    marginLeft: 30,
-    marginRight: 40,
+    flexWrap: 'wrap',
     marginBottom: 10,
     marginTop: 35,
   },
   boxes: {
     backgroundColor: 'white',
-    width: 150,
-    height: 150,
     borderRadius: 15,
-    marginBottom: 45,  
+    marginBottom: 0,
   },
   icoontje: {
     width: 50,
@@ -291,7 +317,7 @@ const styles = StyleSheet.create({
     top: 15,
     marginLeft: 15,
     marginBottom: -55,
-    borderRadius: 8, // Add this to make images look better
+    borderRadius: 8,
   },
   textboxex: {
     color: 'black',

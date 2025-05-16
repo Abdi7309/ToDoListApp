@@ -1,35 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity, Alert, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import styles from './uiterlijk';
+import { useFocusEffect } from '@react-navigation/native';
+import createStyles from './uiterlijk';
 
 const Study = ({ navigation }) => {
   const [tasks, setTasks] = useState([]);
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
   const [userId, setUserId] = useState(null);
+  const [dimensions, setDimensions] = useState({
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height
+  });
+  
+  const isLandscape = dimensions.width > dimensions.height;
+  const styles = createStyles(isLandscape);
 
+  // Handle dimension changes
   useEffect(() => {
-    const loadUser = async () => {
-      const storedUserId = await AsyncStorage.getItem('user_id');
-      if (storedUserId) {
-        setUserId(storedUserId);
-        loadData(storedUserId);
-      }
+    const updateDimensions = ({ window }) => {
+      setDimensions({
+        width: window.width,
+        height: window.height
+      });
     };
-    loadUser();
 
-    const focusListener = navigation.addListener('focus', () => {
-      loadUser();
-    });
-
+    const subscription = Dimensions.addEventListener('change', updateDimensions);
+    
     return () => {
-      navigation.removeListener('focus', focusListener);
+      subscription.remove();
     };
-  }, [navigation]);
+  }, []);
+
+  // Load user data and tasks when screen focuses
+  useFocusEffect(
+    useCallback(() => {
+      const loadUser = async () => {
+        const storedUserId = await AsyncStorage.getItem('user_id');
+        if (storedUserId) {
+          setUserId(storedUserId);
+          loadData(storedUserId);
+        }
+      };
+      
+      loadUser();
+    }, [])
+  );
 
   const loadData = async (userId) => {
     try {
-      const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=getTasks', {
+      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=getTasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,7 +74,7 @@ const Study = ({ navigation }) => {
 
   const deleteTask = async (taskId) => {
     try {
-      const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=deleteTask', {
+      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=deleteTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,17 +114,25 @@ const Study = ({ navigation }) => {
       <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
         <Image style={styles.terug} source={require('../assets/pijl.png')} />
       </TouchableOpacity>
-      <View>
-        <Image style={styles.foto} source={require('../assets/study2.png')} />
-      </View>
-      <View>
-        <Text style={styles.Text1}>Study</Text>
-        <Text style={styles.Text2}>{tasks.length} Tasks</Text>
-      </View>
+      
+      {isLandscape ? (
+        <View style={styles.headerContainer}>
+          <Image style={styles.foto} source={require('../assets/study2.png')} />
+          <View style={styles.textContainer}>
+            <Text style={styles.Text1}>Study</Text>
+            <Text style={styles.Text2}>{tasks.length} Tasks</Text>
+          </View>
+        </View>
+      ) : (
+        <View style={styles.portraitHeaderContainer}>
+          <Image style={styles.foto} source={require('../assets/study2.png')} />
+          <Text style={styles.Text1}>Study</Text>
+          <Text style={styles.Text2}>{tasks.length} Tasks</Text>
+        </View>
+      )}
 
       <View style={styles.boxes}>
-        <ScrollView>
-          <Text style={styles.tijdtekst}></Text>
+        <ScrollView contentContainerStyle={{paddingBottom: 80}}>
           {tasks.map((task, index) => (
             <View key={task.id} style={styles.taskContainer}>
               <View style={styles.taskContent}>

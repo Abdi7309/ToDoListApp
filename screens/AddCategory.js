@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, Image, View, Alert 
+  Text, TextInput, TouchableOpacity, SafeAreaView, Image, View, Alert, Dimensions,
+  KeyboardAvoidingView, Platform, ScrollView
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
+import createStyles from './addCategoryStyles';
 
 const AddCategory = ({ navigation }) => {
   const [categoryName, setCategoryName] = useState('');
   const [userId, setUserId] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [dimensions, setDimensions] = useState({
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height
+  });
+
+  const isLandscape = dimensions.width > dimensions.height;
+  const styles = createStyles(isLandscape);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -18,6 +27,18 @@ const AddCategory = ({ navigation }) => {
       }
     };
     loadUser();
+  }, []);
+
+  useEffect(() => {
+    const updateDimensions = ({ window }) => {
+      setDimensions({
+        width: window.width,
+        height: window.height
+      });
+    };
+
+    const subscription = Dimensions.addEventListener('change', updateDimensions);
+    return () => subscription.remove();
   }, []);
 
   const pickImage = async () => {
@@ -58,7 +79,7 @@ const AddCategory = ({ navigation }) => {
         });
       }
 
-      const response = await fetch('http://10.3.1.65/ToDoListApp/screens/backend/api.php?action=addCustomCategory', {
+      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=addCustomCategory', {
         method: 'POST',
         body: formData,
         headers: {
@@ -83,102 +104,46 @@ const AddCategory = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <Text style={styles.TaskText}>New Category</Text>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image style={styles.terug} source={require('../assets/kruis.png')} />
+      <KeyboardAvoidingView 
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{flex: 1}}
+      >
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.header}>
+            <Text style={styles.TaskText}>New Category</Text>
+            <TouchableOpacity 
+              style={styles.closeButton} 
+              onPress={() => navigation.goBack()}
+            >
+              <Image style={styles.terug} source={require('../assets/kruis.png')} />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.formContainer}>
+            <Text style={styles.planText}>Enter Category Name</Text>
+            <TextInput
+              style={styles.input}
+              value={categoryName}
+              onChangeText={setCategoryName}
+              placeholder=" "
+            />
+            <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
+              <Text style={styles.imagePickerButtonText}>Select Image</Text>
+            </TouchableOpacity>
+            {selectedImage && selectedImage.path ? (
+              <Image source={{ uri: selectedImage.path }} style={styles.icon1} />
+            ) : (
+              <Image style={styles.icon1} source={require('../assets/menu.png')} />
+            )}
+          </View>
+        </ScrollView>
+
+        <TouchableOpacity style={styles.saveButton} onPress={saveCategory}>
+          <Text style={styles.saveButtonText}>Create</Text>
         </TouchableOpacity>
-        <Text style={styles.planText}>Enter Category Name</Text>
-        <TextInput
-          style={styles.input}
-          value={categoryName}
-          onChangeText={setCategoryName}
-          placeholder=" "
-        />
-        <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
-          <Text style={styles.imagePickerButtonText}>Select Image</Text>
-        </TouchableOpacity>
-        {selectedImage && selectedImage.path ? (
-          <Image source={{ uri: selectedImage.path }} style={styles.icon1} />
-        ) : (
-          <Image style={styles.icon1} source={require('../assets/menu.png')} />
-        )}
-      </View>
-      <TouchableOpacity style={styles.saveButton} onPress={saveCategory}>
-        <Text style={{ color: 'white', fontSize: 26, fontWeight: '500' }}>Create</Text>
-      </TouchableOpacity>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'rgba(245, 245, 245, 1)',
-    flex: 1,
-  },
-  terug: {
-    width: 25,
-    height: 25,
-    left: 350,
-    top: 20,
-  },
-  TaskText: {
-    color: 'black',
-    top: 50,
-    left: 120,
-    fontSize: 25,
-    fontWeight: '600',
-  },
-  planText: {
-    color: 'rgba(169, 169, 169, 1)',
-    top: 95,
-    left: 30,
-    fontSize: 13,
-  },
-  input: {
-    height: 90,
-    borderWidth: 0,
-    top: 95,
-    fontSize: 40,
-    borderColor: 'grey',
-    margin: 10,
-    padding: 8,
-    borderBottomWidth: 1,  
-  },
-  saveButton: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0, 
-    right: 0,
-    height: 65,
-    backgroundColor: 'rgba(49, 74, 164, 1)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  imagePickerButton: {
-    height: 40,
-    borderWidth: 0,
-    top: 118,
-    marginLeft: 20,
-    marginRight: 100,
-    margin: 10,
-    padding: 8,
-    fontSize: 16,
-    borderColor: 'grey',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  imagePickerButtonText: {
-    color: 'black',
-    fontSize: 16,
-    top: 30,
-  },
-  icon1: {
-    top: 104,
-    marginLeft: 50,
-    height: 30,
-    width: 30,
-  },
-});
 
 export default AddCategory;
