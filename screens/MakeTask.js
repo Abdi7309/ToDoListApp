@@ -51,7 +51,7 @@ const MakeTask = ({ navigation, route }) => {
       const loadCategories = async () => {
         try {
           const userId = await AsyncStorage.getItem('user_id');
-          const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=getCategories', {
+          const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=getCategories', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -78,119 +78,39 @@ const MakeTask = ({ navigation, route }) => {
     }, [])
   );
 
-  const saveTask = async () => {
-    if (!text.trim()) {
-      Alert.alert('Error', 'Please enter a title');
-      return;
-    }
-
-    if (!description.trim()) {
-      Alert.alert('Error', 'Please enter a description');
+  const handleSubmit = async () => {
+    if (!text.trim() || !description.trim()) {
+      Alert.alert('Error', 'Please fill in all fields');
       return;
     }
 
     try {
       const userId = await AsyncStorage.getItem('user_id');
-      if (!userId) {
-        Alert.alert('Error', 'User not logged in');
-        return;
-      }
-
-      // First check for deleted tasks with same title and description
-      const checkResponse = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=checkDeletedTask', {
+      
+      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=addTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           user_id: userId,
-          title: text.trim(),
-          description: description.trim(),
-          new_category: selectedCategory // Add new category info
+          title: text,
+          description: description,
+          category: route.params.category,
+          isCustom: route.params.isCustom || false,
         }),
       });
 
-      const checkData = await checkResponse.json();
-      
-      if (checkData.status === 'found') {
-        // If found, restore the deleted task
-        const restoreResponse = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=restoreTask', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            task_id: checkData.task_id,
-            user_id: userId,
-          }),
-        });
-
-        const restoreData = await restoreResponse.json();
-        if (restoreData.status === 'success') {
-          Alert.alert(
-            'Task Restored',
-            'A previously deleted task was restored',
-            [{ text: 'OK', onPress: () => navigation.goBack() }]
-          );
-          return;
-        }
-      }
-
-      // If no deleted task found, proceed with creating new task
-      const taskData = {
-        action: 'addTask',
-        user_id: userId,
-        title: text.trim(),
-        description: description.trim(),
-        category: selectedCategory,
-      };
-
-      console.log('Sending task data:', taskData);
-
-      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=addTask', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify(taskData),
-      });
-
-      const responseText = await response.text();
-      console.log('Raw server response:', responseText);
-
-      let data;
-      try {
-        data = JSON.parse(responseText);
-      } catch (e) {
-        console.error('Parse error:', e);
-        console.error('Response text:', responseText);
-        Alert.alert('Error', 'Invalid server response');
-        return;
-      }
-
+      const data = await response.json();
       if (data.status === 'success') {
-        Alert.alert(
-          'Success',
-          'Task added successfully',
-          [
-            {
-              text: 'OK',
-              onPress: () => {
-                navigation.goBack();
-              }
-            }
-          ]
-        );
+        Alert.alert('Success', 'Task added successfully');
+        navigation.goBack();
       } else {
-        throw new Error(data.message || 'Failed to save task');
+        Alert.alert('Error', data.message || 'Failed to add task');
       }
     } catch (error) {
-      console.error('Error saving task:', error);
-      Alert.alert(
-        'Error',
-        error.message || 'Failed to save task. Please try again.'
-      );
+      console.error('Error:', error);
+      Alert.alert('Error', 'Failed to connect to server');
     }
   };
 
@@ -253,7 +173,7 @@ const MakeTask = ({ navigation, route }) => {
         
         <TouchableOpacity
           style={styles.saveButton}
-          onPress={saveTask}
+          onPress={handleSubmit}
         >
           <Text style={styles.saveButtonText}>Create</Text>
         </TouchableOpacity>

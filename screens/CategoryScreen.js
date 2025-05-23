@@ -49,7 +49,7 @@ const CategoryScreen = ({ route, navigation }) => {
 
   const loadData = async (userId) => {
     try {
-      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=getTasks', {
+      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=getTasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,7 +57,8 @@ const CategoryScreen = ({ route, navigation }) => {
         body: JSON.stringify({
           user_id: userId,
           category: category,
-          is_custom: true
+          is_custom: true,
+          categoryId: route.params.categoryId // Add categoryId
         }),
       });
 
@@ -74,32 +75,33 @@ const CategoryScreen = ({ route, navigation }) => {
 
   const deleteTask = async (taskId) => {
     try {
-      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=deleteTask', {
+      const nextTaskId = taskId + 1;
+      console.log('Deleting tasks with IDs:', taskId, nextTaskId); 
+
+      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=deleteTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
         },
         body: JSON.stringify({
           action: 'deleteTask',
           user_id: userId,
           task_id: taskId,
+          next_task_id: nextTaskId
         }),
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
       const data = await response.json();
       if (data.status === 'success') {
-        setTasks(tasks.filter(task => task.id !== taskId));
-        Alert.alert('Success', 'Task deleted successfully');
+        setTasks(currentTasks => 
+          currentTasks.filter(task => task.id !== taskId && task.id !== nextTaskId)
+        );
+        Alert.alert('Success', 'Tasks deleted successfully');
       } else {
-        Alert.alert('Error', data.message || 'Failed to delete task');
+        Alert.alert('Error', data.message || 'Failed to delete tasks');
       }
     } catch (error) {
-      console.error('Error deleting task:', error);
+      console.error('Delete error:', error);
       Alert.alert('Error', 'Failed to connect to server');
     }
   };
@@ -113,7 +115,7 @@ const CategoryScreen = ({ route, navigation }) => {
 
   const getCategoryIcon = () => {
     if (iconUrl) {
-      return { uri: `http://10.3.1.86/ToDoListApp/screens/backend/${iconUrl}` };
+      return { uri: `http://10.3.1.75/ToDoListApp/screens/backend/${iconUrl}` };
     }
     return require('../assets/menu3.png'); // fallback icon
   };
@@ -179,7 +181,11 @@ const CategoryScreen = ({ route, navigation }) => {
       </View>
       <TouchableOpacity 
         style={styles.footer}
-        onPress={() => navigation.navigate('MakeTask', { category, is_custom: true })}
+        onPress={() => navigation.navigate('MakeTask', { 
+          category: category,
+          isCustom: true,
+          categoryId: route.params.categoryId // Pass categoryId to MakeTask
+        })}
       >
         <Image style={styles.footerplus} source={require('../assets/plus.png')} />
       </TouchableOpacity>

@@ -18,7 +18,7 @@ const Work = ({ navigation }) => {
 
   const loadData = async (userId) => {
     try {
-      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=getTasks', {
+      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=getTasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -86,7 +86,11 @@ const Work = ({ navigation }) => {
 
   const deleteTask = async (taskId) => {
     try {
-      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=deleteTask', {
+      // Get matching task from All category (taskId + 1)
+      const allCategoryTaskId = taskId + 1;
+      console.log('Deleting tasks with IDs:', taskId, allCategoryTaskId);
+
+      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=deleteTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -95,17 +99,21 @@ const Work = ({ navigation }) => {
           action: 'deleteTask',
           user_id: userId,
           task_id: taskId,
+          next_task_id: allCategoryTaskId
         }),
       });
 
       const data = await response.json();
       if (data.status === 'success') {
-        setTasks(tasks.filter(task => task.id !== taskId));
-        Alert.alert('Success', 'Task deleted successfully');
+        // Remove both tasks from the local state
+        setTasks(currentTasks => 
+          currentTasks.filter(task => task.id !== taskId && task.id !== allCategoryTaskId)
+        );
       } else {
-        Alert.alert('Error', data.message || 'Failed to delete task');
+        Alert.alert('Error', data.message || 'Failed to delete tasks');
       }
     } catch (error) {
+      console.error('Delete error:', error);
       Alert.alert('Error', 'Failed to connect to server');
     }
   };

@@ -52,7 +52,7 @@ const Travel = ({ navigation }) => {
 
   const loadData = async (userId) => {
     try {
-      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=getTasks', {
+      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=getTasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +77,11 @@ const Travel = ({ navigation }) => {
 
   const deleteTask = async (taskId) => {
     try {
-      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=deleteTask', {
+      // Simply calculate next ID by adding 1
+      const nextTaskId = taskId + 1;
+      console.log('Deleting tasks with IDs:', taskId, nextTaskId); 
+
+      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=deleteTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -86,17 +90,22 @@ const Travel = ({ navigation }) => {
           action: 'deleteTask',
           user_id: userId,
           task_id: taskId,
+          next_task_id: nextTaskId  // Next consecutive ID
         }),
       });
 
       const data = await response.json();
       if (data.status === 'success') {
-        setTasks(tasks.filter(task => task.id !== taskId));
-        Alert.alert('Success', 'Task deleted successfully');
+        // Remove both the current task and the next ID from UI
+        setTasks(currentTasks => 
+          currentTasks.filter(task => task.id !== taskId && task.id !== nextTaskId)
+        );
+        Alert.alert('Success', 'Tasks deleted successfully');
       } else {
-        Alert.alert('Error', data.message || 'Failed to delete task');
+        Alert.alert('Error', data.message || 'Failed to delete tasks');
       }
     } catch (error) {
+      console.error('Delete error:', error);
       Alert.alert('Error', 'Failed to connect to server');
     }
   };

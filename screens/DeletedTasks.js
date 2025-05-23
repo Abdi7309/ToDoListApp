@@ -30,7 +30,7 @@ export default function DeletedTasks({ navigation }) {
   const loadDeletedTasks = async () => {
     try {
       const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=getDeletedTasks', {
+      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=getDeletedTasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,14 +52,18 @@ export default function DeletedTasks({ navigation }) {
   const handleRestore = async (taskId) => {
     try {
       const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=restoreTask', {
+      const nextTaskId = taskId + 1;
+      console.log('Restoring tasks with IDs:', taskId, nextTaskId);
+
+      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=restoreTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           user_id: userId,
-          task_id: taskId
+          task_id: taskId,
+          next_task_id: nextTaskId
         }),
       });
 
@@ -68,14 +72,14 @@ export default function DeletedTasks({ navigation }) {
         loadDeletedTasks(); // Refresh the list
       }
     } catch (error) {
-      console.error('Error restoring task:', error);
+      console.error('Error restoring tasks:', error);
     }
   };
 
   const handlePermanentDelete = async (taskId) => {
     try {
       const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=permanentDelete', {
+      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=permanentDelete', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

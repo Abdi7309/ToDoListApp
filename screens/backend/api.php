@@ -313,28 +313,24 @@ if (isset($_GET["action"]) && $_GET["action"] == "register") {
 
 // Add Task API
 if (isset($_GET["action"]) && $_GET["action"] == "addTask") {
-    // Clear any previous output and disable error output
-    ob_clean();
-    ob_start();
-    
     logDebug("Add Task action requested");
     
     try {
         $requestBody = file_get_contents("php://input");
         logDebug("Raw request body: " . $requestBody);
-        
         $data = json_decode($requestBody);
+        
         if ($data === null) {
             throw new Exception("Invalid JSON data");
         }
 
-        // Validate required fields
         $userId = isset($data->user_id) ? intval($data->user_id) : 0;
         $title = isset($data->title) ? trim($data->title) : "";
         $description = isset($data->description) ? trim($data->description) : "";
         $category = isset($data->category) ? trim($data->category) : "";
+        $isCustom = isset($data->isCustom) ? (bool)$data->isCustom : false;
 
-        logDebug("Processing task: user_id=$userId, title=$title, category=$category");
+        logDebug("Processing task: userId=$userId, category=$category, isCustom=" . ($isCustom ? "true" : "false"));
 
         if (empty($userId) || empty($title) || empty($category)) {
             throw new Exception("Missing required fields");
@@ -342,131 +338,54 @@ if (isset($_GET["action"]) && $_GET["action"] == "addTask") {
 
         $conn->begin_transaction();
 
-        // Check for duplicate task across ALL categories first
-        $stmt = $conn->prepare("
-            SELECT COUNT(*) as count 
-            FROM tasks 
-            WHERE user_id = ? 
-            AND title = ? 
-            AND description = ?
-            AND deleted = 0
-        ");
-        $stmt->bind_param("iss", $userId, $title, $description);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
-        
-        if ($row && $row['count'] > 0) {
-            throw new Exception("This task already exists in one of your categories");
-        }
-
-        // Check if it's a custom category first
-        $stmt = $conn->prepare("SELECT id FROM custom_categories WHERE name = ? AND user_id = ?");
-        $stmt->bind_param("si", $category, $userId);
-        $stmt->execute();
-        $customCategoryResult = $stmt->get_result();
-        $customCategory = $customCategoryResult->fetch_assoc();
-
-        // Check for duplicate task in the category
-        if ($customCategory) {
-            $stmt = $conn->prepare("
-                SELECT COUNT(*) as count 
-                FROM tasks 
-                WHERE user_id = ? 
-                AND custom_category_id = ? 
-                AND title = ? 
-                AND description = ?
-                AND deleted = 0
-            ");
-            $stmt->bind_param("iiss", $userId, $customCategory['id'], $title, $description);
-        } else {
-            $stmt = $conn->prepare("
-                SELECT c.id, COUNT(t.id) as count 
-                FROM categories c 
-                LEFT JOIN tasks t ON c.id = t.category_id 
-                AND t.user_id = ? 
-                AND t.title = ? 
-                AND t.description = ?
-                AND t.deleted = 0
-                WHERE c.name = ?
-                GROUP BY c.id
-            ");
-            $stmt->bind_param("isss", $userId, $title, $description, $category);
-        }
-        
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
-        
-        if ($row && $row['count'] > 0) {
-            throw new Exception("A task with this title and description already exists in this category");
-        }
-
-        // Get All category ID
-        $stmt = $conn->prepare("SELECT id FROM categories WHERE name = 'All'");
-        $stmt->execute();
-        $allResult = $stmt->get_result();
-        $allCategory = $allResult->fetch_assoc();
-
-        if ($customCategory) {
-            // Insert task with custom category
-            $stmt = $conn->prepare("INSERT INTO tasks (user_id, custom_category_id, title, description) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("iiss", $userId, $customCategory['id'], $title, $description);
-            if (!$stmt->execute()) {
-                throw new Exception("Error saving task to custom category");
-            }
-
-            // Also add to All category if it exists
-            if ($allCategory && $category !== 'All') {
-                $stmt = $conn->prepare("INSERT INTO tasks (user_id, category_id, title, description) VALUES (?, ?, ?, ?)");
-                $stmt->bind_param("iiss", $userId, $allCategory['id'], $title, $description);
-                if (!$stmt->execute()) {
-                    throw new Exception("Error saving task to All category");
-                }
-            }
-        } else {
-            // Get predefined category ID
-            $stmt = $conn->prepare("SELECT id FROM categories WHERE name = ?");
-            $stmt->bind_param("s", $category);
+        // First add task to specified category
+        if ($isCustom) {
+            // Get the custom category ID
+            $stmt = $conn->prepare("SELECT id FROM custom_categories WHERE name = ? AND user_id = ?");
+            $stmt->bind_param("si", $category, $userId);
             $stmt->execute();
             $result = $stmt->get_result();
-            $categoryRow = $result->fetch_assoc();
-
-            if (!$categoryRow) {
-                throw new Exception("Category not found");
-            }
-
-            // Insert into regular category
-            $stmt = $conn->prepare("INSERT INTO tasks (user_id, category_id, title, description) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("iiss", $userId, $categoryRow['id'], $title, $description);
-            if (!$stmt->execute()) {
-                throw new Exception("Error saving task to category");
-            }
-
-            // Also add to All category if it exists and this isn't already the All category
-            if ($allCategory && $category !== 'All') {
-                $stmt = $conn->prepare("INSERT INTO tasks (user_id, category_id, title, description) VALUES (?, ?, ?, ?)");
-                $stmt->bind_param("iiss", $userId, $allCategory['id'], $title, $description);
+            if ($categoryData = $result->fetch_assoc()) {
+                $categoryId = $categoryData['id'];
+                
+                // Add to custom category
+                $stmt = $conn->prepare("INSERT INTO tasks (user_id, custom_category_id, title, description) VALUES (?, ?, ?, ?)");
+                $stmt->bind_param("iiss", $userId, $categoryId, $title, $description);
                 if (!$stmt->execute()) {
-                    throw new Exception("Error saving task to All category");
+                    throw new Exception("Failed to add task to custom category");
                 }
+            }
+        } else {
+            // Add to predefined category
+            $stmt = $conn->prepare("
+                INSERT INTO tasks (user_id, category_id, title, description) 
+                SELECT ?, id, ?, ? FROM categories WHERE name = ?
+            ");
+            $stmt->bind_param("isss", $userId, $title, $description, $category);
+            if (!$stmt->execute()) {
+                throw new Exception("Failed to add task to category");
+            }
+        }
+
+        // Then add to All category if this isn't already the All category
+        if ($category !== 'All') {
+            $stmt = $conn->prepare("
+                INSERT INTO tasks (user_id, category_id, title, description) 
+                SELECT ?, id, ?, ? FROM categories WHERE name = 'All'
+            ");
+            $stmt->bind_param("iss", $userId, $title, $description);
+            if (!$stmt->execute()) {
+                throw new Exception("Failed to add task to All category");
             }
         }
 
         $conn->commit();
         logDebug("Task added successfully");
-        header('Content-Type: application/json');
-        ob_end_clean();
-        echo json_encode(["status" => "success", "message" => "Task added successfully"]);
-        exit();
-        
+        sendResponse(['status' => 'success', 'message' => 'Task added successfully']);
     } catch (Exception $e) {
         $conn->rollback();
-        logDebug("Error adding task: " . $e->getMessage());
-        header('Content-Type: application/json');
-        ob_end_clean();
-        echo json_encode(["status" => "error", "message" => $e->getMessage()]);
-        exit();
+        logDebug("Error in addTask: " . $e->getMessage());
+        sendResponse(['status' => 'error', 'message' => $e->getMessage()]);
     }
 }
 
@@ -480,6 +399,8 @@ if (isset($_GET["action"]) && $_GET["action"] == "deleteTask") {
         
         $user_id = $data['user_id'] ?? null;
         $task_id = $data['task_id'] ?? null;
+        $prev_task_id = $data['prev_task_id'] ?? null;
+        $next_task_id = $data['next_task_id'] ?? null;
 
         if (!$user_id || !$task_id) {
             throw new Exception("Missing user_id or task_id");
@@ -487,34 +408,38 @@ if (isset($_GET["action"]) && $_GET["action"] == "deleteTask") {
 
         $conn->begin_transaction();
 
-        // Get the task details
-        $stmt = $conn->prepare("
-            SELECT title, description
-            FROM tasks 
-            WHERE id = ? AND user_id = ? AND deleted = 0
-        ");
-        
-        $stmt->bind_param("ii", $task_id, $user_id);
-        $stmt->execute();
-        $task = $stmt->get_result()->fetch_assoc();
-
-        if (!$task) {
-            throw new Exception("Task not found");
-        }
-
-        // Soft delete all instances of this task across categories
+        // Delete current task
         $stmt = $conn->prepare("
             UPDATE tasks 
             SET deleted = 1 
-            WHERE user_id = ? 
-            AND title = ? 
-            AND description = ?
+            WHERE id = ? AND user_id = ? AND deleted = 0
         ");
-        $stmt->bind_param("iss", $user_id, $task['title'], $task['description']);
+        $stmt->bind_param("ii", $task_id, $user_id);
         $stmt->execute();
 
+        // If prev_task_id is provided (for All category), delete previous task
+        if ($prev_task_id) {
+            $stmt = $conn->prepare("
+                UPDATE tasks 
+                SET deleted = 1 
+                WHERE id = ? AND user_id = ? AND deleted = 0
+            ");
+            $stmt->bind_param("ii", $prev_task_id, $user_id);
+            $stmt->execute();
+        }
+        // If next_task_id is provided (for other categories), delete next task
+        else if ($next_task_id) {
+            $stmt = $conn->prepare("
+                UPDATE tasks 
+                SET deleted = 1 
+                WHERE id = ? AND user_id = ? AND deleted = 0
+            ");
+            $stmt->bind_param("ii", $next_task_id, $user_id);
+            $stmt->execute();
+        }
+
         $conn->commit();
-        sendResponse(['status' => 'success', 'message' => 'Task deleted successfully']);
+        sendResponse(['status' => 'success', 'message' => 'Tasks deleted successfully']);
     } catch (Exception $e) {
         $conn->rollback();
         logDebug("Error in deleteTask: " . $e->getMessage());
@@ -592,6 +517,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "restoreTask") {
         
         $user_id = $data['user_id'] ?? null;
         $task_id = $data['task_id'] ?? null;
+        $next_task_id = $data['next_task_id'] ?? null;
 
         if (!$user_id || !$task_id) {
             throw new Exception("Missing user_id or task_id");
@@ -613,22 +539,28 @@ if (isset($_GET["action"]) && $_GET["action"] == "restoreTask") {
             throw new Exception("Task not found");
         }
 
-        // Restore all instances of this task
+        // Restore current task
         $stmt = $conn->prepare("
             UPDATE tasks 
             SET deleted = 0 
-            WHERE user_id = ? 
-            AND title = ? 
-            AND description = ?
+            WHERE id = ? AND user_id = ?
         ");
-        $stmt->bind_param("iss", $user_id, $task['title'], $task['description']);
-        
-        if (!$stmt->execute()) {
-            throw new Exception("Failed to restore task");
+        $stmt->bind_param("ii", $task_id, $user_id);
+        $stmt->execute();
+
+        // Restore next task if it exists
+        if ($next_task_id) {
+            $stmt = $conn->prepare("
+                UPDATE tasks 
+                SET deleted = 0 
+                WHERE id = ? AND user_id = ?
+            ");
+            $stmt->bind_param("ii", $next_task_id, $user_id);
+            $stmt->execute();
         }
 
         $conn->commit();
-        sendResponse(['status' => 'success', 'message' => 'Task restored successfully']);
+        sendResponse(['status' => 'success', 'message' => 'Tasks restored successfully']);
     } catch (Exception $e) {
         $conn->rollback();
         logDebug("Error in restoreTask: " . $e->getMessage());
@@ -1070,71 +1002,61 @@ if (isset($_GET["action"]) && $_GET["action"] == "deleteCategory") {
 
         $conn->begin_transaction();
 
-        // Get category info and associated tasks
+        // Get all tasks from the custom category in order
         $stmt = $conn->prepare("
-            SELECT cc.icon_url, t.title, t.description
-            FROM custom_categories cc
-            LEFT JOIN tasks t ON cc.id = t.custom_category_id
-            WHERE cc.id = ? AND cc.user_id = ?
+            SELECT id 
+            FROM tasks 
+            WHERE user_id = ? 
+            AND custom_category_id = ?
+            ORDER BY id ASC
         ");
-        $stmt->bind_param("ii", $category_id, $user_id);
+        $stmt->bind_param("ii", $user_id, $category_id);
         $stmt->execute();
         $result = $stmt->get_result();
-        
-        $category = null;
-        $tasksToDelete = [];
-        
+        $tasks = [];
         while ($row = $result->fetch_assoc()) {
-            if (!$category && $row['icon_url']) {
-                $category = ['icon_url' => $row['icon_url']];
-            }
-            if ($row['title'] && $row['description']) {
-                $tasksToDelete[] = [
-                    'title' => $row['title'],
-                    'description' => $row['description']
-                ];
-            }
+            $tasks[] = $row['id'];
         }
 
-        // Delete tasks from both custom category and All category
-        foreach ($tasksToDelete as $task) {
-            $stmt = $conn->prepare("
-                DELETE FROM tasks 
-                WHERE user_id = ? 
-                AND title = ? 
-                AND description = ?
-            ");
-            $stmt->bind_param("iss", $user_id, $task['title'], $task['description']);
-            if (!$stmt->execute()) {
-                throw new Exception("Failed to delete associated tasks");
-            }
+        // Delete tasks in pairs (assuming even IDs are custom category and odd IDs are All category)
+        for ($i = 0; $i < count($tasks); $i++) {
+            $taskId = $tasks[$i];
+            $nextId = $taskId + 1;  // The corresponding All category task ID
+
+            // Delete both tasks
+            $stmt = $conn->prepare("DELETE FROM tasks WHERE id IN (?, ?)");
+            $stmt->bind_param("ii", $taskId, $nextId);
+            $stmt->execute();
         }
 
-        // Delete the category
-        $stmt = $conn->prepare("
-            DELETE FROM custom_categories 
-            WHERE id = ? AND user_id = ?
-        ");
+        // Delete the custom category itself
+        $stmt = $conn->prepare("DELETE FROM custom_categories WHERE id = ? AND user_id = ?");
         $stmt->bind_param("ii", $category_id, $user_id);
         if (!$stmt->execute()) {
             throw new Exception("Failed to delete category");
         }
 
-        // Delete icon file if exists
-        if ($category && $category['icon_url']) {
-            $iconPath = __DIR__ . '/' . $category['icon_url'];
-            if (file_exists($iconPath)) {
-                unlink($iconPath);
+        // Delete the category icon if it exists
+        $stmt = $conn->prepare("SELECT icon_url FROM custom_categories WHERE id = ? AND user_id = ?");
+        $stmt->bind_param("ii", $category_id, $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($icon = $result->fetch_assoc()) {
+            if ($icon['icon_url']) {
+                $iconPath = __DIR__ . '/' . $icon['icon_url'];
+                if (file_exists($iconPath)) {
+                    unlink($iconPath);
+                }
             }
         }
 
         $conn->commit();
-        sendResponse(["status" => "success", "message" => "Category deleted successfully"]);
+        sendResponse(["status" => "success", "message" => "Category and all its tasks deleted successfully"]);
 
     } catch (Exception $e) {
         $conn->rollback();
         logDebug("Error in deleteCategory: " . $e->getMessage());
-        sendResponse(["status" => "error", "message" => $e->getMessage()]);
+        sendResponse(['status' => 'error', 'message' => $e->getMessage()]);
     }
 }
 

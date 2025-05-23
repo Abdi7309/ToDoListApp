@@ -107,7 +107,7 @@ function HomeScreen({ navigation }) {
         }
         setUserId(storedUserId);
 
-        const categoriesResponse = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=getCategories', {
+        const categoriesResponse = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=getCategories', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ function HomeScreen({ navigation }) {
         if (categoriesData.status === 'success') {
           const categoriesWithTasks = await Promise.all(
             categoriesData.categories.map(async (category) => {
-              const response = await fetch('http://10.3.1.86/ToDoListApp/screens/backend/api.php?action=getTasks', {
+              const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=getTasks', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -235,7 +235,7 @@ function HomeScreen({ navigation }) {
     if (category.type === 'predefined') {
       return images[category.name.toLowerCase()] || require('./assets/menu2.png');
     } else if (category.icon_url) {
-      return { uri: `http://10.3.1.86/ToDoListApp/screens/backend/${category.icon_url}` };
+      return { uri: `http://10.3.1.75/ToDoListApp/screens/backend/${category.icon_url}` };
     }
     return require('./assets/menu2.png');
   };
