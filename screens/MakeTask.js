@@ -15,7 +15,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNPickerSelect from 'react-native-picker-select';
 import { useFocusEffect } from '@react-navigation/native';
-import createStyles from './makeTaskStyles';
+import createStyles from './styles/makeTaskStyles';
 
 const MakeTask = ({ navigation, route }) => {
   const [text, setText] = useState('');

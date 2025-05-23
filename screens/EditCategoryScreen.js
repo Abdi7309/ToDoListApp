@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
-import createStyles from './editCategoryStyles';
+import createStyles from './styles/editCategoryStyles';
 
 function EditCategoryScreen({ route, navigation }) {
   const { categoryId, categoryName: initialName, iconUrl: initialIcon } = route.params;

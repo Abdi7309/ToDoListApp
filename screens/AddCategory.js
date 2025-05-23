@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
-import createStyles from './addCategoryStyles';
+import createStyles from './styles/addCategoryStyles';
 
 const AddCategory = ({ navigation }) => {
   const [categoryName, setCategoryName] = useState('');

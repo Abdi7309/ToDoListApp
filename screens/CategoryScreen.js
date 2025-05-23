@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet, SafeAreaView, Image, TouchableOpacity, Alert, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import createStyles from './uiterlijk';
+import createStyles from './styles/Styles';
 
 const CategoryScreen = ({ route, navigation }) => {
   const { category, iconUrl } = route.params;

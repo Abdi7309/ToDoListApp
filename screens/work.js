@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity, Alert, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
-import createStyles from './uiterlijk';
+import createStyles from './styles/Styles';
 
 const Work = ({ navigation }) => {
   const [tasks, setTasks] = useState([]);
