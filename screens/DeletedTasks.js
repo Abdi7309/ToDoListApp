@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, Dimensions } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, Dimensions, Alert, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import API_BASE_URL from '../config/api';
+import { LanguageContext } from '../context/LanguageContext';
 
 export default function DeletedTasks({ navigation }) {
   const [deletedTasks, setDeletedTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [dimensions, setDimensions] = useState({
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height
   });
   
   const isLandscape = dimensions.width > dimensions.height;
+  const { translate } = useContext(LanguageContext);
 
   useEffect(() => {
     const updateDimensions = ({ window }) => {
@@ -29,8 +33,14 @@ export default function DeletedTasks({ navigation }) {
 
   const loadDeletedTasks = async () => {
     try {
+      setLoading(true);
       const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=getDeletedTasks', {
+      if (!userId) {
+        Alert.alert('Error', 'User not logged in');
+        return;
+      }
+
+      const response = await fetch(`${API_BASE_URL}?action=getDeletedTasks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -41,11 +51,18 @@ export default function DeletedTasks({ navigation }) {
       });
 
       const data = await response.json();
+      console.log('Deleted tasks response:', data); // Debug log
+
       if (data.status === 'success') {
-        setDeletedTasks(data.tasks);
+        setDeletedTasks(Array.isArray(data.tasks) ? data.tasks : []);
+      } else {
+        Alert.alert('Error', data.message || 'Failed to load deleted tasks');
       }
     } catch (error) {
       console.error('Error loading deleted tasks:', error);
+      Alert.alert('Error', 'Failed to load deleted tasks');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,9 +70,8 @@ export default function DeletedTasks({ navigation }) {
     try {
       const userId = await AsyncStorage.getItem('user_id');
       const nextTaskId = taskId + 1;
-      console.log('Restoring tasks with IDs:', taskId, nextTaskId);
 
-      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=restoreTask', {
+      const response = await fetch(`${API_BASE_URL}?action=restoreTask`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -69,17 +85,21 @@ export default function DeletedTasks({ navigation }) {
 
       const data = await response.json();
       if (data.status === 'success') {
-        loadDeletedTasks(); // Refresh the list
+        Alert.alert('Success', 'Task restored successfully');
+        await loadDeletedTasks();
+      } else {
+        Alert.alert('Error', data.message || 'Failed to restore task');
       }
     } catch (error) {
-      console.error('Error restoring tasks:', error);
+      console.error('Error restoring task:', error);
+      Alert.alert('Error', 'Failed to restore task');
     }
   };
 
   const handlePermanentDelete = async (taskId) => {
     try {
       const userId = await AsyncStorage.getItem('user_id');
-      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=permanentDelete', {
+      const response = await fetch(`${API_BASE_URL}?action=permanentDelete`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -92,10 +112,14 @@ export default function DeletedTasks({ navigation }) {
 
       const data = await response.json();
       if (data.status === 'success') {
-        loadDeletedTasks(); // Refresh the list
+        Alert.alert('Success', 'Task permanently deleted');
+        await loadDeletedTasks();
+      } else {
+        Alert.alert('Error', data.message || 'Failed to delete task');
       }
     } catch (error) {
-      console.error('Error permanently deleting task:', error);
+      console.error('Error deleting task:', error);
+      Alert.alert('Error', 'Failed to delete task');
     }
   };
 
@@ -105,33 +129,39 @@ export default function DeletedTasks({ navigation }) {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image style={styles.backButton} source={require('../assets/pijl.png')} />
         </TouchableOpacity>
-        <Text style={[styles.title, isLandscape && styles.titleLandscape]}>Deleted Tasks</Text>
+        <Text style={[styles.title, isLandscape && styles.titleLandscape]}>{translate('deleted_tasks')}</Text>
       </View>
 
       <ScrollView style={styles.taskList}>
-        {deletedTasks.map((task, index) => (
-          <View key={task.id} style={styles.taskItem}>
-            <View style={styles.taskInfo}>
-              <Text style={styles.taskTitle}>{task.title}</Text>
-              <Text style={styles.taskDescription}>{task.description}</Text>
-              <Text style={styles.taskCategory}>From Category: {task.category_name || 'Uncategorized'}</Text>
+        {loading ? (
+          <ActivityIndicator size="large" color="rgba(49, 74, 164, 1)" style={styles.loader} />
+        ) : deletedTasks.length === 0 ? (
+          <Text style={styles.noTasksText}>{translate('no_tasks_found')}</Text>
+        ) : (
+          deletedTasks.map((task, index) => (
+            <View key={task.id} style={styles.taskItem}>
+              <View style={styles.taskInfo}>
+                <Text style={styles.taskTitle}>{task.title}</Text>
+                <Text style={styles.taskDescription}>{task.description}</Text>
+                <Text style={styles.taskCategory}>{translate('from_category')}: {task.category_name}</Text>
+              </View>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                  style={styles.restoreButton}
+                  onPress={() => handleRestore(task.id)}
+                >
+                  <Text style={styles.restoreButtonText}>{translate('restore')}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.deleteButton}
+                  onPress={() => handlePermanentDelete(task.id)}
+                >
+                  <Text style={styles.deleteButtonText}>{translate('delete')}</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={styles.restoreButton}
-                onPress={() => handleRestore(task.id)}
-              >
-                <Text style={styles.restoreButtonText}>Restore</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.deleteButton}
-                onPress={() => handlePermanentDelete(task.id)}
-              >
-                <Text style={styles.deleteButtonText}>Delete</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        ))}
+          ))
+        )}
       </ScrollView>
     </View>
   );
@@ -161,9 +191,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     fontWeight: 'bold',
-    marginLeft: 20,
+    flex: 1,
+    textAlign: 'center',
+    marginRight: 40,  
     top: -8,
-    left: 80,
   },
   titleLandscape: {
     position: 'absolute',
@@ -226,5 +257,14 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 14,
     fontWeight: '500',
+  },
+  loader: {
+    marginTop: 50,
+  },
+  noTasksText: {
+    textAlign: 'center',
+    marginTop: 50,
+    fontSize: 16,
+    color: '#666',
   },
 });

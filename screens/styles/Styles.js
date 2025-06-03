@@ -60,6 +60,7 @@ const uiterlijk = (isLandscape) => {
       marginLeft: 20,
     },
     Text1: {
+      right: 8,
       color: 'white',
       fontSize: 32,
       marginTop: isLandscape ? 0 : 20,
@@ -67,6 +68,7 @@ const uiterlijk = (isLandscape) => {
     },
     Text2: {
       color: 'white',
+      right: 6,
       fontSize: 12,
       marginTop: 5,
       marginBottom: 20,

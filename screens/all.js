@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity, Alert, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import createStyles from './styles/Styles';
+import API_BASE_URL from '../config/api';
+import { LanguageContext } from '../context/LanguageContext';
 
 const All = ({ navigation }) => {
   const [tasks, setTasks] = useState([]);
@@ -12,6 +14,8 @@ const All = ({ navigation }) => {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height
   });
+
+  const { translate } = useContext(LanguageContext);
 
   const isLandscape = dimensions.width > dimensions.height;
   const styles = createStyles(isLandscape);
@@ -49,7 +53,7 @@ const All = ({ navigation }) => {
 
   const loadData = async (userId) => {
     try {
-      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=getTasks', {
+      const response = await fetch(`${API_BASE_URL}?action=getTasks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -78,7 +82,7 @@ const All = ({ navigation }) => {
       const prevTaskId = taskId - 1;
       console.log('Deleting tasks with IDs:', prevTaskId, taskId); 
 
-      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=deleteTask', {
+      const response = await fetch(`${API_BASE_URL}?action=deleteTask`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -124,15 +128,15 @@ const All = ({ navigation }) => {
         <View style={styles.headerContainer}>
           <Image style={styles.foto} source={require('../assets/all2.png')} />
           <View style={styles.textContainer}>
-            <Text style={styles.Text1}>All</Text>
-            <Text style={styles.Text2}>{tasks.length} Tasks</Text>
+            <Text style={styles.Text1}>{translate('all')}</Text>
+            <Text style={styles.Text2}>{tasks.length} {translate('tasks')}</Text>
           </View>
         </View>
       ) : (
         <View style={styles.portraitHeaderContainer}>
           <Image style={styles.foto} source={require('../assets/all2.png')} />
-          <Text style={styles.Text1}>All</Text>
-          <Text style={styles.Text2}>{tasks.length} Tasks</Text>
+          <Text style={styles.Text1}>{translate('all')}</Text>
+          <Text style={styles.Text2}>{tasks.length} {translate('tasks')}</Text>
         </View>
       )}
 
@@ -143,7 +147,9 @@ const All = ({ navigation }) => {
             <View key={task.id} style={styles.taskContainer}>
               <View style={styles.taskContent}>
                 <View style={styles.titleRow}>
-                  <Text style={styles.titeltekst}>{task.title}</Text>
+                  <Text style={[styles.titeltekst, { flexWrap: 'wrap', flex: 1, marginRight: 10 }]}>
+                    {task.title}
+                  </Text>
                   <TouchableOpacity 
                     style={styles.trashButton} 
                     onPress={() => deleteTask(task.id)}

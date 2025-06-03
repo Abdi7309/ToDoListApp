@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { View, Text, ScrollView, SafeAreaView, Image, TouchableOpacity, Alert, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import createStyles from './styles/Styles';
+import API_BASE_URL from '../config/api';
+import { LanguageContext } from '../context/LanguageContext';
 
 const Music = ({ navigation }) => {
   const [tasks, setTasks] = useState([]);
@@ -15,6 +17,7 @@ const Music = ({ navigation }) => {
 
   const isLandscape = dimensions.width > dimensions.height;
   const styles = createStyles(isLandscape);
+  const { translate } = useContext(LanguageContext);
 
   useEffect(() => {
     const updateDimensions = ({ window }) => {
@@ -49,7 +52,7 @@ const Music = ({ navigation }) => {
 
   const loadData = async (userId) => {
     try {
-      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=getTasks', {
+      const response = await fetch(`${API_BASE_URL}?action=getTasks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +80,7 @@ const Music = ({ navigation }) => {
       const nextTaskId = taskId + 1;
       console.log('Deleting tasks with IDs:', taskId, nextTaskId); 
 
-      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=deleteTask', {
+      const response = await fetch(`${API_BASE_URL}?action=deleteTask`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -126,15 +129,15 @@ const Music = ({ navigation }) => {
         <View style={styles.headerContainer}>
           <Image style={styles.foto} source={require('../assets/music2.png')} />
           <View style={styles.textContainer}>
-            <Text style={styles.Text1}>Music</Text>
-            <Text style={styles.Text2}>{tasks.length} Tasks</Text>
+            <Text style={styles.Text1}>{translate('music')}</Text>
+            <Text style={styles.Text2}>{tasks.length} {translate('tasks')}</Text>
           </View>
         </View>
       ) : (
         <View style={styles.portraitHeaderContainer}>
           <Image style={styles.foto} source={require('../assets/music2.png')} />
-          <Text style={styles.Text1}>Music</Text>
-          <Text style={styles.Text2}>{tasks.length} Tasks</Text>
+          <Text style={styles.Text1}>{translate('music')}</Text>
+          <Text style={styles.Text2}>{tasks.length} {translate('tasks')}</Text>
         </View>
       )}
 
@@ -145,7 +148,9 @@ const Music = ({ navigation }) => {
             <View key={task.id} style={styles.taskContainer}>
               <View style={styles.taskContent}>
                 <View style={styles.titleRow}>
-                  <Text style={styles.titeltekst}>{task.title}</Text>
+                  <Text style={[styles.titeltekst, { flexWrap: 'wrap', flex: 1, marginRight: 10 }]}>
+                    {task.title}
+                  </Text>
                   <TouchableOpacity 
                     style={styles.trashButton} 
                     onPress={() => deleteTask(task.id)}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { 
   View, 
   Text, 
@@ -16,12 +16,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNPickerSelect from 'react-native-picker-select';
 import { useFocusEffect } from '@react-navigation/native';
 import createStyles from './styles/makeTaskStyles';
+import API_BASE_URL from '../config/api';
+import { LanguageContext } from '../context/LanguageContext';
 
 const MakeTask = ({ navigation, route }) => {
   const [text, setText] = useState('');
   const [description, setDescription] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(route.params?.category || '');
   const [categories, setCategories] = useState([]);
+  const [userId, setUserId] = useState(null);
   const [dimensions, setDimensions] = useState({
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height
@@ -29,6 +32,7 @@ const MakeTask = ({ navigation, route }) => {
   
   const isLandscape = dimensions.width > dimensions.height;
   const styles = createStyles(isLandscape);
+  const { translate } = useContext(LanguageContext);
 
   // Handle dimension changes
   useEffect(() => {
@@ -50,14 +54,20 @@ const MakeTask = ({ navigation, route }) => {
     useCallback(() => {
       const loadCategories = async () => {
         try {
-          const userId = await AsyncStorage.getItem('user_id');
-          const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=getCategories', {
+          const storedUserId = await AsyncStorage.getItem('user_id');
+          if (!storedUserId) {
+            Alert.alert('Error', 'User not logged in');
+            return;
+          }
+          setUserId(storedUserId);
+
+          const response = await fetch(`${API_BASE_URL}?action=getCategories`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              user_id: userId
+              user_id: storedUserId
             }),
           });
 
@@ -68,9 +78,12 @@ const MakeTask = ({ navigation, route }) => {
               value: cat.name
             }));
             setCategories(formattedCategories);
+          } else {
+            Alert.alert('Error', data.message || 'Failed to load categories');
           }
         } catch (error) {
           console.error('Error loading categories:', error);
+          Alert.alert('Error', 'Failed to load categories');
         }
       };
 
@@ -85,9 +98,7 @@ const MakeTask = ({ navigation, route }) => {
     }
 
     try {
-      const userId = await AsyncStorage.getItem('user_id');
-      
-      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=addTask', {
+      const response = await fetch(`${API_BASE_URL}?action=addTask`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -122,7 +133,7 @@ const MakeTask = ({ navigation, route }) => {
       >
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.header}>
-            <Text style={styles.TaskText}>New Task</Text>
+            <Text style={styles.TaskText}>{translate('new_task')}</Text>
             <TouchableOpacity 
               style={styles.closeButton} 
               onPress={() => navigation.navigate('HomeScreen')}
@@ -132,7 +143,7 @@ const MakeTask = ({ navigation, route }) => {
           </View>
           
           <View style={styles.formContainer}>
-            <Text style={styles.planText}>What are You planning?</Text>
+            <Text style={styles.planText}>{translate('planning')}</Text>
             <TextInput
               style={styles.input}
               value={text}
@@ -145,7 +156,7 @@ const MakeTask = ({ navigation, route }) => {
               <Image style={styles.icon1} source={require('../assets/menu.png')} />
               <TextInput
                 style={styles.input2}
-                placeholder="Add description"
+                placeholder={translate('add_description')}
                 placeholderTextColor="#AAA"
                 value={description}
                 onChangeText={setDescription}
@@ -175,7 +186,7 @@ const MakeTask = ({ navigation, route }) => {
           style={styles.saveButton}
           onPress={handleSubmit}
         >
-          <Text style={styles.saveButtonText}>Create</Text>
+          <Text style={styles.saveButtonText}>{translate('create')}</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </SafeAreaView>

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View, Image, TouchableOpacity, Dimensions } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View, Image, TouchableOpacity, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -18,30 +18,34 @@ import Login from './screens/login';
 import Register from './screens/register';
 import DeletedTasks from './screens/DeletedTasks';
 import { CustomMenu } from './screens/CustomMenu';
+import API_BASE_URL from './config/api';
+import { LanguageProvider, LanguageContext } from './context/LanguageContext';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="All" component={All} />
-        <Stack.Screen name="Work" component={Werk} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Music" component={Music} />
-        <Stack.Screen name="Travel" component={Travel} />
-        <Stack.Screen name="Study" component={Study} />
-        <Stack.Screen name="Hobby" component={Hobby} />
-        <Stack.Screen name="MakeTask" component={MakeTask} />
-        <Stack.Screen name="AddCategory" component={AddCategory} />
-        <Stack.Screen name="CategoryScreen" component={CategoryScreen} />
-        <Stack.Screen name="EditCategory" component={EditCategoryScreen} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="DeletedTasks" component={DeletedTasks} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <LanguageProvider>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="All" component={All} />
+          <Stack.Screen name="Work" component={Werk} />
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Music" component={Music} />
+          <Stack.Screen name="Travel" component={Travel} />
+          <Stack.Screen name="Study" component={Study} />
+          <Stack.Screen name="Hobby" component={Hobby} />
+          <Stack.Screen name="MakeTask" component={MakeTask} />
+          <Stack.Screen name="AddCategory" component={AddCategory} />
+          <Stack.Screen name="CategoryScreen" component={CategoryScreen} />
+          <Stack.Screen name="EditCategory" component={EditCategoryScreen} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="DeletedTasks" component={DeletedTasks} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </LanguageProvider>
   );
 }
 
@@ -52,21 +56,22 @@ function HomeScreen({ navigation }) {
   const [userId, setUserId] = useState(null);
   const [menuVisible, setMenuVisible] = useState(false);
   const [orientation, setOrientation] = useState('portrait');
+  const { translate } = useContext(LanguageContext);
 
   const getOrientationStyles = () => ({
     boxesContainer: {
       ...styles.boxesContainer,
-      justifyContent: 'flex-start', // Changed from space-around
+      justifyContent: 'flex-start',
       paddingHorizontal: orientation === 'landscape' ? 30 : 30,
       gap: orientation === 'landscape' ? 27 : 45,
     },
     boxes: {
       ...styles.boxes,
       width: orientation === 'landscape'
-        ? (Dimensions.get('window').width - 100) / 4.5 // Adjusted divisor
+        ? (Dimensions.get('window').width - 100) / 4.5
         : 150,
       height: orientation === 'landscape' ? 150 : 150,
-      marginRight: orientation === 'landscape' ? 10 : 0, // Added margin
+      marginRight: orientation === 'landscape' ? 10 : 0,
     }
   });
 
@@ -107,7 +112,7 @@ function HomeScreen({ navigation }) {
         }
         setUserId(storedUserId);
 
-        const categoriesResponse = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=getCategories', {
+        const categoriesResponse = await fetch(`${API_BASE_URL}?action=getCategories`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -122,7 +127,7 @@ function HomeScreen({ navigation }) {
         if (categoriesData.status === 'success') {
           const categoriesWithTasks = await Promise.all(
             categoriesData.categories.map(async (category) => {
-              const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=getTasks', {
+              const response = await fetch(`${API_BASE_URL}?action=getTasks`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -235,7 +240,7 @@ function HomeScreen({ navigation }) {
     if (category.type === 'predefined') {
       return images[category.name.toLowerCase()] || require('./assets/menu2.png');
     } else if (category.icon_url) {
-      return { uri: `http://10.3.1.75/ToDoListApp/screens/backend/${category.icon_url}` };
+      return { uri: `${API_BASE_URL.split('/api.php')[0]}/${category.icon_url}` };
     }
     return require('./assets/menu2.png');
   };
@@ -252,27 +257,48 @@ function HomeScreen({ navigation }) {
         currentSortOrder={sortOrder}
         setSortOrder={setSortOrder}
       />
-      <ScrollView>
+      <ScrollView scrollEnabled={true}>
         <TouchableOpacity onPress={() => setMenuVisible(true)}>
           <Image style={styles.menu} source={require('./assets/menu.png')} />
         </TouchableOpacity>
-        <Text style={styles.listsText}>Lists</Text>
+        <Text style={styles.listsText}>{translate('lists')}</Text>
         <View style={dynamicStyles.boxesContainer}>
           {sortCategories(categories).map(category => (
-            <TouchableOpacity
-              key={category.name}
-              style={dynamicStyles.boxes}
-              onPress={() => handleBoxPress(category.name)}
-              onLongPress={() => category.type === 'custom' ? handleLongPress(category) : null}
-            >
+            <View key={category.name} style={dynamicStyles.boxes}>
               <Image
                 style={styles.icoontje}
                 source={getImageSource(category)}
                 resizeMode="cover"
               />
-              <Text style={styles.textboxex}>{category.name}</Text>
-              <Text style={styles.Tasksboxex}>{category.tasks} Tasks</Text>
-            </TouchableOpacity>
+              <View style={styles.textContainer}>
+                <ScrollView 
+                  style={styles.textScrollView}
+                  showsVerticalScrollIndicator={false}
+                  nestedScrollEnabled={true}
+                  scrollEnabled={true}
+                  bounces={false}
+                  onStartShouldSetResponder={() => true}
+                  onMoveShouldSetResponder={() => true}
+                  onResponderGrant={(evt) => {
+                    evt.stopPropagation();
+                  }}
+                  onResponderMove={(evt) => {
+                    evt.stopPropagation();
+                  }}
+                  onScrollBeginDrag={(evt) => {
+                    evt.stopPropagation();
+                  }}
+                >
+                  <Text style={styles.textboxex}>{translate(category.name)}</Text>
+                </ScrollView>
+              </View>
+              <Text style={styles.Tasksboxex}>{category.tasks} {translate('tasks')}</Text>
+              <TouchableOpacity 
+                style={styles.touchableOverlay}
+                onPress={() => handleBoxPress(category.name)}
+                onLongPress={() => category.type === 'custom' ? handleLongPress(category) : null}
+              />
+            </View>
           ))}
         </View>
       </ScrollView>
@@ -282,6 +308,7 @@ function HomeScreen({ navigation }) {
     </SafeAreaView>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'rgba(245, 245, 245, 1)',
@@ -310,6 +337,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 15,
     marginBottom: 0,
+    overflow: 'hidden',
+    position: 'relative',
   },
   icoontje: {
     width: 50,
@@ -319,19 +348,38 @@ const styles = StyleSheet.create({
     marginBottom: -55,
     borderRadius: 8,
   },
-  textboxex: {
-    color: 'black',
+  textContainer: {
+    position: 'absolute',
     top: 89,
     left: 15,
+    right: 15,
+    height: 30, // Verlaagd van 45 naar 35
+  },
+  textScrollView: {
+    flex: 1,
+    maxHeight: 35, // Toegevoegd om scroll gebied te beperken
+  },
+  textboxex: {
+    color: 'black',
     fontWeight: '500',
-    fontSize: 24,
+    fontSize: 20, // Verlaagd van 24 naar 20 voor betere passing
+    flexWrap: 'wrap',
+    paddingRight: 5,
   },
   Tasksboxex: {
     color: '#A9A9A9',
-    top: 89,
+    position: 'absolute',
     left: 15,
+    bottom: 15,
     fontWeight: '500',
     fontSize: 14,
+  },
+  touchableOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 45, // Stop net voor de text area
   },
   footer: {
     height: 70,

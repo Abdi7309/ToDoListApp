@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { 
   Text, TextInput, TouchableOpacity, SafeAreaView, Image, View, Alert, Dimensions,
   KeyboardAvoidingView, Platform, ScrollView
@@ -6,6 +6,8 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
 import createStyles from './styles/addCategoryStyles';
+import API_BASE_URL from '../config/api';
+import { LanguageContext } from '../context/LanguageContext';
 
 const AddCategory = ({ navigation }) => {
   const [categoryName, setCategoryName] = useState('');
@@ -18,6 +20,7 @@ const AddCategory = ({ navigation }) => {
 
   const isLandscape = dimensions.width > dimensions.height;
   const styles = createStyles(isLandscape);
+  const { translate } = useContext(LanguageContext);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -79,7 +82,7 @@ const AddCategory = ({ navigation }) => {
         });
       }
 
-      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=addCustomCategory', {
+      const response = await fetch(`${API_BASE_URL}?action=addCustomCategory`, {
         method: 'POST',
         body: formData,
         headers: {
@@ -110,7 +113,7 @@ const AddCategory = ({ navigation }) => {
       >
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.header}>
-            <Text style={styles.TaskText}>New Category</Text>
+            <Text style={styles.TaskText}>{translate('new_category')}</Text>
             <TouchableOpacity 
               style={styles.closeButton} 
               onPress={() => navigation.goBack()}
@@ -120,7 +123,7 @@ const AddCategory = ({ navigation }) => {
           </View>
 
           <View style={styles.formContainer}>
-            <Text style={styles.planText}>Enter Category Name</Text>
+            <Text style={styles.planText}>{translate('enter_category_name')}</Text>
             <TextInput
               style={styles.input}
               value={categoryName}
@@ -128,7 +131,7 @@ const AddCategory = ({ navigation }) => {
               placeholder=" "
             />
             <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
-              <Text style={styles.imagePickerButtonText}>Select Image</Text>
+              <Text style={styles.imagePickerButtonText}>{translate('select_image')}</Text>
             </TouchableOpacity>
             {selectedImage && selectedImage.path ? (
               <Image source={{ uri: selectedImage.path }} style={styles.icon1} />
@@ -139,7 +142,7 @@ const AddCategory = ({ navigation }) => {
         </ScrollView>
 
         <TouchableOpacity style={styles.saveButton} onPress={saveCategory}>
-          <Text style={styles.saveButtonText}>Create</Text>
+          <Text style={styles.saveButtonText}>{translate('create')}</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     </SafeAreaView>

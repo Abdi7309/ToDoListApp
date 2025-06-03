@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Text, TextInput, TouchableOpacity, SafeAreaView, Image, View, Alert,
   KeyboardAvoidingView, Platform, ScrollView, Dimensions
@@ -6,6 +6,8 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ImagePicker from 'react-native-image-crop-picker';
 import createStyles from './styles/editCategoryStyles';
+import API_BASE_URL from '../config/api';
+import { LanguageContext } from '../context/LanguageContext';
 
 function EditCategoryScreen({ route, navigation }) {
   const { categoryId, categoryName: initialName, iconUrl: initialIcon } = route.params;
@@ -20,6 +22,7 @@ function EditCategoryScreen({ route, navigation }) {
   
   const isLandscape = dimensions.width > dimensions.height;
   const styles = createStyles(isLandscape);
+  const { translate } = useContext(LanguageContext);
 
   useEffect(() => {
     const loadUserId = async () => {
@@ -78,7 +81,7 @@ function EditCategoryScreen({ route, navigation }) {
         formData.append('icon', imageFile);
       }
 
-      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=updateCategory', {
+      const response = await fetch(`${API_BASE_URL}?action=updateCategory`, {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -111,7 +114,7 @@ function EditCategoryScreen({ route, navigation }) {
           style: 'destructive',
           onPress: async () => {
             try {
-              const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=deleteCategory', {
+              const response = await fetch(`${API_BASE_URL}?action=deleteCategory`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -146,7 +149,7 @@ function EditCategoryScreen({ route, navigation }) {
       >
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.header}>
-            <Text style={styles.TaskText}>Edit</Text>
+            <Text style={styles.TaskText}>{translate('edit')}</Text>
             <TouchableOpacity 
               style={styles.closeButton} 
               onPress={() => navigation.goBack()}
@@ -156,14 +159,14 @@ function EditCategoryScreen({ route, navigation }) {
           </View>
 
           <View style={styles.formContainer}>
-            <Text style={styles.planText}>Enter Category Name</Text>
+            <Text style={styles.planText}>{translate('enter_category_name')}</Text>
             <TextInput
               style={styles.input}
               value={name}
               onChangeText={setName}
             />
             <TouchableOpacity style={styles.imagePickerButton} onPress={pickImage}>
-              <Text style={styles.imagePickerButtonText}>Select Image</Text>
+              <Text style={styles.imagePickerButtonText}>{translate('select_image')}</Text>
             </TouchableOpacity>
             {selectedImage && selectedImage.path ? (
               <Image source={{ uri: selectedImage.path }} style={styles.icon1} />
@@ -175,10 +178,10 @@ function EditCategoryScreen({ route, navigation }) {
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.saveButton} onPress={saveCategory}>
-            <Text style={styles.saveButtonText}>Save</Text>
+            <Text style={styles.saveButtonText}>{translate('save')}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.deleteButton} onPress={deleteCategory}>
-            <Text style={styles.deleteButtonText}>Delete</Text>
+            <Text style={styles.deleteButtonText}>{translate('delete')}</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>

@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import API_BASE_URL from '../config/api';
+import { LanguageContext } from '../context/LanguageContext';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
+  const { translate } = useContext(LanguageContext);
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=login', {
+      const response = await fetch(`${API_BASE_URL}?action=login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,25 +43,25 @@ const Login = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.form}>
-        <Text style={styles.title}>Login</Text>
+        <Text style={styles.title}>{translate('login')}</Text>
         <TextInput
           style={styles.input}
-          placeholder="Username"
+          placeholder={translate('username')}
           value={username}
           onChangeText={setUsername}
         />
         <TextInput
           style={styles.input}
-          placeholder="Password"
+          placeholder={translate('password')}
           value={password}
           onChangeText={setPassword}
           secureTextEntry
         />
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>{translate('login')}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-          <Text style={styles.link}>Don't have an account? Register</Text>
+          <Text style={styles.link}>{translate('no_account')}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -109,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login; 
+export default Login;

@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, Animated, TouchableOpacity, Modal, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LanguageContext } from '../context/LanguageContext';
 
 export const CustomMenu = ({ isVisible, onClose, navigation, currentSortOrder, setSortOrder }) => {
+  const { language, setLanguage } = useContext(LanguageContext);
   const slideAnim = useRef(new Animated.Value(-300)).current;
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -44,6 +46,15 @@ export const CustomMenu = ({ isVisible, onClose, navigation, currentSortOrder, s
           if (prev === 'standard') return 'recent';
           return 'alphabetical';
         });
+      }
+    },
+    {
+      label: `Language (${language})`,
+      onPress: async () => {
+        const newLang = language === 'EN' ? 'NL' : 'EN';
+        await AsyncStorage.setItem('app_language', newLang);
+        setLanguage(newLang);
+        handleClose();
       }
     },
     {

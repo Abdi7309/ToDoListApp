@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import API_BASE_URL from '../config/api';
+import { LanguageContext } from '../context/LanguageContext';
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigation = useNavigation();
+  const { translate } = useContext(LanguageContext);
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
-      Alert.alert('Error', 'Passwords do not match');
+      Alert.alert(translate('error'), translate('passwords_no_match'));
       return;
     }
 
     try {
-      const response = await fetch('http://10.3.1.75/ToDoListApp/screens/backend/api.php?action=register', {
+      const response = await fetch(`${API_BASE_URL}?action=register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,32 +46,32 @@ const Register = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.form}>
-        <Text style={styles.title}>Register</Text>
+        <Text style={styles.title}>{translate('register')}</Text>
         <TextInput
           style={styles.input}
-          placeholder="Username"
+          placeholder={translate('username')}
           value={username}
           onChangeText={setUsername}
         />
         <TextInput
           style={styles.input}
-          placeholder="Password"
+          placeholder={translate('password')}
           value={password}
           onChangeText={setPassword}
           secureTextEntry
         />
         <TextInput
           style={styles.input}
-          placeholder="Confirm Password"
+          placeholder={translate('confirm_password')}
           value={confirmPassword}
           onChangeText={setConfirmPassword}
           secureTextEntry
         />
         <TouchableOpacity style={styles.button} onPress={handleRegister}>
-          <Text style={styles.buttonText}>Register</Text>
+          <Text style={styles.buttonText}>{translate('register')}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.link}>Already have an account? Login</Text>
+          <Text style={styles.link}>{translate('have_account')}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -119,4 +122,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Register; 
+export default Register;
